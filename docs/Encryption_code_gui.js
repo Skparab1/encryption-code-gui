@@ -414,7 +414,7 @@ function draw() {
       newRow.setString('firstname', firstname);
       newRow.setString('secq1', secq1);
       newRow.setString('secq2', secq2);
-      saveTable(table, 'accounts.csv');
+      saveTable(table, 'docs/accounts.csv');
     }
     fill(0);
   } else if (display == 'settings'){
@@ -569,4 +569,8 @@ function mousePressed(){
   aaxd = 'right';
   aayd = 'down';
   animtime = 0;
+}
+
+function saveFile(){
+  saveTable(table, 'Encryption_code_gui/accounts.csv');
 }
