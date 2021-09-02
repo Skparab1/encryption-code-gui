@@ -414,7 +414,7 @@ function draw() {
       newRow.setString('firstname', firstname);
       newRow.setString('secq1', secq1);
       newRow.setString('secq2', secq2);
-      //saveFile();
+      saveFile();
       //saveTable(table, 'docs/accounts.csv');
     }
     fill(0);
