@@ -572,5 +572,5 @@ function mousePressed(){
 }
 
 function saveFile(){
-  saveTable(table, 'Encryption_code_gui/accounts.csv');
+  saveTable(table, 'docs/accounts.csv');
 }
