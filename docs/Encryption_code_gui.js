@@ -414,7 +414,8 @@ function draw() {
       newRow.setString('firstname', firstname);
       newRow.setString('secq1', secq1);
       newRow.setString('secq2', secq2);
-      saveTable(table, 'docs/accounts.csv');
+      //saveFile();
+      //saveTable(table, 'docs/accounts.csv');
     }
     fill(0);
   } else if (display == 'settings'){
@@ -573,4 +574,5 @@ function mousePressed(){
 
 function saveFile(){
   saveTable(table, 'docs/accounts.csv');
+  print('wrote to file');
 }
