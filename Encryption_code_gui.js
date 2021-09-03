@@ -97,7 +97,7 @@ function draw() {
   if (changingcolor >= 765){
     red = (255-Math.abs(1020-changingcolor));
   }
-  background = [red,green,blue];
+  backgroundcolor = [red,green,blue];
   
   textcolor = [0,0,0];
   } else if (colorscheme == 'spectrum light'){
@@ -108,7 +108,7 @@ function draw() {
   if (changingcolor >= 765){
     red = (255-Math.abs(1020-changingcolor));
   }
-  background = [225,225,225];
+  backgroundcolor = [225,225,225];
   textcolor = [150,150,150];
   } else  if (colorscheme == 'spectrum bright'){
   red = (255-Math.abs(255-changingcolor));
@@ -136,52 +136,61 @@ function draw() {
   if ((blue + green + red < 510) && (changingcolor >= 255)){
     blue = blue + (510 - blue + green + red);
   }
-  background = [red,green,blue];
+  backgroundcolor = [red,green,blue];
   } else if (colorscheme == 'red-green'){
   red = (255-Math.abs(255-changingcolor));
   green = (255-Math.abs(510-changingcolor));
   blue = (0);
   if (changingcolor >= 510){
-    red = (255-Math.abs(756-changingcolor));
+    red = (255-Math.abs(765-changingcolor));
   }
-  textcolor = [0,0,255];
-  background = [red,green,blue];
+  if (changingcolor >= 756){
+    changingcolor = 255;
+  }
+  textcolor = [0,0,0];
+  backgroundcolor = [red,green,blue];
   } else if (colorscheme == 'red-blue'){
   red = (255-Math.abs(255-changingcolor));
   blue = (255-Math.abs(510-changingcolor));
   green = (0);
   if (changingcolor >= 510){
-    red = (255-Math.abs(756-changingcolor));
+    red = (255-Math.abs(765-changingcolor));
   }
-  textcolor = [0,255,0];
-  background = [red,green,blue];
+  if (changingcolor >= 756){
+    changingcolor = 255;
+  }
+  textcolor = [0,0,0];
+  backgroundcolor = [red,green,blue];
   } else if (colorscheme == 'green-blue'){
   green = (255-Math.abs(255-changingcolor));
   blue = (255-Math.abs(510-changingcolor));
   red = (0);
   if (changingcolor >= 510){
-    green = (255-Math.abs(756-changingcolor));
+    green = (255-Math.abs(765-changingcolor));
   }
-  textcolor = [255,0,0];
-  background = [red,green,blue];
+  if (changingcolor >= 756){
+    changingcolor = 255;
+  }
+  textcolor = [0,0,0];
+  backgroundcolor = [red,green,blue];
   } else if (colorscheme == 'high contrast'){
   green = (255);
   blue = (0);
   red = (255);
   textcolor = [255,255,0];
-  background = [0,0,0];
+  backgroundcolor = [0,0,0];
   } else if (colorscheme == 'black-white'){
   green = (255);
   blue = (255);
   red = (255);
   textcolor = [255,255,255];
-  background = [0,0,0];
+  backgroundcolor = [0,0,0];
   } else if (colorscheme == 'default dark'){
   green = (130);
   blue = (130);
   red = (130);
   textcolor = [255,255,190];
-  background = [0,0,100];
+  backgroundcolor = [0,0,100];
   } else if (colorscheme == 'dark blue'){
   green = (0);
   blue = (130);
@@ -550,7 +559,10 @@ function draw() {
     rect(200,200,100,75);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
+    fill(100);
     text('change color scheme',240,270);
+    text(colorscheme,240,500);
+    
     textSize(60);
     fill(255);
     text('Back',90,120);
@@ -688,6 +700,22 @@ function mousePressed(){
       }
     }
     } 
+  }
+  if (display == 'settings'){
+    if (mouseX >= 200 && mouseX <= 300 && mouseY >= 200 && mouseY <= 275){
+      // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
+      if (colorscheme == 'Spectrum (Default)'){
+        colorscheme = 'spectrum light';
+      } else if (colorscheme == 'spectrum light'){
+        colorscheme = 'spectrum bright';
+      } else if (colorscheme == 'spectrum bright'){
+        colorscheme = 'red-green';
+      } else if (colorscheme == 'red-green'){
+        colorscheme = 'red-blue';
+      } else if (colorscheme == 'red-blue'){
+        colorscheme = 'Spectrum (Default)';
+      }
+  }
   }
   accountanimx = 1000;
   accountanimy = 750;
