@@ -4,17 +4,26 @@ var table = [];
 
 function preload() {
   logo = loadImage("logo.png");
-  table = loadTable("accounts.csv","csv","header");
+  table = getItem('accounts.csv');
 }
 
 function setup() {
   createCanvas(2000,875);
   background(0);
-  usernames = table.getColumn(0);
-  passwords = table.getColumn(1);
-  fnames = table.getColumn(2);
-  secq1list = table.getColumn(3);
-  secq2list = table.getColumn(4);
+  try{
+    usernames = table.getColumn(0);
+    passwords = table.getColumn(1);
+    fnames = table.getColumn(2);
+    secq1list = table.getColumn(3);
+    secq2list = table.getColumn(4);
+  } catch(error) {
+    table = loadTable("accounts.csv","csv","header");
+    usernames = [];
+    passwords = [];
+    fnames = [];
+    secq1list = [];
+    secq2list = [];
+  }
 }
 
 var logosize = 250;
@@ -38,6 +47,7 @@ var accountanimy = 750;
 var aaxd = 'right';
 var aayd = 'down';
 var animtime = 0;
+var colorscheme = 'dark blue';
 
 // Next time make the transition form blue to red instead of backwards
 
@@ -79,12 +89,51 @@ function accountanim(){
 function draw() {
   clear();
   background(0);
+  if (colorscheme == 'Spectrum (Default'){
   red = (255-Math.abs(255-changingcolor));
   green = (255-Math.abs(510-changingcolor));
   blue = (255-Math.abs(765-changingcolor));
   if (changingcolor >= 765){
     red = (255-Math.abs(1020-changingcolor));
   }
+  } else if (colorscheme == 'red-green'){
+  red = (255-Math.abs(255-changingcolor));
+  green = (255-Math.abs(510-changingcolor));
+  blue = (0);
+  if (changingcolor >= 510){
+    red = (255-Math.abs(756-changingcolor));
+  }
+  } else if (colorscheme == 'red-blue'){
+  red = (255-Math.abs(255-changingcolor));
+  blue = (255-Math.abs(510-changingcolor));
+  green = (0);
+  if (changingcolor >= 510){
+    red = (255-Math.abs(756-changingcolor));
+  }
+  } else if (colorscheme == 'green-blue'){
+  green = (255-Math.abs(255-changingcolor));
+  blue = (255-Math.abs(510-changingcolor));
+  red = (0);
+  if (changingcolor >= 510){
+    green = (255-Math.abs(756-changingcolor));
+  }
+  } else if (colorscheme == 'high-contrast'){
+  green = (255);
+  blue = (0);
+  red = (255);
+  } else if (colorscheme == 'black-white'){
+  green = (255);
+  blue = (255);
+  red = (255);
+  } else if (colorscheme == 'default dark'){
+  green = (130);
+  blue = (130);
+  red = (130);
+  } else if (colorscheme == 'dark blue'){
+  green = (0);
+  blue = (130);
+  red = (0);
+  } 
     
   if (logosize < 5250){
   image(logo,700-((logosize-250)/2), 200-((logosize-250)/2)-((logosize-250)/5),logosize,logosize);
@@ -114,6 +163,7 @@ function draw() {
     textSize(75);
     text('Hover over logo to begin',400,800);
   }
+  fill(red,green,blue);
   firsttime = false;
   x = x + 1;
   if (x == 199 && hovered == false){
@@ -129,9 +179,8 @@ function draw() {
     logosize = 5252;
   } else if (display == 'main menu') {
     // GUI
-    
-    fill(red,green,blue);
     textSize(90);
+    fill(red,green,blue);
     text('Encryption code Graphical User Interface (GUI)',50,100);
     if (mouseX >= 200 && mouseX <= 900 && mouseY >= 200 && mouseY <= 450 && changingcolor >= 254){
       fill(200,0,0);
@@ -164,7 +213,6 @@ function draw() {
     text("Settings",1300,650);
     
   } else if (display == 'encryption'){
-    background(red,green,blue);
     fill(0);
     text('Encryption',900,100);
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
@@ -179,7 +227,6 @@ function draw() {
     textSize(100);
     
   } else if (display == 'decryption'){
-    background(red,blue,green);
     fill(0);
     text('Decryption',900,100);
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
@@ -262,7 +309,6 @@ function draw() {
     strokeWeight(2);
     
   } else if (display == 'create account'){
-    background(green,blue,red);
     fill(0);
     textSize(80);
     text('Create Account',900,100);
@@ -414,11 +460,10 @@ function draw() {
       newRow.setString('firstname', firstname);
       newRow.setString('secq1', secq1);
       newRow.setString('secq2', secq2);
-      saveTable(table, 'accounts.csv');
+      saveFile();
     }
     fill(0);
   } else if (display == 'settings'){
-    background(blue,red,green);
     fill(0);
     text('Settings',900,100);
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
@@ -569,4 +614,9 @@ function mousePressed(){
   aaxd = 'right';
   aayd = 'down';
   animtime = 0;
+}
+
+function saveFile(){
+  storeItem(table, 'accounts.csv');
+  print('wrote to file');
 }
