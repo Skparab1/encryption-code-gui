@@ -4,17 +4,26 @@ var table = [];
 
 function preload() {
   logo = loadImage("logo.png");
-  table = loadTable("accounts.csv","csv","header");
+  table = getItem('accounts.csv');
 }
 
 function setup() {
   createCanvas(2000,875);
   background(0);
-  usernames = table.getColumn(0);
-  passwords = table.getColumn(1);
-  fnames = table.getColumn(2);
-  secq1list = table.getColumn(3);
-  secq2list = table.getColumn(4);
+  try{
+    usernames = table.getColumn(0);
+    passwords = table.getColumn(1);
+    fnames = table.getColumn(2);
+    secq1list = table.getColumn(3);
+    secq2list = table.getColumn(4);
+  } catch(error) {
+    table = loadTable("accounts.csv","csv","header");
+    usernames = [];
+    passwords = [];
+    fnames = [];
+    secq1list = [];
+    secq2list = [];
+  }
 }
 
 var logosize = 250;
@@ -414,8 +423,11 @@ function draw() {
       newRow.setString('firstname', firstname);
       newRow.setString('secq1', secq1);
       newRow.setString('secq2', secq2);
-      saveFile();
+      //saveFile();
       //saveTable(table, 'docs/accounts.csv');
+      let writer = createWriter('newFile.txt');
+      writer.write([username]);
+      writer.close();
     }
     fill(0);
   } else if (display == 'settings'){
@@ -573,6 +585,6 @@ function mousePressed(){
 }
 
 function saveFile(){
-  saveTable(table, 'docs/accounts.csv');
+  storeItem(table, 'accounts.csv');
   print('wrote to file');
 }
