@@ -47,9 +47,9 @@ var accountanimy = 750;
 var aaxd = 'right';
 var aayd = 'down';
 var animtime = 0;
-var colorscheme = 'dark blue';
-
-// Next time make the transition form blue to red instead of backwards
+var colorscheme = 'Spectrum (Default)';
+var textcolor = [255,255,255];
+var backgroundcolor = [0,0,0];
 
 function accountanim(){
   fill(200,0,0);
@@ -89,13 +89,54 @@ function accountanim(){
 function draw() {
   clear();
   background(0);
-  if (colorscheme == 'Spectrum (Default'){
+  // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
+  if (colorscheme == 'Spectrum (Default)'){
   red = (255-Math.abs(255-changingcolor));
   green = (255-Math.abs(510-changingcolor));
   blue = (255-Math.abs(765-changingcolor));
   if (changingcolor >= 765){
     red = (255-Math.abs(1020-changingcolor));
   }
+  background = [red,green,blue];
+  
+  textcolor = [0,0,0];
+  } else if (colorscheme == 'spectrum light'){
+  background(150);
+  red = (255-Math.abs(255-changingcolor));
+  green = (255-Math.abs(510-changingcolor));
+  blue = (255-Math.abs(765-changingcolor));
+  if (changingcolor >= 765){
+    red = (255-Math.abs(1020-changingcolor));
+  }
+  background = [225,225,225];
+  textcolor = [150,150,150];
+  } else  if (colorscheme == 'spectrum bright'){
+  red = (255-Math.abs(255-changingcolor));
+  green = (255-Math.abs(510-changingcolor));
+  blue = (255-Math.abs(765-changingcolor));
+  if (changingcolor >= 765){
+    red = (255-Math.abs(1020-changingcolor));
+  }
+  textcolor = [0,0,0];
+  if (blue < 0){
+    blue = 0;
+  }
+  if (green < 0){
+    green = 0;
+  }
+  if (red < 0){
+    red = 0;
+  }
+  if ((blue + green + red < 510) && (changingcolor >= 255)){
+    red = red + (510 - blue + green + red);  
+  }
+  if ((blue + green + red < 510) && (changingcolor >= 255)){
+    green = green + (510 - blue + green + red);   
+  }
+  if ((blue + green + red < 510) && (changingcolor >= 255)){
+    blue = blue + (510 - blue + green + red);
+  }
+  background = [red,green,blue];
   } else if (colorscheme == 'red-green'){
   red = (255-Math.abs(255-changingcolor));
   green = (255-Math.abs(510-changingcolor));
@@ -103,6 +144,8 @@ function draw() {
   if (changingcolor >= 510){
     red = (255-Math.abs(756-changingcolor));
   }
+  textcolor = [0,0,255];
+  background = [red,green,blue];
   } else if (colorscheme == 'red-blue'){
   red = (255-Math.abs(255-changingcolor));
   blue = (255-Math.abs(510-changingcolor));
@@ -110,6 +153,8 @@ function draw() {
   if (changingcolor >= 510){
     red = (255-Math.abs(756-changingcolor));
   }
+  textcolor = [0,255,0];
+  background = [red,green,blue];
   } else if (colorscheme == 'green-blue'){
   green = (255-Math.abs(255-changingcolor));
   blue = (255-Math.abs(510-changingcolor));
@@ -117,25 +162,41 @@ function draw() {
   if (changingcolor >= 510){
     green = (255-Math.abs(756-changingcolor));
   }
-  } else if (colorscheme == 'high-contrast'){
+  textcolor = [255,0,0];
+  background = [red,green,blue];
+  } else if (colorscheme == 'high contrast'){
   green = (255);
   blue = (0);
   red = (255);
+  textcolor = [255,255,0];
+  background = [0,0,0];
   } else if (colorscheme == 'black-white'){
   green = (255);
   blue = (255);
   red = (255);
+  textcolor = [255,255,255];
+  background = [0,0,0];
   } else if (colorscheme == 'default dark'){
   green = (130);
   blue = (130);
   red = (130);
+  textcolor = [255,255,190];
+  background = [0,0,100];
   } else if (colorscheme == 'dark blue'){
   green = (0);
   blue = (130);
   red = (0);
-  } 
+  textcolor = [50,0,0];
+  } else if (colorscheme == 'default light'){
+  green = (150);
+  blue = (150);
+  red = (150);
+  textcolor = [0,0,0];
+  backgroundcolor = [100,100,100];
+  }
     
   if (logosize < 5250){
+  background(0);
   image(logo,700-((logosize-250)/2), 200-((logosize-250)/2)-((logosize-250)/5),logosize,logosize);
   if (firsttime){
     setInterval(donothing,100);
@@ -180,6 +241,12 @@ function draw() {
   } else if (display == 'main menu') {
     // GUI
     textSize(90);
+    // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
+    if (colorscheme != 'spectrum light' && colorscheme!= 'default light'){
+      background(0);
+    } else {
+      background(200);
+    }
     fill(red,green,blue);
     text('Encryption code Graphical User Interface (GUI)',50,100);
     if (mouseX >= 200 && mouseX <= 900 && mouseY >= 200 && mouseY <= 450 && changingcolor >= 254){
@@ -206,14 +273,15 @@ function draw() {
       fill(red-100,green,blue);
     }
     rect(1100,500,700,250);
-    fill(0);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     text("Encrypt",400,350);
     text("Decrypt",400,650);
     text("Account",1300,350);
     text("Settings",1300,650);
     
   } else if (display == 'encryption'){
-    fill(0);
+    background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Encryption',900,100);
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
       fill(200,0,0);
@@ -227,7 +295,8 @@ function draw() {
     textSize(100);
     
   } else if (display == 'decryption'){
-    fill(0);
+    background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Decryption',900,100);
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
       fill(200,0,0);
@@ -241,12 +310,12 @@ function draw() {
     textSize(100);
  
   } else if (display == 'account'){
-    background(green,blue,red);
-    fill(0);
+    background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Account',900,100);
     textSize(80);
     text('Sign in',900,200);
-    fill(0);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Username',220,360);
     if (accountclick == 'username'){
       fill(255);
@@ -254,7 +323,7 @@ function draw() {
       fill(150);
     }
     rect(600,275,800,150);
-    fill(0);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Password',220,560);
     if (accountclick == 'password'){
       fill(255);
@@ -262,7 +331,7 @@ function draw() {
       fill(150);
     }
     rect(600,475,800,150);
-    fill(0);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     text(username,630,360);
     let displaypass = '';
     y = 0;
@@ -293,7 +362,7 @@ function draw() {
       fill(200);
     }
     rect(150,700,800,100);
-    fill(0);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Sign in',1150,780);
     text('New User? Create account!',175,780);
     
@@ -304,17 +373,17 @@ function draw() {
       fill(200,0,0);  
       ellipse(1000,800,50,500);
     }
-    fill(0);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     textSize(100);
     strokeWeight(2);
     
   } else if (display == 'create account'){
-    fill(0);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     textSize(80);
     text('Create Account',900,100);
     fill(255);
     rect(1450,150,500,500);
-    fill(0);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Username',220,230);
     if (accountclick == 'username'){
       fill(255);
@@ -328,7 +397,7 @@ function draw() {
       fill(150);
     }
     rect(600,530,800,100);
-    fill(0);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Firstname',220,595);
     text(firstname,630,595);
     textSize(28);
@@ -348,7 +417,7 @@ function draw() {
       fill(150);
     }
     rect(1025,675,375,100);
-    fill(0);    
+    fill(textcolor[0],textcolor[1],textcolor[2]);  
     textSize(40);
     text(secq1,630,740);
     text(secq2,1060,740);
@@ -361,7 +430,7 @@ function draw() {
       fill(150);
     }
     rect(600,275,800,100);
-    fill(0);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     let displaypass = '';
     y = 0;
     while (y < password.length){
@@ -407,7 +476,7 @@ function draw() {
       fill(200,0,0);
       text("Your passwords arn't the same!",1500,560);
     }}
-    fill(0);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     textSize(45);
     text('Password (Again)',220,460);
     textSize(80);
@@ -417,7 +486,7 @@ function draw() {
       fill(150);
     }
     rect(600,405,800,100);
-    fill(0);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     text(displaypass,630,460);
    
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
@@ -439,7 +508,7 @@ function draw() {
         fill(200,100,0);
       }
       rect(1450,700,500,100);
-      fill(0);
+      fill(textcolor[0],textcolor[1],textcolor[2]);
       text('Create account',1475,780);
       }
     }
@@ -464,7 +533,8 @@ function draw() {
     }
     fill(0);
   } else if (display == 'settings'){
-    fill(0);
+    background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Settings',900,100);
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
       fill(200,0,0);
@@ -472,10 +542,20 @@ function draw() {
       fill(0,0,200);
     }
     rect(50,50,200,100);
+    if (mouseX >= 200 && mouseX <= 300 && mouseY >= 200 && mouseY <= 275){
+      fill(200,0,0);
+    } else {
+      fill(0,0,200);
+    }
+    rect(200,200,100,75);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
+    // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
+    text('change color scheme',240,270);
     textSize(60);
     fill(255);
     text('Back',90,120);
     textSize(100);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
   }
   if (changingcolor < 255){
     changingcolor += 3;
