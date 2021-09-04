@@ -50,6 +50,7 @@ var animtime = 0;
 var colorscheme = 'Spectrum (Default)';
 var textcolor = [255,255,255];
 var backgroundcolor = [0,0,0];
+var bg;
 
 function accountanim(){
   fill(200,0,0);
@@ -98,7 +99,6 @@ function draw() {
     red = (255-Math.abs(1020-changingcolor));
   }
   backgroundcolor = [red,green,blue];
-  
   textcolor = [0,0,0];
   } else if (colorscheme == 'spectrum light'){
   background(150);
@@ -252,9 +252,9 @@ function draw() {
     textSize(90);
     // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
     if (colorscheme != 'spectrum light' && colorscheme!= 'default light'){
-      background(0);
+      bg = 0;
     } else {
-      background(200);
+      bg = 200;
     }
     fill(red,green,blue);
     text('Encryption code Graphical User Interface (GUI)',50,100);
@@ -282,7 +282,7 @@ function draw() {
       fill(red-100,green,blue);
     }
     rect(1100,500,700,250);
-    fill(textcolor[0],textcolor[1],textcolor[2]);
+    fill(bg);
     text("Encrypt",400,350);
     text("Decrypt",400,650);
     text("Account",1300,350);
@@ -554,9 +554,76 @@ function draw() {
     if (mouseX >= 200 && mouseX <= 300 && mouseY >= 200 && mouseY <= 275){
       fill(200,0,0);
     } else {
-      fill(0,0,200);
+      fill(255,255,0);
     }
-    rect(200,200,100,75);
+    let xpos = 100;
+    let cc = 255;
+    while (xpos <= 300){
+      red = (255-Math.abs(255-cc));
+      green = (255-Math.abs(510-cc));
+      blue = (255-Math.abs(765-cc));
+      stroke(red,green,blue);
+      fill(red,green,blue);
+      rect(xpos,175,1,60);
+      cc += 4;
+      xpos += 1;
+    }
+    xpos = 100;
+    cc = 255;
+    while (xpos <= 300){
+        red = (255-Math.abs(255-cc));
+        green = (255-Math.abs(510-cc));
+        blue = (255-Math.abs(765-cc));
+        if (cc >= 765 && cc <= 1020){
+          red = Math.abs(765-cc);
+          green = Math.abs(765-cc);
+          cc -= 1;
+        }
+        if (cc >= 1020){
+          red = Math.abs(1020-cc);
+          green = Math.abs(1020-cc);
+          blue = Math.abs(1020-cc);
+          cc -= 3;
+        }
+        stroke(red,green,blue);
+        fill(red,green,blue);
+        rect(xpos,235,1,60);
+        cc += 4;
+        xpos += 1;
+      }
+        while (xpos <= 300){
+          if (blue < 0){
+        blue = 0;
+      }
+      if (green < 0){
+        green = 0;
+      }
+      if (red < 0){
+        red = 0;
+      }
+      if ((blue + green + red < 510) && (changingcolor >= 255)){
+        red = red + (510 - blue + green + red);  
+      }
+      if ((blue + green + red < 510) && (changingcolor >= 255)){
+        green = green + (510 - blue + green + red);   
+      }
+      if ((blue + green + red < 510) && (changingcolor >= 255)){
+        blue = blue + (510 - blue + green + red);
+      }
+      stroke(red,green,blue);
+      fill(red,green,blue);
+      rect(xpos,295,1,60);
+      cc += 4;
+      xpos += 1;
+    }
+    rect(100,355,200,60);
+    rect(100,415,200,60);
+    rect(100,475,200,60);
+    rect(100,535,200,60);
+    rect(100,595,200,60);
+    rect(100,655,200,60);
+    rect(100,715,200,60);
+    
     fill(textcolor[0],textcolor[1],textcolor[2]);
     // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
     fill(100);
@@ -713,6 +780,8 @@ function mousePressed(){
       } else if (colorscheme == 'red-green'){
         colorscheme = 'red-blue';
       } else if (colorscheme == 'red-blue'){
+        colorscheme = 'high contrast';
+      } else if (colorscheme == 'high contrast'){
         colorscheme = 'Spectrum (Default)';
       }
   }
