@@ -51,6 +51,8 @@ var colorscheme = 'Spectrum (Default)';
 var textcolor = [255,255,255];
 var backgroundcolor = [0,0,0];
 var bg;
+var ccstart = 255;
+var ccs = 255;
 
 function accountanim(){
   fill(200,0,0);
@@ -557,33 +559,34 @@ function draw() {
       fill(255,255,0);
     }
     let xpos = 100;
-    let cc = 255;
+    let cc = ccstart;
     while (xpos <= 300){
       red = (255-Math.abs(255-cc));
       green = (255-Math.abs(510-cc));
       blue = (255-Math.abs(765-cc));
+      if (cc >= 765){
+        red = (255-Math.abs(1020-cc));
+      }
       stroke(red,green,blue);
       fill(red,green,blue);
       rect(xpos,175,1,60);
       cc += 4;
       xpos += 1;
     }
+    ccstart -= 1;
+    if (ccstart <= -510){
+      ccstart = 255;
+    } 
     xpos = 100;
-    cc = 255;
+    cc = ccs;
     while (xpos <= 300){
         red = (255-Math.abs(255-cc));
         green = (255-Math.abs(510-cc));
         blue = (255-Math.abs(765-cc));
-        if (cc >= 765 && cc <= 1020){
+        if (cc >= 765){
           red = Math.abs(765-cc);
           green = Math.abs(765-cc);
           cc -= 1;
-        }
-        if (cc >= 1020){
-          red = Math.abs(1020-cc);
-          green = Math.abs(1020-cc);
-          blue = Math.abs(1020-cc);
-          cc -= 3;
         }
         stroke(red,green,blue);
         fill(red,green,blue);
@@ -591,6 +594,11 @@ function draw() {
         cc += 4;
         xpos += 1;
       }
+      ccs += 1;
+      if (ccs >= 1020){
+        ccs = 255;
+      } 
+      
         while (xpos <= 300){
           if (blue < 0){
         blue = 0;
@@ -626,8 +634,9 @@ function draw() {
     
     fill(textcolor[0],textcolor[1],textcolor[2]);
     // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
-    fill(100);
-    text('change color scheme',240,270);
+    fill(0);
+    textSize(40);
+    text('change color scheme',290,230);
     text(colorscheme,240,500);
     
     textSize(60);
