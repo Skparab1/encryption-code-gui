@@ -624,7 +624,25 @@ function draw() {
       cc += 4;
       xpos += 1;
     }
-    rect(100,355,200,60);
+    xpos = 100;
+    cc = ccstart;
+    while (xpos <= 300){
+      red = (255-Math.abs(255-cc)) + 100;
+      green = (255-Math.abs(510-cc)) + 100;
+      blue = (255-Math.abs(765-cc)) + 100;
+      if (cc >= 765){
+        red = (255-Math.abs(1020-cc));
+      }
+      stroke(red,green,blue);
+      fill(red,green,blue);
+      rect(xpos,295,1,60);
+      cc += 4;
+      xpos += 1;
+    }
+    ccstart -= 1;
+    if (ccstart <= -510){
+      ccstart = 255;
+    } 
     rect(100,415,200,60);
     rect(100,475,200,60);
     rect(100,535,200,60);
