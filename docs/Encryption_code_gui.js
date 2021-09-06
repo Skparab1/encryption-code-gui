@@ -54,7 +54,7 @@ var bg;
 var ccstart = 255;
 var ccs = 255;
 var signinstatus = 'signed out';
-var wrongpassword = False;
+var wrongpassword = false;
 
 function accountanim(){
   fill(200,0,0);
@@ -368,6 +368,8 @@ function draw() {
     text('Back',90,120);
     if (mouseX >= 1100 && mouseX <= 1400 && mouseY >= 700 && mouseY <= 800){
       fill(200,100,0);
+    } else if (accountclick == 'verifying'){
+      fill(200,100,0);
     } else {
       fill(200);
     }
@@ -378,27 +380,37 @@ function draw() {
       fill(200);
     }
     rect(150,700,800,100);
+    if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 700 && mouseY <= 800){
+      fill(200,100,0);
+    } else {
+      fill(200);
+    }
+    rect(1450,700,525,100);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Sign in',1150,780);
     if (wrongpassword){
-      text('Username or Password incorrect',1400,500);
+      textSize(35);
+      text('Username or Password incorrect',1420,500);
+      textSize(60);
     }
     text('New User? Create account!',175,780);
+    text('Forgot password?',1475,780);
     
     if (accountclick == 'verifying' && animtime <= 200){
       accountanim();
     } else if (animtime >= 200 && accountclick == 'verifying'){
       fill(200,0,0);  
-      ellipse(1000,800,50,500);
       let usnm = localStorage.getItem('username');
-      let pswd = localStorage.getItem('pass');
+      let pswd = localStorage.getItem('password');
+      let fname = localStorage.getItem('firstname');
       if (usnm == username && pswd == password){
-        signinstatus = 'Hi, '+username;
+        signinstatus = 'Hi, '+fname;
         display = 'main menu';
       } else {
         wrongpassword = true;
-        print(usnm,username);
-        print(pswd,password);
+        username = '';
+        password = '';
+        accountclick = 'username';
       }
     }
     fill(textcolor[0],textcolor[1],textcolor[2]);
@@ -553,13 +565,8 @@ function draw() {
       secq2list.push(secq2);
       display = 'account';
       let newRow = table.addRow();
-      newRow.setString('username', username);
-      newRow.setString('password', password);
-      newRow.setString('firstname', firstname);
-      newRow.setString('secq1', secq1);
-      newRow.setString('secq2', secq2);
-      localStorage.setItem('name',firstname);
-      localStorage.setItem('pass',password);
+      localStorage.setItem('firstname',firstname);
+      localStorage.setItem('password',password);
       localStorage.setItem('username',username);
       localStorage.setItem('secq1',secq1);
       localStorage.setItem('secq2',secq2);
