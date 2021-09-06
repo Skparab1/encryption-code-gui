@@ -2,7 +2,10 @@
 Gui of Encryption Code. Currently in development
 
 - Start up and Main menu works.
-- Account interface works, but doesn't save account details.
 
-## Problems!
-- when I want to store the file, it downloads it for you
+# Accounts
+- Originally, my plan was to store the account data in a database or server
+  - Then the user could access their data from different devices
+  - but the storing doesn't work, it makes you download the csv file
+- So, my plan right now is to user local storage to store account data
+  - however, this will only be accessible from one device, and the account data will be deleted when webapi data is cleared
