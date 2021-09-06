@@ -53,12 +53,9 @@ var backgroundcolor = [0,0,0];
 var bg;
 var ccstart = 255;
 var ccs = 255;
+var signinstatus = 'signed out';
+var wrongpassword = False;
 
-try{
-  let gettingname = localStorage.getItem('name');
-} catch(error){
-  localStorage.setItem('name','Sign in');
-}
 function accountanim(){
   fill(200,0,0);
       strokeWeight(3);
@@ -265,9 +262,8 @@ function draw() {
     }
     fill(red,green,blue);
     text('Encryption code Graphical User Interface (GUI)',50,100);
-    let thisname = localStorage.getItem('name');
     textSize(50);
-    text('Hi, '+thisname,900,175);
+    text(signinstatus,900,175);
     textSize(90);
     if (mouseX >= 200 && mouseX <= 900 && mouseY >= 200 && mouseY <= 450 && changingcolor >= 254){
       fill(200,0,0);
@@ -384,14 +380,26 @@ function draw() {
     rect(150,700,800,100);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Sign in',1150,780);
+    if (wrongpassword){
+      text('Username or Password incorrect',1400,500);
+    }
     text('New User? Create account!',175,780);
     
     if (accountclick == 'verifying' && animtime <= 200){
       accountanim();
-      
-    } else if (animtime >= 200){
+    } else if (animtime >= 200 && accountclick == 'verifying'){
       fill(200,0,0);  
       ellipse(1000,800,50,500);
+      let usnm = localStorage.getItem('username');
+      let pswd = localStorage.getItem('pass');
+      if (usnm == username && pswd == password){
+        signinstatus = 'Hi, '+username;
+        display = 'main menu';
+      } else {
+        wrongpassword = true;
+        print(usnm,username);
+        print(pswd,password);
+      }
     }
     fill(textcolor[0],textcolor[1],textcolor[2]);
     textSize(100);
@@ -551,6 +559,10 @@ function draw() {
       newRow.setString('secq1', secq1);
       newRow.setString('secq2', secq2);
       localStorage.setItem('name',firstname);
+      localStorage.setItem('pass',password);
+      localStorage.setItem('username',username);
+      localStorage.setItem('secq1',secq1);
+      localStorage.setItem('secq2',secq2);
       //saveFile();
     }
     fill(0);
