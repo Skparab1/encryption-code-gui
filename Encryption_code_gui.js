@@ -54,6 +54,11 @@ var bg;
 var ccstart = 255;
 var ccs = 255;
 
+try{
+  let gettingname = localStorage.getItem('name');
+} catch(error){
+  localStorage.setItem('name','Sign in');
+}
 function accountanim(){
   fill(200,0,0);
       strokeWeight(3);
@@ -260,6 +265,10 @@ function draw() {
     }
     fill(red,green,blue);
     text('Encryption code Graphical User Interface (GUI)',50,100);
+    let thisname = localStorage.getItem('name');
+    textSize(50);
+    text('Hi, '+thisname,900,175);
+    textSize(90);
     if (mouseX >= 200 && mouseX <= 900 && mouseY >= 200 && mouseY <= 450 && changingcolor >= 254){
       fill(200,0,0);
     } else {
@@ -389,6 +398,7 @@ function draw() {
     strokeWeight(2);
     
   } else if (display == 'create account'){
+    background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     textSize(80);
     text('Create Account',900,100);
@@ -540,7 +550,8 @@ function draw() {
       newRow.setString('firstname', firstname);
       newRow.setString('secq1', secq1);
       newRow.setString('secq2', secq2);
-      saveFile();
+      localStorage.setItem('name',firstname);
+      //saveFile();
     }
     fill(0);
   } else if (display == 'settings'){
