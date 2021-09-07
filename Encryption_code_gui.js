@@ -55,6 +55,7 @@ var ccstart = 255;
 var ccs = 255;
 var signinstatus = 'signed out';
 var wrongpassword = false;
+var wrongreset = false;
 
 function accountanim(){
   fill(200,0,0);
@@ -410,9 +411,8 @@ function draw() {
         display = 'main menu';
       } else {
         wrongpassword = true;
-        username = '';
         password = '';
-        accountclick = 'username';
+        accountclick = 'password';
       }
     }
     fill(textcolor[0],textcolor[1],textcolor[2]);
@@ -594,9 +594,9 @@ function draw() {
     } else {
       fill(200);
     }
-    rect(1400,50,500,120);
+    rect(1400,50,500,100);
     fill(255);
-    text('Sign out',1500,90);
+    text('Sign out',1500,120);
     
   } else if (display == 'forgot password'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
@@ -642,7 +642,38 @@ function draw() {
     text(username,630,260);
     text(secq1,630,530);  
     text(secq2,630,720);
-    if (username != '' && secq1 != '' && secq2 != ''){
+    if (wrongreset){
+      textSize(35);
+      text('Username or Password incorrect',1420,500);
+      textSize(60);
+    }
+    
+    if (accountclick == 'new password'){
+      fill(255);
+      rect(1450,625,500,150);
+      textSize(45);
+      fill(0);
+      text(password,1520,725);
+      textSize(35);
+      text('New password',1520,610);
+      if (password != ''){
+      if (password.length < 8){
+        fill(200,0,0);
+        text('Your password is too short! >= 8 letters!',1500,360);
+      } else {
+        fill(0,200,0);
+        text('Your password is long enough!',1500,360);
+      } 
+      if (password.includes('1') || password.includes('2') || password.includes('3') || password.includes('4') || password.includes('5') || password.includes('6') || password.includes('7') || password.includes('8') || password.includes('9') || password.includes('0')){
+        fill(0,200,0);
+        text('Your password has a number!',1500,460);
+      } else {
+        fill(200,0,0);
+        text('Your password needs a number!',1500,460);
+      } 
+      }
+    }
+    if (username != '' && secq1 != '' && secq2 != '' && accountclick != 'new password'){
       textSize(45);
       if (mouseX >= 1500 && mouseX <= 1800 && mouseY >= 625 && mouseY <= 775){
         fill(255,0,0);
@@ -652,8 +683,24 @@ function draw() {
       rect(1500,625,350,150);
       fill(0);
       text('Reset password',1520,725);
+      if (accountclick == 'resetting password' && animtime <= 150){
+        accountanim();
+      } else if (accountclick == 'resetting password'){
+        let usnm = localStorage.getItem('username');
+        let secq1read = localStorage.getItem('secq1');
+        let secq2read = localStorage.getItem('secq2');
+        if (usnm == username && secq1 == secq1read && secq2 == secq2read){
+          wrongreset = false;
+          password = '';
+          accountclick = 'new password';
+        } else {
+          wrongreset = true;
+          accountclick = 'secq1';
+          secq1 = '';
+          secq2 = '';
+        }
     }
-    
+    }
   } else if (display == 'settings'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
@@ -789,7 +836,7 @@ var typed;
 function keyTyped(){
   if (accountclick == 'username' && keyCode != ENTER){
     username += key;
-  } else if (accountclick == 'password' && keyCode != ENTER){
+  } else if ((accountclick == 'password' || accountclick == 'new password') && keyCode != ENTER){
     password += key;
   } else if (accountclick == 'password again' && keyCode != ENTER){
     passwordagain += key;
@@ -807,7 +854,7 @@ function keyReleased(){
   if (keyCode == BACKSPACE){
   if (accountclick == 'username'){
     username = username.substring(0, username.length -1);
-  } else if (accountclick == 'password'){
+  } else if (accountclick == 'password' || accountclick == 'new password'){
     password = password.substring(0, password.length -1);
   } else if (accountclick == 'password again'){
     passwordagain = passwordagain.substring(0, passwordagain.length -1);
@@ -860,7 +907,7 @@ function mousePressed(){
       display = 'settings';
     }
   }
-  if (display == 'encryption' || display == 'decryption' || display == 'account' || display == 'settings') {
+  if (display == 'encryption' || display == 'decryption' || display == 'account' || display == 'settings' || display == 'forgot password') {
   if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
       display = 'main menu';
     }
@@ -936,12 +983,14 @@ function mousePressed(){
       }
   }
   } else if (display == 'forgot password'){
-    if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 175 && mouseY <= 325){
+    if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 175 && mouseY <= 325 && accountclick != 'new password'){
       accountclick = 'username';
-    } else if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 425 && mouseY <= 575){
+    } else if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 425 && mouseY <= 575 && accountclick != 'new password'){
       accountclick = 'secq1';
-    } else if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 625 && mouseY <= 775){
+    } else if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 625 && mouseY <= 775 && accountclick != 'new password'){
       accountclick = 'secq2';
+    } else if (mouseX >= 1500 && mouseX <= 1800 && mouseY >= 625 && mouseY <= 775 && accountclick != 'new password'){
+      accountclick = 'resetting password';
     }
   }
   accountanimx = 1000;
