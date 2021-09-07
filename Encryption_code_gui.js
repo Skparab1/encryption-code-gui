@@ -325,7 +325,7 @@ function draw() {
     text('Back',90,120);
     textSize(100);
  
-  } else if (display == 'account'){
+  } else if (display == 'account' && signinstatus == 'signed out'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Account',900,100);
@@ -396,9 +396,9 @@ function draw() {
     text('New User? Create account!',175,780);
     text('Forgot password?',1475,780);
     
-    if (accountclick == 'verifying' && animtime <= 200){
+    if (accountclick == 'verifying' && animtime <= 125){
       accountanim();
-    } else if (animtime >= 200 && accountclick == 'verifying'){
+    } else if (animtime >= 125 && accountclick == 'verifying'){
       fill(200,0,0);  
       let usnm = localStorage.getItem('username');
       let pswd = localStorage.getItem('password');
@@ -554,7 +554,7 @@ function draw() {
       }
     }
     
-    if (accountclick == 'creating account' && animtime <= 200){
+    if (accountclick == 'creating account' && animtime <= 150){
       accountanim();
     } else if (accountclick == 'creating account'){
       text('Creating account',1475,780);
@@ -573,6 +573,29 @@ function draw() {
       //saveFile();
     }
     fill(0);
+  } else if (display == 'account' && signinstatus != 'signed out'){
+    background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
+    text('Account Dashboard',650,100);
+    if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
+      fill(200,0,0);
+    } else {
+      fill(0,0,200);
+    }
+    rect(50,50,200,100);
+    textSize(60);
+    fill(255);
+    text('Back',90,120);
+    textSize(80);
+    if (mouseX >= 1400 && mouseX <= 1900 && mouseY >= 50 && mouseY <= 150){
+      fill(200,100,0);
+    } else {
+      fill(200);
+    }
+    rect(1400,50,500,120);
+    fill(255);
+    text('Sign out',1500,90);
+    
   } else if (display == 'settings'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
@@ -796,6 +819,14 @@ function mousePressed(){
     } else if (mouseX >= 150 && mouseX <= 950 && mouseY >= 700 && mouseY <= 800){
       accountclick = 'create account';
       display = 'create account';
+    } else if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 700 && mouseY <= 800){
+      accountclick = 'username';
+      display = 'forgot password';
+    } else if (mouseX >= 1400 && mouseX <= 1900 && mouseY >= 50 && mouseY <= 150 && signinstatus != 'signed out'){
+      signinstatus = 'signed out';
+      username = '';
+      password = '';
+      display = 'main menu';
     } else {
       accountclick = 'none';
     }
