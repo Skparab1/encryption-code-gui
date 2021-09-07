@@ -207,6 +207,8 @@ function draw() {
   textcolor = [0,0,0];
   backgroundcolor = [100,100,100];
   }
+  
+  stroke(textcolor[0], textcolor[1], textcolor[2]);
     
   if (logosize < 5250){
   background(0);
@@ -596,6 +598,62 @@ function draw() {
     fill(255);
     text('Sign out',1500,90);
     
+  } else if (display == 'forgot password'){
+    background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
+    textSize(90);
+    text('Forgot password? No Problem.',450,100);
+    if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
+      fill(200,0,0);
+    } else {
+      fill(0,0,200);
+    }
+    rect(50,50,200,100);
+    textSize(60);
+    fill(255);
+    text('Back',90,120);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
+    text('Username',280,260);
+    if (accountclick == 'username'){
+      fill(255);
+    } else {
+      fill(150);
+    }
+    rect(600,175,800,150);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
+    text('Security Questions',790,390);
+    textSize(25);
+    text('In what city were your born?',260,500);
+    text('What was the make and model of your first car?',50,700);
+    if (accountclick == 'secq1'){
+      fill(255);
+    } else {
+      fill(150);
+    }
+    rect(600,425,800,150);
+    if (accountclick == 'secq2'){
+      fill(255);
+    } else {
+      fill(150);
+    }
+    rect(600,625,800,150);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
+    textSize(90);
+    text(username,630,260);
+    text(secq1,630,530);  
+    text(secq2,630,720);
+    if (username != '' && secq1 != '' && secq2 != ''){
+      textSize(45);
+      if (mouseX >= 1500 && mouseX <= 1800 && mouseY >= 625 && mouseY <= 775){
+        fill(255,0,0);
+      } else {
+        fill(255,255,0);
+      }
+      rect(1500,625,350,150);
+      fill(0);
+      text('Reset password',1520,725);
+    }
+    
   } else if (display == 'settings'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
@@ -763,7 +821,7 @@ function keyReleased(){
   typed = typed.substring(0, typed.length -1);
   }
   if (keyCode == ENTER){
-  if (accountclick == 'username'){
+  if (accountclick == 'username' && display == 'account'){
     accountclick = 'password';
   } else if (accountclick == 'password' && display == 'account'){
     accountclick = 'verifying';
@@ -774,6 +832,10 @@ function keyReleased(){
   } else if (accountclick == 'firstname' && display == 'create account'){
     accountclick = 'secq1';
   } else if (accountclick == 'secq1' && display == 'create account'){
+    accountclick = 'secq2';
+  } else if (accountclick == 'username' && display == 'forgot password'){
+    accountclick = 'secq1';
+  } else if (accountclick == 'secq1' && display == 'forgot password'){
     accountclick = 'secq2';
   }
   }
@@ -873,6 +935,14 @@ function mousePressed(){
         colorscheme = 'Spectrum (Default)';
       }
   }
+  } else if (display == 'forgot password'){
+    if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 175 && mouseY <= 325){
+      accountclick = 'username';
+    } else if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 425 && mouseY <= 575){
+      accountclick = 'secq1';
+    } else if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 625 && mouseY <= 775){
+      accountclick = 'secq2';
+    }
   }
   accountanimx = 1000;
   accountanimy = 750;
