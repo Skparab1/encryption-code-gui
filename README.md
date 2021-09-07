@@ -8,4 +8,4 @@ Gui of Encryption Code. Currently in development
   - Then the user could access their data from different devices
   - but the storing doesn't work, it makes you download the csv file
 - So, my plan right now is to user local storage to store account data
-  - however, this will only be accessible from one device, and the account data will be deleted when webapi data is cleared
+  - however, this will only be accessible from one device, so the view from multiple devices part is out
