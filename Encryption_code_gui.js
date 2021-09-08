@@ -405,7 +405,13 @@ function draw() {
     text('New User? Create account!',175,780);
     text('Forgot password?',1475,780);
     
-    fill(255,0,0);
+    if (showpassword){
+      fill(0,200,0);
+    } else if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 550 && mouseY <= 625){
+      fill(200,100,0);
+    } else {
+      fill(200);
+    }
     rect(1450,550,500,75);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Show password',1500,600);
@@ -659,7 +665,7 @@ function draw() {
     text(secq2,630,720);
     if (wrongreset){
       textSize(35);
-      text('Username or Password incorrect',1420,500);
+      text('Security answers incorrect',1420,500);
       textSize(60);
     }
     let displaypass;
@@ -678,40 +684,50 @@ function draw() {
       } else {
         displaypass = password;
       }
+      textSize(60);
       text(displaypass,1520,725);
       textSize(35);
       text('New password',1520,610);
+      textSize(30);
       if (password != ''){
       if (password.length < 8){
         fill(200,0,0);
-        text('Your password is too short! >= 8 letters!',1500,360);
+        text('Your password is too short! >= 8 letters!',1450,360);
       } else {
         fill(0,200,0);
-        text('Your password is long enough!',1500,360);
+        
+        text('Your password is long enough!',1450,360);
       } 
       if (password.includes('1') || password.includes('2') || password.includes('3') || password.includes('4') || password.includes('5') || password.includes('6') || password.includes('7') || password.includes('8') || password.includes('9') || password.includes('0')){
         fill(0,200,0);
-        text('Your password has a number!',1500,460);
+        text('Your password has a number!',1450,460);
       } else {
         fill(200,0,0);
-        text('Your password needs a number!',1500,460);
+        text('Your password needs a number!',1450,460);
       } 
       }
+      textSize(35);
       if ((password.includes('1') || password.includes('2') || password.includes('3') || password.includes('4') || password.includes('5') || password.includes('6') || password.includes('7') || password.includes('8') || password.includes('9') || password.includes('0'))){
-      if (password.length < 8 || password != passwordagain){
+      if (password.length < 8){
         let blank = '';
       } else {
-      if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 700 && mouseY <= 800 ){
+      if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 550 && mouseY <= 650 ){
         fill(255,255,0);
       } else {
         fill(200,100,0);
       }
       rect(1450,550,500,100);
       fill(textcolor[0],textcolor[1],textcolor[2]);
-      text('Set new Password',1475,780);
+      text('Set new Password',1500,600);
       }
     }
-    fill(255,0,0);
+    if (showpassword){
+      fill(0,200,0);
+    } else if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 775 && mouseY <= 850){
+      fill(200,100,0);
+    } else {
+      fill(200);
+    }
     rect(1450,775,500,75);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Show password',1500,825);
@@ -1042,6 +1058,11 @@ function mousePressed(){
       showpassword = true;
     } else if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 775 && mouseY <= 850 && accountclick == 'new password' && showpassword){
       showpassword = false;
+    } else if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 550 && mouseY <= 650 && accountclick == 'new password'){
+      localStorage.setItem('password',password);
+      display = 'main menu';
+      username = '';
+      password = '';
     }
   }
   accountanimx = 1000;
