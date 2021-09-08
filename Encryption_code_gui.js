@@ -53,10 +53,14 @@ var backgroundcolor = [0,0,0];
 var bg;
 var ccstart = 255;
 var ccs = 255;
-var signinstatus = 'signed out';
+//var signinstatus = 'signed out';
+var signinstatus = localStorage.getItem('localstatus');
 var wrongpassword = false;
 var wrongreset = false;
 var showpassword = false;
+localStorage.setItem('localstatus',signinstatus);
+var readstatus = localStorage.getItem('localstatus');
+
 
 function accountanim(){
   fill(200,0,0);
@@ -95,6 +99,16 @@ function accountanim(){
 }
 
 function draw() {
+  readstatus = localStorage.getItem('localstatus');
+  if (readstatus != signinstatus){
+    display = 'expired';
+    //localStorage.setItem('localstatus',signinstatus);
+  } else {
+  }
+  if (signinstatus == null){
+    signinstatus = 'signed out';
+    localStorage.setItem('localstatus',signinstatus);
+  }
   clear();
   background(0);
   // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
@@ -299,7 +313,11 @@ function draw() {
     text("Decrypt",400,650);
     text("Account",1300,350);
     text("Settings",1300,650);
-    
+  } else if (display == 'expired'){
+    background(0);
+    fill(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    rect(800,350,500,500);
+    text('User session expired. You are logged out',500,500);
   } else if (display == 'encryption'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
@@ -425,6 +443,7 @@ function draw() {
       let fname = localStorage.getItem('firstname');
       if (usnm == username && pswd == password){
         signinstatus = 'Hi, '+fname;
+        localStorage.setItem('localstatus',signinstatus);
         display = 'main menu';
       } else {
         wrongpassword = true;
@@ -758,7 +777,8 @@ function draw() {
           secq1 = '';
           secq2 = '';
         }
-    }
+        // Next, do checking for stored sign in/sign out to create session expiring from different tabs  
+      }
     }
   } else if (display == 'settings'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
