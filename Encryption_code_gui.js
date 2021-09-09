@@ -54,7 +54,11 @@ var bg;
 var ccstart = 255;
 var ccs = 255;
 //var signinstatus = 'signed out';
-var signinstatus = localStorage.getItem('localstatus');
+try{
+  var signinstatus = localStorage.getItem('localstatus');
+} catch(error){
+  var signinstatus = 'signed out';
+}
 var wrongpassword = false;
 var wrongreset = false;
 var showpassword = false;
