@@ -60,6 +60,8 @@ var wrongreset = false;
 var showpassword = false;
 localStorage.setItem('localstatus',signinstatus);
 var readstatus = localStorage.getItem('localstatus');
+var tabstatus = false;
+var isignedout = false;
 
 
 function accountanim(){
@@ -100,15 +102,14 @@ function accountanim(){
 
 function draw() {
   readstatus = localStorage.getItem('localstatus');
-  if (readstatus != signinstatus){
+  if (readstatus == 'signed out' && signinstatus != 'signed out'){
     display = 'expired';
-    //localStorage.setItem('localstatus',signinstatus);
-  } else {
+    localStorage.setItem('localstatus','signed out');
   }
-  if (signinstatus == null){
-    signinstatus = 'signed out';
-    localStorage.setItem('localstatus',signinstatus);
+  if (readstatus != 'signed out' && signinstatus == 'signed out' && isignedout == false){
+    signinstatus = readstatus;
   }
+  localStorage.setItem('localstatus',signinstatus);
   clear();
   background(0);
   // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
@@ -315,9 +316,16 @@ function draw() {
     text("Settings",1300,650);
   } else if (display == 'expired'){
     background(0);
+    setInterval(donothing,1000);
     fill(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
-    rect(800,350,500,500);
-    text('User session expired. You are logged out',500,500);
+    textSize(60);
+    text('User session expired. You are logged out.',500,300);
+    text('Looks like you signed out in another tab',500,400);
+    text('Encryption code GUI is synced between tabs',500,500);
+    text('Click anywhere to continue',550,600);
+    if (tabstatus){
+      display = 'main menu';
+    }
   } else if (display == 'encryption'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
@@ -1004,6 +1012,7 @@ function mousePressed(){
       accountclick = 'password';
     } else if (mouseX >= 1100 && mouseX <= 1400 && mouseY >= 700 && mouseY <= 800){
       accountclick = 'verifying';
+      tabstatus = true;
     } else if (mouseX >= 150 && mouseX <= 950 && mouseY >= 700 && mouseY <= 800){
       accountclick = 'create account';
       display = 'create account';
@@ -1012,9 +1021,12 @@ function mousePressed(){
       display = 'forgot password';
     } else if (mouseX >= 1400 && mouseX <= 1900 && mouseY >= 50 && mouseY <= 150 && signinstatus != 'signed out'){
       signinstatus = 'signed out';
+      tabstatus = true;
       username = '';
       password = '';
       display = 'main menu';
+      localStorage.setItem('localstatus','signed out' );
+      isignedout = true;
     } else if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 550 && mouseY <= 625 && showpassword == false){
       showpassword = true;
     } else if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 550 && mouseY <= 625 && showpassword){
@@ -1084,6 +1096,13 @@ function mousePressed(){
       username = '';
       password = '';
     }
+  } else if (display == 'expired'){
+    signinstatus = 'signed out';
+    tabstatus = true;
+    username = '';
+    password = '';
+    display = 'main menu';
+    localStorage.setItem('localstatus','signed out' );
   }
   accountanimx = 1000;
   accountanimy = 750;
