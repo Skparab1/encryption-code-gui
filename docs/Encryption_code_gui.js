@@ -110,6 +110,10 @@ function draw() {
     display = 'expired';
     localStorage.setItem('localstatus','signed out');
   }
+  if (readstatus == null){
+    localStorage.setItem('localstatus','signed out');
+    signinstatus = 'signed out';
+  }
   if (readstatus != 'signed out' && signinstatus == 'signed out' && isignedout == false){
     signinstatus = readstatus;
   }
