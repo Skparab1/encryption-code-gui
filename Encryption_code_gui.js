@@ -56,7 +56,7 @@ var ccs = 255;
 //var signinstatus = 'signed out';
 try{
   var signinstatus = localStorage.getItem('localstatus');
-  if ((localStorage.getItem('localstatus')) == null){
+  if (! signinstatus){
     signinstatus = 'signed out';
   }
 } catch(error){
