@@ -6,4 +6,3 @@ Gui of Encryption Code. Currently in development
 - storing account info with web api works
 
 # Accounts
-- Originally, my plan was to store the account data in a database or server
