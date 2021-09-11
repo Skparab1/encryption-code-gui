@@ -69,9 +69,15 @@ var tabstatus = false;
 var isignedout = false;
 
 
+
 function accountanim(){
-  fill(200,0,0);
+      fill(200,0,0);
       strokeWeight(10);
+      stroke(0,0,200);
+      fill(0,0,200);
+      rect(0,0,animtime*20,15);
+      fill(0);
+      stroke(0);
       line(1000,800,accountanimx,accountanimy);
       //line(1000,800,accountanimx,800-(accountanimy-800));
       //line(1000,800,1000-(accountanimx-1000),accountanimy);
@@ -101,7 +107,7 @@ function accountanim(){
         aayd = 'up';
       }
       
-      animtime += 1;
+      animtime += 1.5;
       strokeWeight(3);
 }
 
@@ -1027,8 +1033,14 @@ function mousePressed(){
       display = 'create account';
     } else if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 700 && mouseY <= 800){
       accountclick = 'username';
+      secq1 = '';
+      secq2 = '';
       display = 'forgot password';
     } else if (mouseX >= 1400 && mouseX <= 1900 && mouseY >= 50 && mouseY <= 150 && signinstatus != 'signed out'){
+      animtime = 0;
+      while (animtime <= 150){
+        accountanim();
+      } 
       signinstatus = 'signed out';
       tabstatus = true;
       username = '';
