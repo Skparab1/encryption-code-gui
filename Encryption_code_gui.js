@@ -1142,6 +1142,8 @@ function mousePressed(){
     tabstatus = true;
     username = '';
     password = '';
+    secq1 = '';
+    secq2 = '';
     display = 'main menu';
     localStorage.setItem('localstatus','signed out' );
   }
