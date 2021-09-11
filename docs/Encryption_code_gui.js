@@ -124,6 +124,10 @@ function draw() {
   if (readstatus != 'signed out' && signinstatus == 'signed out' && isignedout == false){
     signinstatus = readstatus;
   }
+  if (signinstatus == 'signed out'){
+    isignedout = false;
+  }
+  
   localStorage.setItem('localstatus',signinstatus);
   clear();
   background(0);
@@ -1038,16 +1042,19 @@ function mousePressed(){
       display = 'forgot password';
     } else if (mouseX >= 1400 && mouseX <= 1900 && mouseY >= 50 && mouseY <= 150 && signinstatus != 'signed out'){
       animtime = 0;
-      while (animtime <= 150){
-        accountanim();
-      } 
-      signinstatus = 'signed out';
-      tabstatus = true;
-      username = '';
-      password = '';
-      display = 'main menu';
-      localStorage.setItem('localstatus','signed out' );
-      isignedout = true;
+      if (animtime <= 150){
+        while (animtime <= 150){
+          accountanim();
+        } 
+      } else {
+        signinstatus = 'signed out';
+        tabstatus = true;
+        username = '';
+        password = '';
+        display = 'main menu';
+        localStorage.setItem('localstatus','signed out' );
+        isignedout = true;
+      }
     } else if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 550 && mouseY <= 625 && showpassword == false){
       showpassword = true;
     } else if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 550 && mouseY <= 625 && showpassword){
