@@ -7,5 +7,3 @@ Gui of Encryption Code. Currently in development
 
 # Accounts
 - Originally, my plan was to store the account data in a database or server
-  - Then the user could access their data from different devices
-
