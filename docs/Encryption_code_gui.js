@@ -67,7 +67,7 @@ localStorage.setItem('localstatus',signinstatus);
 var readstatus = localStorage.getItem('localstatus');
 var tabstatus = false;
 var isignedout = false;
-
+var encryptionclick = 'input';
 
 
 function accountanim(){
@@ -124,7 +124,9 @@ function draw() {
   if (readstatus != 'signed out' && signinstatus == 'signed out' && isignedout == false){
     signinstatus = readstatus;
   }
-  if (signinstatus == 'signed out'){
+  localStorage.setItem('localstatus',signinstatus);
+  if (signinstatus == 'signed out' && isignedout && readstatus == 'signed out'){
+    localStorage.setItem('localstatus',signinstatus);
     isignedout = false;
   }
   
@@ -149,8 +151,7 @@ function draw() {
   if (changingcolor >= 765){
     red = (255-Math.abs(1020-changingcolor));
   }
-  backgroundcolor = [225,225,225];
-  textcolor = [150,150,150];
+  backgroundcolor = [200,200,200];
   } else  if (colorscheme == 'spectrum bright'){
   red = (255-Math.abs(255-changingcolor));
   green = (255-Math.abs(510-changingcolor));
@@ -342,6 +343,7 @@ function draw() {
     text('Looks like you signed out in another tab',500,400);
     text('Encryption code GUI is synced between tabs',500,500);
     text('Click anywhere to continue',550,600);
+    localStorage.setItem('localstatus','signed out');
     if (tabstatus){
       display = 'main menu';
     }
@@ -358,7 +360,14 @@ function draw() {
     textSize(60);
     fill(255);
     text('Back',90,120);
+    if (encryptionclick == 'input'){
+      fill(255);
+    } else {
+      fill(150);
+    }
+    rect(300,300,700,200);
     textSize(100);
+    
     
   } else if (display == 'decryption'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
@@ -664,6 +673,23 @@ function draw() {
     rect(1400,50,500,100);
     fill(255);
     text('Sign out',1500,120);
+    
+    if (accountclick == 'signing out' && animtime <= 100){
+        accountanim();
+    } else if (accountclick == 'signing out' ){
+      signinstatus = 'signed out';
+      tabstatus = true;
+      username = '';
+      password = '';
+      display = 'main menu';
+      localStorage.setItem('localstatus','signed out' );
+      isignedout = true;
+      accountanimx = 1000;
+      accountanimy = 750;
+      aaxd = 'right';
+      aayd = 'down';
+      animtime = 0;
+    }
     
   } else if (display == 'forgot password'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
@@ -1041,20 +1067,7 @@ function mousePressed(){
       secq2 = '';
       display = 'forgot password';
     } else if (mouseX >= 1400 && mouseX <= 1900 && mouseY >= 50 && mouseY <= 150 && signinstatus != 'signed out'){
-      animtime = 0;
-      if (animtime <= 150){
-        while (animtime <= 150){
-          accountanim();
-        } 
-      } else {
-        signinstatus = 'signed out';
-        tabstatus = true;
-        username = '';
-        password = '';
-        display = 'main menu';
-        localStorage.setItem('localstatus','signed out' );
-        isignedout = true;
-      }
+      accountclick = 'signing out';
     } else if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 550 && mouseY <= 625 && showpassword == false){
       showpassword = true;
     } else if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 550 && mouseY <= 625 && showpassword){
