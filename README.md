@@ -15,3 +15,5 @@ Gui of Encryption Code. Currently in development
 - selector is animated
 
 ## Loading animation
+- has horizontal top bar
+- spinning wheel
