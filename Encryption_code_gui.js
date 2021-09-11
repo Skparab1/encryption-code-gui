@@ -67,7 +67,7 @@ localStorage.setItem('localstatus',signinstatus);
 var readstatus = localStorage.getItem('localstatus');
 var tabstatus = false;
 var isignedout = false;
-
+var encryptionclick = 'input';
 
 
 function accountanim(){
@@ -124,7 +124,9 @@ function draw() {
   if (readstatus != 'signed out' && signinstatus == 'signed out' && isignedout == false){
     signinstatus = readstatus;
   }
-  if (signinstatus == 'signed out'){
+  localStorage.setItem('localstatus',signinstatus);
+  if (signinstatus == 'signed out' && isignedout && readstatus == 'signed out'){
+    localStorage.setItem('localstatus',signinstatus);
     isignedout = false;
   }
   
@@ -341,6 +343,7 @@ function draw() {
     text('Looks like you signed out in another tab',500,400);
     text('Encryption code GUI is synced between tabs',500,500);
     text('Click anywhere to continue',550,600);
+    localStorage.setItem('localstatus','signed out');
     if (tabstatus){
       display = 'main menu';
     }
@@ -357,7 +360,14 @@ function draw() {
     textSize(60);
     fill(255);
     text('Back',90,120);
+    if (encryptionclick == 'input'){
+      fill(255);
+    } else {
+      fill(150);
+    }
+    rect(300,300,700,200);
     textSize(100);
+    
     
   } else if (display == 'decryption'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
