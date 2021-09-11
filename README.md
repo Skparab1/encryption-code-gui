@@ -1,5 +1,5 @@
 # encryption-code-gui
 Gui of Encryption Code. Currently in development
 
-- Start up and Main menu works.
-
+# Main features that work
+## Accounts
