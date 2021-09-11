@@ -3,7 +3,8 @@ Gui of Encryption Code. Currently in development
 
 # Main features that work
 
-## Loading Animation
+## Starting Animation
+- Hover operated
 
 ## Accounts
 - Account data is stored locally, so accounts are only one one device
