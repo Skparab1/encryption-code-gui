@@ -124,6 +124,10 @@ function draw() {
   if (readstatus != 'signed out' && signinstatus == 'signed out' && isignedout == false){
     signinstatus = readstatus;
   }
+  if (signinstatus == 'signed out'){
+    isignedout = false;
+  }
+  
   localStorage.setItem('localstatus',signinstatus);
   clear();
   background(0);
