@@ -14,4 +14,4 @@ Gui of Encryption Code. Currently in development
 - Can change color theme
 - selector is animated
 
-
+## Loading animation
