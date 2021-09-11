@@ -149,8 +149,7 @@ function draw() {
   if (changingcolor >= 765){
     red = (255-Math.abs(1020-changingcolor));
   }
-  backgroundcolor = [225,225,225];
-  textcolor = [150,150,150];
+  backgroundcolor = [200,200,200];
   } else  if (colorscheme == 'spectrum bright'){
   red = (255-Math.abs(255-changingcolor));
   green = (255-Math.abs(510-changingcolor));
@@ -665,6 +664,23 @@ function draw() {
     fill(255);
     text('Sign out',1500,120);
     
+    if (accountclick == 'signing out' && animtime <= 100){
+        accountanim();
+    } else if (accountclick == 'signing out' ){
+      signinstatus = 'signed out';
+      tabstatus = true;
+      username = '';
+      password = '';
+      display = 'main menu';
+      localStorage.setItem('localstatus','signed out' );
+      isignedout = true;
+      accountanimx = 1000;
+      accountanimy = 750;
+      aaxd = 'right';
+      aayd = 'down';
+      animtime = 0;
+    }
+    
   } else if (display == 'forgot password'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
@@ -1041,20 +1057,7 @@ function mousePressed(){
       secq2 = '';
       display = 'forgot password';
     } else if (mouseX >= 1400 && mouseX <= 1900 && mouseY >= 50 && mouseY <= 150 && signinstatus != 'signed out'){
-      animtime = 0;
-      if (animtime <= 150){
-        while (animtime <= 150){
-          accountanim();
-        } 
-      } else {
-        signinstatus = 'signed out';
-        tabstatus = true;
-        username = '';
-        password = '';
-        display = 'main menu';
-        localStorage.setItem('localstatus','signed out' );
-        isignedout = true;
-      }
+      accountclick = 'signing out';
     } else if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 550 && mouseY <= 625 && showpassword == false){
       showpassword = true;
     } else if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 550 && mouseY <= 625 && showpassword){
