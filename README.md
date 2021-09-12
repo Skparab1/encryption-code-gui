@@ -10,6 +10,9 @@ Gui of Encryption Code. Currently in development
 - Account data is stored locally, so accounts are only one one device
 - Signin, Creating account, Forgot password, and Signing out work locally
 - however, whenever you close browser window, you account data will be deleted
+  - to solve this, I am creating a global read only account framework
+  - with this, it will be able to read account data from anywhere.
+  - however, you will not be able to stora any data.
 
 ## Settings
 - Can change color theme
