@@ -8,7 +8,8 @@ Gui of Encryption Code. Currently in development
 
 ## Accounts
 - Account data is stored locally, so accounts are only one one device
-- Signin, Creating account, Forgot password, and Signing out work
+- Signin, Creating account, Forgot password, and Signing out work locally
+- however, whenever you close browser window, you account data will be deleted
 
 ## Settings
 - Can change color theme
