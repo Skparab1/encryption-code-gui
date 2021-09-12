@@ -477,7 +477,11 @@ function draw() {
       let pswd = localStorage.getItem('password');
       let fname = localStorage.getItem('firstname');
       if ((usnm == username && pswd == password) || (usernames.includes(username) && passwords.includes(password))){
-        signinstatus = 'Hi, '+fname;
+        if (fnames.includes(fnames)){
+          signinstatus = 'Hi, '+fnames[0];
+        } else {
+          signinstatus = 'Hi, '+fname;
+        }
         localStorage.setItem('localstatus',signinstatus);
         display = 'main menu';
       } else {
