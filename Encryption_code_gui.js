@@ -4,7 +4,7 @@ var table = [];
 
 function preload() {
   logo = loadImage("logo.png");
-  table = getItem('accounts.csv');
+  table = loadTable("accounts.csv","csv","header");
 }
 
 function setup() {
@@ -17,7 +17,6 @@ function setup() {
     secq1list = table.getColumn(3);
     secq2list = table.getColumn(4);
   } catch(error) {
-    table = loadTable("accounts.csv","csv","header");
     usernames = [];
     passwords = [];
     fnames = [];
@@ -477,7 +476,7 @@ function draw() {
       let usnm = localStorage.getItem('username');
       let pswd = localStorage.getItem('password');
       let fname = localStorage.getItem('firstname');
-      if (usnm == username && pswd == password){
+      if ((usnm == username && pswd == password) || (usernames.includes(username) && passwords.includes(password))){
         signinstatus = 'Hi, '+fname;
         localStorage.setItem('localstatus',signinstatus);
         display = 'main menu';
