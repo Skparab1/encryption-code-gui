@@ -67,6 +67,7 @@ var readstatus = localStorage.getItem('localstatus');
 var tabstatus = false;
 var isignedout = false;
 var encryptionclick = 'input';
+var signintype = 'signed out';
 
 
 function accountanim(){
@@ -479,8 +480,10 @@ function draw() {
       if ((usnm == username && pswd == password) || (usernames.includes(username) && passwords.includes(password))){
         if ((usernames.includes(username) && passwords.includes(password))){
           signinstatus = 'Hi, ' + fnames[0];
+          signintype = 'global';
         } else {
           signinstatus = 'Hi, '+fname;
+          signintype = 'local';
         }
         localStorage.setItem('localstatus',signinstatus);
         display = 'main menu';
