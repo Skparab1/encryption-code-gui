@@ -29,6 +29,7 @@ var logosize = 250;
 var firsttime = true;
 var x = 0;
 var hovered = false;
+var startingcycle = 1;
 var changingcolor = 0;
 var display = 'start up';
 var username = '';
@@ -68,7 +69,8 @@ var tabstatus = false;
 var isignedout = false;
 var encryptionclick = 'input';
 var signintype = 'signed out';
-
+var accountcounter = 0;
+var foundglobalaccount = false;
 
 function accountanim(){
       fill(200,0,0);
@@ -267,20 +269,34 @@ function draw() {
     fill(x*4,(x-50)*4,(x-100)*4);
     text('Encryption code ',400,650);
     textSize(75);
-    fill((x-100)*4,(x-50)*4,x*4);
-    text('Hover over logo to begin',400,800);
+    if (startingcycle == 2){
+      fill((x-50)*4,(x-100)*4,x*4);
+      text('Hover over logo to begin',450,800);
+    } else {
+      fill((x-100)*4,x*4,(x-50)*4);
+      text('With great graphics comes great capability',250,800);
+    }
   } else {
     setInterval(donothing,100);
     textSize(150);
     fill(255 - ((x-160)*6.5));
     text('Encryption code ',400,650);
     textSize(75);
-    text('Hover over logo to begin',400,800);
+    if (startingcycle == 2) {
+      text('Hover over logo to begin',450,800);
+    } else {
+      text('With great graphics comes great capability',250,800);
+    }
   }
   fill(red,green,blue);
   firsttime = false;
   x = x + 1;
   if (x == 199 && hovered == false){
+    if (startingcycle == 1){
+      startingcycle = 2;
+    } else {
+      startingcycle = 1;
+    }
     x = 0;
   }
   image(logo,700-((logosize-250)/2), 200-((logosize-250)/2)-((logosize-250)/5),logosize,logosize);
@@ -291,6 +307,7 @@ function draw() {
   } else if (logosize <= 5250){
     display = 'main menu';
     logosize = 5252;
+    
   } else if (display == 'main menu') {
     // GUI
     textSize(90);
@@ -479,10 +496,28 @@ function draw() {
       let fname = localStorage.getItem('firstname');
       if ((usnm == username && pswd == password) || (usernames.includes(username) && passwords.includes(password))){
         if ((usernames.includes(username) && passwords.includes(password))){
-          signinstatus = 'Hi, ' + fnames[0] + 'Global Signin';
-          signintype = 'global';
+          while (accountcounter <= 100){
+            let findusnm = usernames[accountcounter];
+            let findpswd = passwords[accountcounter];
+            if (findusnm == username && findpswd == password){
+              foundglobalaccount = true;
+            }
+            accountcounter += 1;
+          }
+          if (foundglobalaccount){
+            signinstatus = 'Hi, ' + fnames[0];
+            signintype = 'global';
+          } else {
+            wrongpassword = true;
+            password = '';
+            if (username == ''){
+              accountclick = 'username';
+            } else {
+              accountclick = 'password';
+            }
+          }
         } else {
-          signinstatus = 'Hi, '+fname+'Global Signin';
+          signinstatus = 'Hi, '+fname;
           signintype = 'local';
         }
         localStorage.setItem('localstatus',signinstatus);
@@ -984,8 +1019,10 @@ function keyTyped(){
     secq1 += key;
   } else if (accountclick == 'secq2' && keyCode != ENTER){
     secq2 += key;
+  } else if (logosize < 5250){
+    hovered = true;
   }
-  typed += key;
+  typed += key; 
 }
 
 function keyReleased(){
