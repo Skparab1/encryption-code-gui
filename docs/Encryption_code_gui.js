@@ -46,13 +46,15 @@ var accountanimx = 1000;
 var accountanimy = 750;
 var aaxd = 'right';
 var aayd = 'down';
-var animtime = 0;
+var animtime = 1;
 var colorscheme = 'Spectrum (Default)';
 var textcolor = [255,255,255];
 var backgroundcolor = [0,0,0];
 var bg;
 var ccstart = 255;
 var ccs = 255;
+var toencrypt = '';
+
 //var signinstatus = 'signed out';
 try{
   var signinstatus = localStorage.getItem('localstatus');
@@ -77,7 +79,7 @@ function accountanim(){
       strokeWeight(10);
       stroke(0,0,200);
       fill(0,0,200);
-      rect(0,0,animtime*20,15);
+      rect(0,0,animtime*20.5,15);
       fill(0);
       stroke(0);
       line(1000,800,accountanimx,accountanimy);
@@ -109,7 +111,9 @@ function accountanim(){
         aayd = 'up';
       }
       
-      animtime += 1.5;
+      //animtime = animtime + 1 ;
+      animtime = (1.07 * animtime) ;
+      print(animtime);
       strokeWeight(3);
 }
 
@@ -729,7 +733,7 @@ function draw() {
       accountanimy = 750;
       aaxd = 'right';
       aayd = 'down';
-      animtime = 0;
+      animtime = 1;
     }
     
   } else if (display == 'forgot password'){
@@ -1021,6 +1025,8 @@ function keyTyped(){
     secq2 += key;
   } else if (logosize < 5250){
     hovered = true;
+  } else if (display == 'encryption' && accountclick == 'encrypting'){
+    toencrypt += key;
   }
   typed += key; 
 }
@@ -1194,7 +1200,7 @@ function mousePressed(){
   accountanimy = 750;
   aaxd = 'right';
   aayd = 'down';
-  animtime = 0;
+  animtime = 1;
 }
 
 function saveFile(){
