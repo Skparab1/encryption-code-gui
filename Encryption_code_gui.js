@@ -73,6 +73,7 @@ var accountcounter = 0;
 var foundglobalaccount = false;
 var encryptionclick = 'input';
 var signintype = 'signed out';
+var sync = 'on';
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -138,22 +139,24 @@ function accountanim(){
 }
 
 function draw() {
-  readstatus = localStorage.getItem('localstatus');
-  if (readstatus == 'signed out' && signinstatus != 'signed out'){
-    display = 'expired';
-    localStorage.setItem('localstatus','signed out');
-  }
-  if (readstatus == null){
-    localStorage.setItem('localstatus','signed out');
-    signinstatus = 'signed out';
-  }
-  if (readstatus != 'signed out' && signinstatus == 'signed out' && isignedout == false){
-    signinstatus = readstatus;
-  }
-  localStorage.setItem('localstatus',signinstatus);
-  if (signinstatus == 'signed out' && isignedout && readstatus == 'signed out'){
+  if (sync == 'on'){
+    readstatus = localStorage.getItem('localstatus');
+    if (readstatus == 'signed out' && signinstatus != 'signed out'){
+      display = 'expired';
+      localStorage.setItem('localstatus','signed out');
+    }
+    if (readstatus == null){
+      localStorage.setItem('localstatus','signed out');
+      signinstatus = 'signed out';
+    }
+    if (readstatus != 'signed out' && signinstatus == 'signed out' && isignedout == false){
+      signinstatus = readstatus;
+    }
     localStorage.setItem('localstatus',signinstatus);
-    isignedout = false;
+    if (signinstatus == 'signed out' && isignedout && readstatus == 'signed out'){
+      localStorage.setItem('localstatus',signinstatus);
+      isignedout = false;
+    }
   }
   
   localStorage.setItem('localstatus',signinstatus);
@@ -731,6 +734,21 @@ function draw() {
     text('Account Dashboard',650,100);
     text(signinstatus,650,200);
     textSize(40);
+    
+    signintype = 'local';
+    foundglobalaccount = false;
+    accountcounter = 0;
+    while (accountcounter <= 100){
+      let findusnm = usernames[accountcounter];
+      let findpswd = passwords[accountcounter];
+      if (findusnm == username && findpswd == password){
+        foundglobalaccount = true;
+        storeaccountnum = accountcounter;
+        signintype = 'global';
+      }
+      accountcounter += 1;
+    }
+    
     text('this is your '+signintype+' account',1400,200);
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
       fill(200,0,0);
