@@ -1,5 +1,5 @@
-# encryption-code-gui
-Gui of Encryption Code. Currently in development
+#Encryption code GUI
+## With Great Graphics comes great capability
 
 # Main features that work
 
