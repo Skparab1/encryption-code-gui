@@ -512,7 +512,7 @@ function draw() {
       if ((usnm == username && pswd == password) || foundglobalaccount){
         if (foundglobalaccount){
           if (foundglobalaccount){
-            signinstatus = 'Hi, ' + fnames[0];
+            signinstatus = 'Hi, ' + fnames[accountcounter];
             signintype = 'global';
           } else {
             wrongpassword = true;
