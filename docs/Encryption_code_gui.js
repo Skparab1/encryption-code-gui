@@ -499,16 +499,20 @@ function draw() {
       let pswd = localStorage.getItem('password');
       let fname = localStorage.getItem('firstname');
       
+      let storeaccountnum = 0;
+      foundglobalaccount = false;
       accountcounter = 0;
       while (accountcounter <= 100){
         let findusnm = usernames[accountcounter];
         let findpswd = passwords[accountcounter];
         if (findusnm == username && findpswd == password){
           foundglobalaccount = true;
-          let storeaccountnum = accountcounter;
+          storeaccountnum = accountcounter;
         }
         accountcounter += 1;
       }
+      
+      print(storeaccountnum);
       
       
       if ((usnm == username && pswd == password) || foundglobalaccount){
