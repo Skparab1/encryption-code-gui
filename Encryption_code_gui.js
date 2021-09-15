@@ -505,14 +505,16 @@ function draw() {
         let findpswd = passwords[accountcounter];
         if (findusnm == username && findpswd == password){
           foundglobalaccount = true;
+          let storeaccountnum = accountcounter;
         }
         accountcounter += 1;
       }
       
+      
       if ((usnm == username && pswd == password) || foundglobalaccount){
         if (foundglobalaccount){
           if (foundglobalaccount){
-            signinstatus = 'Hi, ' + fnames[accountcounter];
+            signinstatus = 'Hi, ' + fnames[storeaccountnum];
             signintype = 'global';
           } else {
             wrongpassword = true;
