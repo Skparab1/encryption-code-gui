@@ -1,4 +1,4 @@
-#Encryption code GUI
+# Encryption code GUI
 ## With Great Graphics comes great capability
 
 # Main features that work
