@@ -69,10 +69,30 @@ localStorage.setItem('localstatus',signinstatus);
 var readstatus = localStorage.getItem('localstatus');
 var tabstatus = false;
 var isignedout = false;
-var encryptionclick = 'input';
-var signintype = 'signed out';
 var accountcounter = 0;
 var foundglobalaccount = false;
+var encryptionclick = 'input';
+var signintype = 'signed out';
+
+if (signinstatus == 'signed out'){
+  signintype = 'signed out';
+} else {
+  let storeaccountnum = 0;
+  accountcounter = 0;
+  signintype = 'local';
+  
+  while (accountcounter <= 100){
+    let findusnm = usernames[accountcounter];
+    let findpswd = passwords[accountcounter];
+    if (findusnm == username && findpswd == password){
+      foundglobalaccount = true;
+      storeaccountnum = accountcounter;
+      signintype = 'global';
+    }
+    accountcounter += 1;
+  }
+  
+}
 
 function accountanim(){
       fill(200,0,0);
@@ -260,9 +280,9 @@ function draw() {
   if (firsttime){
     setInterval(donothing,100);
   } else if (hovered) {
-    requestAnimationFrame(donothing,0.0000000001);
+    requestAnimationFrame(donothing,0);
     if (logosize <= 4500){
-      logosize = logosize + 100;
+      logosize = logosize + 150;
     } else {
       logosize = logosize + 50;
       tint(255, 250 - (logosize - 4000)/5 );
@@ -709,6 +729,9 @@ function draw() {
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Account Dashboard',650,100);
+    text(signinstatus,650,200);
+    textSize(40);
+    text('this is your '+signintype+' account',1400,200);
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
       fill(200,0,0);
     } else {
