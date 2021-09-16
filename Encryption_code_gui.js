@@ -778,7 +778,7 @@ function draw() {
       fill(255,0,0);
       rect(275,275,200,100);
       fill(0);
-      text('       OFF',100,350);
+      text('         OFF',100,350);
     }
     fill(255);
     
@@ -945,6 +945,15 @@ function draw() {
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Settings',900,100);
+    textSize(40);
+    text('Spectrum (Default)',310,215);
+    text('Spectrum light',310,275);
+    text('Spectrum bright',310,335);
+    text('Red Green',310,395);
+    text('Red Blue',310,455);
+    text('Green Blue',310,515);
+    text('High contrast',310,575);
+    
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
       fill(200,0,0);
     } else {
@@ -976,7 +985,7 @@ function draw() {
       ccstart = 255;
     } 
     xpos = 100;
-    cc = ccs;
+    cc = ccs-150;
     while (xpos <= 300){
         red = (255-Math.abs(255-cc));
         green = (255-Math.abs(510-cc));
@@ -1051,9 +1060,7 @@ function draw() {
     fill(textcolor[0],textcolor[1],textcolor[2]);
     // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
     fill(0);
-    textSize(40);
-    text('change color scheme',290,230);
-    text(colorscheme,240,500);
+    text(colorscheme,600,500);
     
     textSize(60);
     fill(255);
