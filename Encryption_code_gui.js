@@ -767,7 +767,20 @@ function draw() {
     }
     rect(1400,50,500,100);
     fill(255);
+    rect(75,275,400,100);
     text('Sign out',1500,120);
+    if (sync == 'on'){
+      fill(0,255,0);
+      rect(75,275,200,100);
+      fill(0);
+      text('ON',100,350);
+    } else {
+      fill(255,0,0);
+      rect(275,275,200,100);
+      fill(0);
+      text('       OFF',100,350);
+    }
+    fill(255);
     
     if (accountclick == 'signing out' && animtime <= 100){
         accountanim();
@@ -1144,7 +1157,7 @@ function mousePressed(){
     }
   }
   
-  if (display == 'account'){
+  if (display == 'account' && signinstatus == 'signed out'){
     rect(600,275,800,150);
     fill(0);
     text('Password',220,560);
@@ -1165,8 +1178,6 @@ function mousePressed(){
       secq1 = '';
       secq2 = '';
       display = 'forgot password';
-    } else if (mouseX >= 1400 && mouseX <= 1900 && mouseY >= 50 && mouseY <= 150 && signinstatus != 'signed out'){
-      accountclick = 'signing out';
     } else if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 550 && mouseY <= 625 && showpassword == false){
       showpassword = true;
     } else if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 550 && mouseY <= 625 && showpassword){
@@ -1175,6 +1186,17 @@ function mousePressed(){
       accountclick = 'none';
     }
   }
+  
+  if (display == 'account' && signinstatus != 'signed out'){
+    if (mouseX >= 1400 && mouseX <= 1900 && mouseY >= 50 && mouseY <= 150){
+      accountclick = 'signing out';
+    } else if (mouseX >= 75 && mouseX <= 475 && mouseY >= 275 && mouseY <= 375 && sync == 'on'){
+      sync = 'off';
+    } else if (mouseX >= 75 && mouseX <= 475 && mouseY >= 275 && mouseY <= 375 && sync == 'off'){
+      sync = 'on';
+    }
+  }
+  
   if (display == 'create account'){
     if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 145 && mouseY <= 245){
       accountclick = 'username';
