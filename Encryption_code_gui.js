@@ -1319,7 +1319,7 @@ function mousePressed(){
     localStorage.setItem('localstatus','signed out' );
   } else if (display == 'encryption'){
     if (mouseX >= 800 && mouseX <= 1200 && mouseY >= 700 && mouseY <= 850){
-      let writer = createWriter('encrypted_text.txt');
+      let writer = createWriter('encrypted_text.rtf');
       writer.write(toencrypt);
       writer.close();
     }
