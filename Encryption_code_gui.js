@@ -948,18 +948,23 @@ function draw() {
       }
     }
   } else if (display == 'settings'){
+    // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     stroke(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Settings',900,100);
     textSize(40);
-    text('Spectrum (Default)',310,215);
+    text('Spectrum (Default)',240,215);
     text('Spectrum light',310,275);
     text('Spectrum bright',310,335);
     text('Red Green',310,395);
     text('Green Blue',310,455);
     text('Blue Red',310,515);
     text('High contrast',310,575);
+    text('Black White',310,635);
+    text('Default Dark',310,695);
+    text('Dark Blue',310,755);
+    text('Default light',310,815);
     
     text('Backend',900,850);
     
@@ -1108,10 +1113,13 @@ function draw() {
     if (ccstart <= -510){
       ccstart = 255;
     } 
-    //rect(100,415,200,60);
-    //rect(100,475,200,60);
-    //rect(100,535,200,60);
-    //rect(100,595,200,60);
+    fill(0);
+    rect(100,535,200,60);
+    rect(100,595,200,60);
+    fill(255,255,0);
+    text('  H   C',100,580);
+    fill(255);
+    text('  B   W',100,640);
     //rect(100,655,200,60);
     //rect(100,715,200,60);
     
