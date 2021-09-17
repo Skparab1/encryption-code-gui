@@ -958,7 +958,7 @@ function draw() {
     text('Spectrum bright',310,335);
     text('Red Green',310,395);
     text('Green Blue',310,455);
-    text('Red Blue',310,515);
+    text('Blue Red',310,515);
     text('High contrast',310,575);
     
     text('Backend',900,850);
@@ -1058,7 +1058,7 @@ function draw() {
     }
     ccstart -= 1;
     xpos = 100;
-    cc1 = 100;
+    cc1 = 150;
     while (xpos <= 300){
       red = (255-Math.abs(255-cc1));
       green = (255-Math.abs(510-cc1));
@@ -1074,7 +1074,7 @@ function draw() {
     }
     
     xpos = 100;
-    cc1 = 350;
+    cc1 = 450;
     while (xpos <= 300){
       red = (255-Math.abs(255-cc1));
       green = (255-Math.abs(510-cc1));
@@ -1085,6 +1085,22 @@ function draw() {
       stroke(red,green,blue);
       fill(red,green,blue);
       rect(xpos,415,2,60);
+      cc1 += 4;
+      xpos += 2;
+    }
+    
+    xpos = 100;
+    cc1 = 700;
+    while (xpos <= 300){
+      red = (255-Math.abs(255-cc1));
+      green = (255-Math.abs(510-cc1));
+      blue = (255-Math.abs(765-cc1));
+      if (cc1 >= 765){
+        red = (255-Math.abs(1020-cc1));
+      }
+      stroke(red,green,blue);
+      fill(red,green,blue);
+      rect(xpos,475,2,60);
       cc1 += 4;
       xpos += 2;
     }
