@@ -410,6 +410,9 @@ function draw() {
       fill(150);
     }
     rect(300,300,700,200);
+    fill(0);
+    stroke(0);
+    text(toencrypt,300,375);
     textSize(100);
     
     
@@ -943,6 +946,7 @@ function draw() {
     }
   } else if (display == 'settings'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    stroke(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Settings',900,100);
     textSize(40);
@@ -950,9 +954,12 @@ function draw() {
     text('Spectrum light',310,275);
     text('Spectrum bright',310,335);
     text('Red Green',310,395);
-    text('Red Blue',310,455);
-    text('Green Blue',310,515);
+    text('Green Blue',310,455);
+    text('Red Blue',310,515);
     text('High contrast',310,575);
+    
+    text('Backend',900,850);
+    
     
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
       fill(200,0,0);
@@ -1047,20 +1054,52 @@ function draw() {
       xpos += 1;
     }
     ccstart -= 1;
+    xpos = 100;
+    cc1 = 100;
+    while (xpos <= 300){
+      red = (255-Math.abs(255-cc1));
+      green = (255-Math.abs(510-cc1));
+      blue = (255-Math.abs(765-cc1));
+      if (cc1 >= 765){
+        red = (255-Math.abs(1020-cc1));
+      }
+      stroke(red,green,blue);
+      fill(red,green,blue);
+      rect(xpos,355,2,60);
+      cc1 += 4;
+      xpos += 2;
+    }
+    
+    xpos = 100;
+    cc1 = 350;
+    while (xpos <= 300){
+      red = (255-Math.abs(255-cc1));
+      green = (255-Math.abs(510-cc1));
+      blue = (255-Math.abs(765-cc1));
+      if (cc1 >= 765){
+        red = (255-Math.abs(1020-cc1));
+      }
+      stroke(red,green,blue);
+      fill(red,green,blue);
+      rect(xpos,415,2,60);
+      cc1 += 4;
+      xpos += 2;
+    }
+    
     if (ccstart <= -510){
       ccstart = 255;
     } 
-    rect(100,415,200,60);
-    rect(100,475,200,60);
-    rect(100,535,200,60);
-    rect(100,595,200,60);
-    rect(100,655,200,60);
-    rect(100,715,200,60);
+    //rect(100,415,200,60);
+    //rect(100,475,200,60);
+    //rect(100,535,200,60);
+    //rect(100,595,200,60);
+    //rect(100,655,200,60);
+    //rect(100,715,200,60);
     
     fill(textcolor[0],textcolor[1],textcolor[2]);
     // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
     fill(0);
-    text(colorscheme,600,500);
+    text(colorscheme,600 ,500);
     
     textSize(60);
     fill(255);
@@ -1095,7 +1134,7 @@ function keyTyped(){
     secq2 += key;
   } else if (logosize < 5250){
     hovered = true;
-  } else if (display == 'encryption' && accountclick == 'encrypting'){
+  } else if (display == 'encryption' && encryptionclick == 'encrypting'){
     toencrypt += key;
   }
   typed += key; 
@@ -1143,6 +1182,7 @@ function mousePressed(){
   if (display == 'main menu') {
   if (mouseX >= 200 && mouseX <= 900 && mouseY >= 200 && mouseY <= 450){
       display = 'encryption';
+      encryptionclick = 'encrypting';
     }
     rect(200,200,700,250);
     if (mouseX >= 1100 && mouseX <= 1800 && mouseY >= 200 && mouseY <= 450){
