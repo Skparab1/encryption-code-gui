@@ -410,10 +410,13 @@ function draw() {
       fill(150);
     }
     rect(300,300,700,200);
+    fill(255);
+    rect(800,700,400,150);
     fill(0);
     stroke(0);
     text(toencrypt,300,375);
-    textSize(100);
+    textSize(50);
+    text('Download Txt',800,750);
     
     
   } else if (display == 'decryption'){
@@ -1314,6 +1317,12 @@ function mousePressed(){
     secq2 = '';
     display = 'main menu';
     localStorage.setItem('localstatus','signed out' );
+  } else if (display == 'encryption'){
+    if (mouseX >= 800 && mouseX <= 1200 && mouseY >= 700 && mouseY <= 850){
+      let writer = createWriter('encrypted_text.txt');
+      writer.write(toencrypt);
+      writer.close();
+    }
   }
   accountanimx = 1000;
   accountanimy = 750;
