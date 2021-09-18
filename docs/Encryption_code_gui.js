@@ -1042,7 +1042,7 @@ function draw() {
       xpos += 1;
     }
     xpos = 100;
-    cc = ccstart;
+    cc = 165;
     while (xpos <= 300){
       red = (255-Math.abs(255-cc)) + 100;
       green = (255-Math.abs(510-cc)) + 100;
@@ -1058,7 +1058,7 @@ function draw() {
     }
     ccstart -= 1;
     xpos = 100;
-    cc1 = 100;
+    cc1 = 165;
     while (xpos <= 300){
       red = (255-Math.abs(255-cc1));
       green = (255-Math.abs(510-cc1));
@@ -1069,6 +1069,21 @@ function draw() {
       stroke(red,green,blue);
       fill(red,green,blue);
       rect(xpos,355,2,60);
+      cc1 += 4;
+      xpos += 2;
+    }
+    xpos = 100;
+    cc1 = 700;
+    while (xpos <= 300){
+      red = (255-Math.abs(255-cc1));
+      green = (255-Math.abs(510-cc1));
+      blue = (255-Math.abs(765-cc1));
+      if (cc1 >= 765){
+        red = (255-Math.abs(1020-cc1));
+      }
+      stroke(red,green,blue);
+      fill(red,green,blue);
+      rect(xpos,475,2,60);
       cc1 += 4;
       xpos += 2;
     }
@@ -1092,10 +1107,13 @@ function draw() {
     if (ccstart <= -510){
       ccstart = 255;
     } 
-    //rect(100,415,200,60);
-    //rect(100,475,200,60);
-    //rect(100,535,200,60);
-    //rect(100,595,200,60);
+    fill(0);
+    rect(100,535,200,60);
+    rect(100,595,200,60);
+    fill(255,255,0);
+    text('  H   C',100,580);
+    fill(255);
+    text('  B   W',100,640);
     //rect(100,655,200,60);
     //rect(100,715,200,60);
     
@@ -1160,7 +1178,7 @@ function keyReleased(){
   } else if (display == 'encryption' && encryptionclick == 'encrypting'){
     toencrypt = toencrypt.substring(0,toencrypt.length-1);
   }
-  } else 
+  } else {
   typed = typed.substring(0, typed.length -1);
   }
   if (keyCode == ENTER){
@@ -1181,7 +1199,6 @@ function keyReleased(){
   } else if (accountclick == 'secq1' && display == 'forgot password'){
     accountclick = 'secq2';
   } 
-  }
   }
 }
 
