@@ -4,7 +4,7 @@
 # Main features that work
 
 ## Starting Animation
-- Hover operated
+- Hover operated with text
 
 ## Accounts
 - Account data is stored locally, so accounts are only one one device
