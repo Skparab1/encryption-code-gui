@@ -1137,7 +1137,7 @@ function keyTyped(){
     secq2 += key;
   } else if (logosize < 5250){
     hovered = true;
-  } else if (display == 'encryption' && encryptionclick == 'encrypting'){
+  } else if (display == 'encryption' && encryptionclick == 'encrypting' && keyCode != ENTER){
     toencrypt += key;
   }
   typed += key; 
@@ -1157,7 +1157,10 @@ function keyReleased(){
     secq1 = secq1.substring(0, secq1.length -1);
   } else if (accountclick == 'secq2'){
     secq2 = secq2.substring(0, secq2.length -1);
+  } else if (display == 'encryption' && encryptionclick == 'encrypting'){
+    toencrypt = toencrypt.substring(0,toencrypt.length-1);
   }
+  } else 
   typed = typed.substring(0, typed.length -1);
   }
   if (keyCode == ENTER){
@@ -1177,6 +1180,7 @@ function keyReleased(){
     accountclick = 'secq1';
   } else if (accountclick == 'secq1' && display == 'forgot password'){
     accountclick = 'secq2';
+  } 
   }
   }
 }
