@@ -948,23 +948,18 @@ function draw() {
       }
     }
   } else if (display == 'settings'){
-    // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     stroke(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Settings',900,100);
     textSize(40);
-    text('Spectrum (Default)',240,215);
+    text('Spectrum (Default)',310,215);
     text('Spectrum light',310,275);
     text('Spectrum bright',310,335);
     text('Red Green',310,395);
     text('Green Blue',310,455);
-    text('Blue Red',310,515);
+    text('Red Blue',310,515);
     text('High contrast',310,575);
-    text('Black White',310,635);
-    text('Default Dark',310,695);
-    text('Dark Blue',310,755);
-    text('Default light',310,815);
     
     text('Backend',900,850);
     
@@ -1047,7 +1042,7 @@ function draw() {
       xpos += 1;
     }
     xpos = 100;
-    cc = ccstart;
+    cc = 165;
     while (xpos <= 300){
       red = (255-Math.abs(255-cc)) + 100;
       green = (255-Math.abs(510-cc)) + 100;
@@ -1063,7 +1058,7 @@ function draw() {
     }
     ccstart -= 1;
     xpos = 100;
-    cc1 = 150;
+    cc1 = 165;
     while (xpos <= 300){
       red = (255-Math.abs(255-cc1));
       green = (255-Math.abs(510-cc1));
@@ -1077,23 +1072,6 @@ function draw() {
       cc1 += 4;
       xpos += 2;
     }
-    
-    xpos = 100;
-    cc1 = 450;
-    while (xpos <= 300){
-      red = (255-Math.abs(255-cc1));
-      green = (255-Math.abs(510-cc1));
-      blue = (255-Math.abs(765-cc1));
-      if (cc1 >= 765){
-        red = (255-Math.abs(1020-cc1));
-      }
-      stroke(red,green,blue);
-      fill(red,green,blue);
-      rect(xpos,415,2,60);
-      cc1 += 4;
-      xpos += 2;
-    }
-    
     xpos = 100;
     cc1 = 700;
     while (xpos <= 300){
@@ -1106,6 +1084,22 @@ function draw() {
       stroke(red,green,blue);
       fill(red,green,blue);
       rect(xpos,475,2,60);
+      cc1 += 4;
+      xpos += 2;
+    }
+    
+    xpos = 100;
+    cc1 = 350;
+    while (xpos <= 300){
+      red = (255-Math.abs(255-cc1));
+      green = (255-Math.abs(510-cc1));
+      blue = (255-Math.abs(765-cc1));
+      if (cc1 >= 765){
+        red = (255-Math.abs(1020-cc1));
+      }
+      stroke(red,green,blue);
+      fill(red,green,blue);
+      rect(xpos,415,2,60);
       cc1 += 4;
       xpos += 2;
     }
@@ -1161,7 +1155,7 @@ function keyTyped(){
     secq2 += key;
   } else if (logosize < 5250){
     hovered = true;
-  } else if (display == 'encryption' && encryptionclick == 'encrypting'){
+  } else if (display == 'encryption' && encryptionclick == 'encrypting' && keyCode != ENTER){
     toencrypt += key;
   }
   typed += key; 
@@ -1181,7 +1175,10 @@ function keyReleased(){
     secq1 = secq1.substring(0, secq1.length -1);
   } else if (accountclick == 'secq2'){
     secq2 = secq2.substring(0, secq2.length -1);
+  } else if (display == 'encryption' && encryptionclick == 'encrypting'){
+    toencrypt = toencrypt.substring(0,toencrypt.length-1);
   }
+  } else {
   typed = typed.substring(0, typed.length -1);
   }
   if (keyCode == ENTER){
@@ -1201,7 +1198,7 @@ function keyReleased(){
     accountclick = 'secq1';
   } else if (accountclick == 'secq1' && display == 'forgot password'){
     accountclick = 'secq2';
-  }
+  } 
   }
 }
 
