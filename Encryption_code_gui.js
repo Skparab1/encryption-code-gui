@@ -80,6 +80,7 @@ var hoverpointer = 175;
 var hpy = 175;
 var syncbuttonpos = 75;
 var sbpos = 75;
+var onscreenkeyboard = 'off';
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -142,6 +143,16 @@ function accountanim(){
       animtime = (1.07 * animtime) ;
       print(animtime);
       strokeWeight(3);
+}
+
+function displaykeyboard(){
+  createCanvas(2048,1250);
+  window.scroll({
+  top: 846,
+  behavior: 'smooth' 
+   });
+  fill(150);
+  rect(100,846,1748,400);
 }
 
 function draw() {
@@ -443,8 +454,16 @@ function draw() {
     textSize(100);
  
   } else if (display == 'account' && signinstatus == 'signed out'){
+    if ((accountclick == 'username' || accountclick == 'password') && onscreenkeyboard == 'on'){
+      displaykeyboard();
+      fill(150);
+      rect(100,846,1748,400);
+    } else {
+      createCanvas(2048,846);
+    }
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
+    textSize(100);
     text('Account',900,100);
     textSize(80);
     text('Sign in',900,200);
@@ -582,6 +601,7 @@ function draw() {
         }
       }
     }
+    
     fill(textcolor[0],textcolor[1],textcolor[2]);
     textSize(100);
     strokeWeight(2);
@@ -741,6 +761,14 @@ function draw() {
       localStorage.setItem('secq2',secq2);
       //saveFile();
     }
+    if ((accountclick == 'username' || accountclick == 'password') && onscreenkeyboard == 'on'){
+      displaykeyboard();
+      fill(150);
+      rect(100,846,1748,400);
+    } else {
+      createCanvas(2048,846);
+    }
+    
     fill(0);
   } else if (display == 'account' && signinstatus != 'signed out'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
@@ -1150,6 +1178,9 @@ function draw() {
     //rect(100,655,200,60);
     //rect(100,715,200,60);
     
+    fill(255,0,0);
+    rect(500,500,200,100);
+    
     stroke(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     rect(300,175,7,(60*11));
@@ -1405,6 +1436,8 @@ function mousePressed(){
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60+60){
       colorscheme = 'default light';
       newarrowheight = 235+60+60+60+60+60+60+60+60+60;
+    } else if (mouseX >= 500 && mouseX <= 700 && mouseY >= 500 && mouseY <= 600){
+      onscreenkeyboard = 'on';
     }
   } else if (display == 'forgot password'){
     if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 175 && mouseY <= 325 && accountclick != 'new password'){
