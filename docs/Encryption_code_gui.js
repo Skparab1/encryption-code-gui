@@ -74,6 +74,12 @@ var foundglobalaccount = false;
 var encryptionclick = 'input';
 var signintype = 'signed out';
 var sync = 'on';
+var nowarrowheight = 175;
+var newarrowheight = 175;
+var hoverpointer = 175;
+var hpy = 175;
+var syncbuttonpos = 75;
+var sbpos = 75;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -777,17 +783,21 @@ function draw() {
     fill(255);
     rect(75,275,400,100);
     text('Sign out',1500,120);
+    
+    if (syncbuttonpos > sbpos){
+      syncbuttonpos -= 10;
+    }
+    if (syncbuttonpos < sbpos){
+      syncbuttonpos += 10;
+    }
     if (sync == 'on'){
       fill(0,255,0);
-      rect(75,275,200,100);
-      fill(0);
-      text('ON',100,350);
     } else {
       fill(255,0,0);
-      rect(275,275,200,100);
-      fill(0);
-      text('         OFF',100,350);
     }
+    rect(syncbuttonpos,275,200,100);
+    fill(0);
+    text('  ON  OFF',100,350);
     fill(255);
     
     if (accountclick == 'signing out' && animtime <= 100){
@@ -1146,11 +1156,51 @@ function draw() {
     // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
     fill(0);
     
+    if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235-60 && mouseY <= 235){
+      hoverpointer = 175;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235 && mouseY <= 235+60){
+      hoverpointer = 235;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60 && mouseY <= 235+60+60){
+      hoverpointer = 235+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60 && mouseY <= 235+60+60+60){
+      hoverpointer = 235+60+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60 && mouseY <= 235+60+60+60+60){
+      hoverpointer = 235+60+60+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60 && mouseY <= 235+60+60+60+60+60){
+      hoverpointer = 235+60+60+60+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60){
+      hoverpointer = 235+60+60+60+60+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60){
+      hoverpointer = 235+60+60+60+60+60+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60){
+      hoverpointer = 235+60+60+60+60+60+60+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60){
+      hoverpointer = 235+60+60+60+60+60+60+60+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60+60){
+      hoverpointer = 235+60+60+60+60+60+60+60+60+60;
+    }
+    
+    if (newarrowheight < nowarrowheight){
+      nowarrowheight -= 10;
+    } else if (newarrowheight > nowarrowheight){
+      nowarrowheight += 10;
+    }
+    if (hoverpointer < hpy){
+      hpy -= 10;
+    } else if (hoverpointer > hpy){
+      hpy += 10;
+    }
+      
     textSize(60);
     fill(255);
     text('Back',90,120);
-    textSize(100);
+    textSize(300);
     fill(textcolor[0],textcolor[1],textcolor[2]);
+    stroke(textcolor[0],textcolor[1],textcolor[2]);
+    text('•',0,nowarrowheight+135);
+    textSize(60);
+    text('>',40,hpy+48);
+    textSize(100);
   }
   if (changingcolor < 255){
     changingcolor += 3;
@@ -1287,8 +1337,10 @@ function mousePressed(){
       accountclick = 'signing out';
     } else if (mouseX >= 75 && mouseX <= 475 && mouseY >= 275 && mouseY <= 375 && sync == 'on'){
       sync = 'off';
+      sbpos = 275;
     } else if (mouseX >= 75 && mouseX <= 475 && mouseY >= 275 && mouseY <= 375 && sync == 'off'){
       sync = 'on';
+      sbpos = 75;
     }
   }
   
@@ -1322,26 +1374,37 @@ function mousePressed(){
     rect(100,235,1,60);
     if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235-60 && mouseY <= 235){
       colorscheme = 'Spectrum (Default)';
+      newarrowheight = 175;
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235 && mouseY <= 235+60){
       colorscheme = 'spectrum light';
+      newarrowheight = 235;
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60 && mouseY <= 235+60+60){
       colorscheme = 'spectrum bright';
+      newarrowheight = 235+60;
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60 && mouseY <= 235+60+60+60){
       colorscheme = 'red-green';
+      newarrowheight = 235+60+60;
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60 && mouseY <= 235+60+60+60+60){
       colorscheme = 'red-blue';
+      newarrowheight = 235+60+60+60;
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60 && mouseY <= 235+60+60+60+60+60){
       colorscheme = 'green-blue';
+      newarrowheight = 235+60+60+60+60;
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60){
       colorscheme = 'high contrast';
+      newarrowheight = 235+60+60+60+60+60;
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60){
       colorscheme = 'black-white';
+      newarrowheight = 235+60+60+60+60+60+60;
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60){
       colorscheme = 'default dark';
+      newarrowheight = 235+60+60+60+60+60+60+60;
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60){
       colorscheme = 'dark blue';
+      newarrowheight = 235+60+60+60+60+60+60+60+60;
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60+60){
       colorscheme = 'default light';
+      newarrowheight = 235+60+60+60+60+60+60+60+60+60;
     }
   } else if (display == 'forgot password'){
     if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 175 && mouseY <= 325 && accountclick != 'new password'){
