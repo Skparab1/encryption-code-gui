@@ -298,7 +298,6 @@ function draw() {
     fill(x*4,(x-50)*4,(x-100)*4);
     text('Encryption code ',400,650);
     textSize(75);
-    stroke(0);
     if (startingcycle == 2){
       fill((x-50)*4,(x-100)*4,x*4);
       text('Hover over logo to begin',450,800);
@@ -307,7 +306,6 @@ function draw() {
       text('With great graphics comes great capability',250,800);
     }
   } else {
-    stroke(0);
     setInterval(donothing,100);
     textSize(150);
     fill(255 - ((x-160)*6.5));
@@ -1118,12 +1116,15 @@ function draw() {
       ccstart = 255;
     } 
     fill(0);
+    stroke(0);
     rect(100,535,200,60);
     rect(100,595,200,60);
     rect(100,595+60,200,60);
     fill(0,0,100);
+    stroke(0,0,100);
     rect(100,595+60+60,200,60);
     fill(150,150,150);
+    stroke(150,150,150);
     rect(100,595+60+60+60,200,60);
     fill(255,255,0);
     text('    H   C',100,580);
@@ -1139,7 +1140,9 @@ function draw() {
     //rect(100,655,200,60);
     //rect(100,715,200,60);
     
-    fill(textcolor[0],textcolor[1],textcolor[2]);
+    stroke(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    fill(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    rect(300,175,7,(60*11));
     // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
     fill(0);
     
