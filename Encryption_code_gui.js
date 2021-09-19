@@ -78,6 +78,8 @@ var nowarrowheight = 175;
 var newarrowheight = 175;
 var hoverpointer = 175;
 var hpy = 175;
+var syncbuttonpos = 75;
+var sbpos = 75;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -781,17 +783,21 @@ function draw() {
     fill(255);
     rect(75,275,400,100);
     text('Sign out',1500,120);
+    
+    if (syncbuttonpos > sbpos){
+      syncbuttonpos -= 10;
+    }
+    if (syncbuttonpos < sbpos){
+      syncbuttonpos += 10;
+    }
     if (sync == 'on'){
       fill(0,255,0);
-      rect(75,275,200,100);
-      fill(0);
-      text('ON',100,350);
     } else {
       fill(255,0,0);
-      rect(275,275,200,100);
-      fill(0);
-      text('         OFF',100,350);
     }
+    rect(syncbuttonpos,275,200,100);
+    fill(0);
+    text('  ON  OFF',100,350);
     fill(255);
     
     if (accountclick == 'signing out' && animtime <= 100){
@@ -1331,8 +1337,10 @@ function mousePressed(){
       accountclick = 'signing out';
     } else if (mouseX >= 75 && mouseX <= 475 && mouseY >= 275 && mouseY <= 375 && sync == 'on'){
       sync = 'off';
+      sbpos = 275;
     } else if (mouseX >= 75 && mouseX <= 475 && mouseY >= 275 && mouseY <= 375 && sync == 'off'){
       sync = 'on';
+      sbpos = 75;
     }
   }
   
