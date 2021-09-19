@@ -8,7 +8,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(2000,875);
+  createCanvas(2048,846);
   background(0);
   try{
     usernames = table.getColumn(0);
@@ -257,28 +257,30 @@ function draw() {
   textcolor = [255,255,255];
   backgroundcolor = [0,0,0];
   } else if (colorscheme == 'default dark'){
-  green = (130);
-  blue = (130);
-  red = (130);
-  textcolor = [255,255,190];
-  backgroundcolor = [0,0,100];
-  } else if (colorscheme == 'dark blue'){
-  green = (0);
-  blue = (130);
-  red = (0);
-  textcolor = [50,0,0];
-  } else if (colorscheme == 'default light'){
-  green = (150);
-  blue = (150);
+  green = (100);
+  blue = (50);
   red = (150);
-  textcolor = [0,0,0];
+  textcolor = [255,255,190];
   backgroundcolor = [100,100,100];
+  } else if (colorscheme == 'dark blue'){
+  green = (50);
+  blue = (100);
+  red = (100);
+  textcolor = [0,100,255];
+  backgroundcolor = [0,0,100];
+  } else if (colorscheme == 'default light'){
+  green = (170);
+  blue = (170);
+  red = (170);
+  textcolor = [0,0,0];
+  backgroundcolor = [200,200,200];
   }
   
   stroke(textcolor[0], textcolor[1], textcolor[2]);
     
   if (logosize < 5250){
   background(0);
+  stroke(0);
   image(logo,700-((logosize-250)/2), 200-((logosize-250)/2)-((logosize-250)/5),logosize,logosize);
   if (firsttime){
     setInterval(donothing,100);
@@ -296,6 +298,7 @@ function draw() {
     fill(x*4,(x-50)*4,(x-100)*4);
     text('Encryption code ',400,650);
     textSize(75);
+    stroke(0);
     if (startingcycle == 2){
       fill((x-50)*4,(x-100)*4,x*4);
       text('Hover over logo to begin',450,800);
@@ -304,6 +307,7 @@ function draw() {
       text('With great graphics comes great capability',250,800);
     }
   } else {
+    stroke(0);
     setInterval(donothing,100);
     textSize(150);
     fill(255 - ((x-160)*6.5));
@@ -953,6 +957,7 @@ function draw() {
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Settings',900,100);
     textSize(40);
+    text('Current theme: '+colorscheme,310 ,135);
     text('Spectrum (Default)',310,215);
     text('Spectrum light',310,275);
     text('Spectrum bright',310,335);
@@ -960,6 +965,11 @@ function draw() {
     text('Green Blue',310,455);
     text('Red Blue',310,515);
     text('High contrast',310,575);
+    text('Black White',310,575 + 60);
+    text('Default Dark',310,575 + 60 + 60);
+    text('Dark Blue',310,575 + 60 + 60 + 60);
+    text('Default Light',310,575 + 60 + 60 + 60 + 60);
+    
     
     text('Backend',900,850);
     
@@ -1110,17 +1120,28 @@ function draw() {
     fill(0);
     rect(100,535,200,60);
     rect(100,595,200,60);
+    rect(100,595+60,200,60);
+    fill(0,0,100);
+    rect(100,595+60+60,200,60);
+    fill(150,150,150);
+    rect(100,595+60+60+60,200,60);
     fill(255,255,0);
-    text('  H   C',100,580);
+    text('    H   C',100,580);
     fill(255);
-    text('  B   W',100,640);
+    text('    B   W',100,640);
+    fill(200);
+    text('    DARK  ',100,640+60);
+    fill(0,100,255);
+    text('    BLUE ',100,640+60+60);
+    fill(50);
+    text('    LIGHT',100,640+60+60+60);
+    //default dark, dark blue, default light
     //rect(100,655,200,60);
     //rect(100,715,200,60);
     
     fill(textcolor[0],textcolor[1],textcolor[2]);
     // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
     fill(0);
-    text(colorscheme,600 ,500);
     
     textSize(60);
     fill(255);
@@ -1294,22 +1315,31 @@ function mousePressed(){
     } 
   }
   if (display == 'settings'){
-    if (mouseX >= 200 && mouseX <= 300 && mouseY >= 200 && mouseY <= 275){
-      // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
-      if (colorscheme == 'Spectrum (Default)'){
-        colorscheme = 'spectrum light';
-      } else if (colorscheme == 'spectrum light'){
-        colorscheme = 'spectrum bright';
-      } else if (colorscheme == 'spectrum bright'){
-        colorscheme = 'red-green';
-      } else if (colorscheme == 'red-green'){
-        colorscheme = 'red-blue';
-      } else if (colorscheme == 'red-blue'){
-        colorscheme = 'high contrast';
-      } else if (colorscheme == 'high contrast'){
-        colorscheme = 'Spectrum (Default)';
-      }
-  }
+    // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
+    rect(100,235,1,60);
+    if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235-60 && mouseY <= 235){
+      colorscheme = 'Spectrum (Default)';
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235 && mouseY <= 235+60){
+      colorscheme = 'spectrum light';
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60 && mouseY <= 235+60+60){
+      colorscheme = 'spectrum bright';
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60 && mouseY <= 235+60+60+60){
+      colorscheme = 'red-green';
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60 && mouseY <= 235+60+60+60+60){
+      colorscheme = 'red-blue';
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60 && mouseY <= 235+60+60+60+60+60){
+      colorscheme = 'green-blue';
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60){
+      colorscheme = 'high contrast';
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60){
+      colorscheme = 'black-white';
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60){
+      colorscheme = 'default dark';
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60){
+      colorscheme = 'dark blue';
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60+60){
+      colorscheme = 'default light';
+    }
   } else if (display == 'forgot password'){
     if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 175 && mouseY <= 325 && accountclick != 'new password'){
       accountclick = 'username';
