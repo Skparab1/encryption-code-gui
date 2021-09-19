@@ -76,6 +76,8 @@ var signintype = 'signed out';
 var sync = 'on';
 var nowarrowheight = 175;
 var newarrowheight = 175;
+var hoverpointer = 175;
+var hpy = 175;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -1148,18 +1150,50 @@ function draw() {
     // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
     fill(0);
     
+    if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235-60 && mouseY <= 235){
+      hoverpointer = 175;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235 && mouseY <= 235+60){
+      hoverpointer = 235;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60 && mouseY <= 235+60+60){
+      hoverpointer = 235+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60 && mouseY <= 235+60+60+60){
+      hoverpointer = 235+60+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60 && mouseY <= 235+60+60+60+60){
+      hoverpointer = 235+60+60+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60 && mouseY <= 235+60+60+60+60+60){
+      hoverpointer = 235+60+60+60+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60){
+      hoverpointer = 235+60+60+60+60+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60){
+      hoverpointer = 235+60+60+60+60+60+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60){
+      hoverpointer = 235+60+60+60+60+60+60+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60){
+      hoverpointer = 235+60+60+60+60+60+60+60+60;
+    } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60+60){
+      hoverpointer = 235+60+60+60+60+60+60+60+60+60;
+    }
+    
     if (newarrowheight < nowarrowheight){
       nowarrowheight -= 10;
     } else if (newarrowheight > nowarrowheight){
       nowarrowheight += 10;
     }
-    
+    if (hoverpointer < hpy){
+      hpy -= 10;
+    } else if (hoverpointer > hpy){
+      hpy += 10;
+    }
+      
     textSize(60);
     fill(255);
     text('Back',90,120);
     textSize(300);
     fill(textcolor[0],textcolor[1],textcolor[2]);
+    stroke(textcolor[0],textcolor[1],textcolor[2]);
     text('•',0,nowarrowheight+135);
+    textSize(60);
+    text('>',40,hpy+48);
     textSize(100);
   }
   if (changingcolor < 255){
