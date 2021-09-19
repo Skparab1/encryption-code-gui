@@ -81,6 +81,8 @@ var hpy = 175;
 var syncbuttonpos = 75;
 var sbpos = 75;
 var onscreenkeyboard = 'off';
+var invokedkeyboard = 'no';
+var pressedinvoke = false;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -146,13 +148,35 @@ function accountanim(){
 }
 
 function displaykeyboard(){
-  createCanvas(2048,1250);
+  createCanvas(2048,1300);
+  if (pressedinvoke){
   window.scroll({
   top: 846,
   behavior: 'smooth' 
-   });
+   }); }
+  background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
   fill(150);
-  rect(100,846,1748,400);
+  rect(100,846,1846,450);
+  let rectx = 150;
+  while (rectx <= 1800){
+    rect(rectx,860,100,85);
+    rectx += 115;
+  }
+  rectx = 180;
+  while (rectx <= 1800){
+    rect(rectx,960,100,85);
+    rectx += 115;
+  }
+  rectx = 200;
+  while (rectx <= 1800){
+    rect(rectx,1060,100,85);
+    rectx += 115;
+  }
+  rectx = 220;
+  while (rectx <= 1800){
+    rect(rectx,1160,100,85);
+    rectx += 115;
+  }
 }
 
 function draw() {
@@ -458,10 +482,18 @@ function draw() {
       displaykeyboard();
       fill(150);
       rect(100,846,1748,400);
+      invokedkeyboard = 'yes';
     } else {
       createCanvas(2048,846);
+      invokedkeyboard = 'no';
     }
+    pressedinvoke = false;
+    
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    if (invokedkeyboard == 'yes'){
+      displaykeyboard();
+    }
+    
     fill(textcolor[0],textcolor[1],textcolor[2]);
     textSize(100);
     text('Account',900,100);
@@ -760,13 +792,6 @@ function draw() {
       localStorage.setItem('secq1',secq1);
       localStorage.setItem('secq2',secq2);
       //saveFile();
-    }
-    if ((accountclick == 'username' || accountclick == 'password') && onscreenkeyboard == 'on'){
-      displaykeyboard();
-      fill(150);
-      rect(100,846,1748,400);
-    } else {
-      createCanvas(2048,846);
     }
     
     fill(0);
@@ -1341,8 +1366,10 @@ function mousePressed(){
     rect(600,475,800,150);
     if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 275 && mouseY <= 425){
       accountclick = 'username';
+      pressedinvoke = true;
     } else if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 475 && mouseY <= 625){
       accountclick = 'password';
+      pressedinvoke = true;
     } else if (mouseX >= 1100 && mouseX <= 1400 && mouseY >= 700 && mouseY <= 800){
       accountclick = 'verifying';
       tabstatus = true;
