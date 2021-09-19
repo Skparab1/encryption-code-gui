@@ -156,27 +156,39 @@ function displaykeyboard(){
    }); }
   background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
   fill(150);
-  rect(100,846,1846,450);
+  rect(100,846,1946,450);
+  fill(0);
   let rectx = 150;
-  while (rectx <= 1800){
+  while (rectx <= 1600){
     rect(rectx,860,100,85);
     rectx += 115;
   }
+  rect(rectx,860,375,85);
   rectx = 180;
   while (rectx <= 1800){
     rect(rectx,960,100,85);
     rectx += 115;
   }
+  rect(150,960,100,85);
+  rect(rectx-120,960,200,85);
   rectx = 200;
   while (rectx <= 1800){
     rect(rectx,1060,100,85);
     rectx += 115;
   }
+  rect(150,960,150,85);
   rectx = 220;
   while (rectx <= 1800){
     rect(rectx,1160,100,85);
     rectx += 115;
   }
+  fill(255);
+  textSize(70);
+  text('~    1    2    3    4    5    6    7    8    9    0    -    =    Backspace',152,925);
+  textSize(65);
+  text(' Tab  Q    W    E    R    T    Y    U    I    O    P    [     ]      \\    Next',143,1025);
+  text('CapsLock A    S    D    F    G    H    J    K    L    ;    \' Sign in ',143,1125);
+
 }
 
 function draw() {
