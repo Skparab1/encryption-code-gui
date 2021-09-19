@@ -47,7 +47,7 @@ var accountanimy = 750;
 var aaxd = 'right';
 var aayd = 'down';
 var animtime = 1;
-var colorscheme = 'Spectrum (Default)';
+var colorscheme = 'default dark';
 var textcolor = [255,255,255];
 var backgroundcolor = [0,0,0];
 var bg;
@@ -257,16 +257,16 @@ function draw() {
   textcolor = [255,255,255];
   backgroundcolor = [0,0,0];
   } else if (colorscheme == 'default dark'){
-  green = (130);
+  green = (150);
   blue = (130);
-  red = (130);
+  red = (140);
   textcolor = [255,255,190];
-  backgroundcolor = [0,0,100];
+  backgroundcolor = [100,100,100];
   } else if (colorscheme == 'dark blue'){
   green = (0);
   blue = (130);
   red = (0);
-  textcolor = [50,0,0];
+  textcolor = [0,0,100];
   } else if (colorscheme == 'default light'){
   green = (150);
   blue = (150);
@@ -279,6 +279,7 @@ function draw() {
     
   if (logosize < 5250){
   background(0);
+  stroke(0);
   image(logo,700-((logosize-250)/2), 200-((logosize-250)/2)-((logosize-250)/5),logosize,logosize);
   if (firsttime){
     setInterval(donothing,100);
@@ -296,6 +297,7 @@ function draw() {
     fill(x*4,(x-50)*4,(x-100)*4);
     text('Encryption code ',400,650);
     textSize(75);
+    stroke(0);
     if (startingcycle == 2){
       fill((x-50)*4,(x-100)*4,x*4);
       text('Hover over logo to begin',450,800);
@@ -304,6 +306,7 @@ function draw() {
       text('With great graphics comes great capability',250,800);
     }
   } else {
+    stroke(0);
     setInterval(donothing,100);
     textSize(150);
     fill(255 - ((x-160)*6.5));
@@ -1114,6 +1117,7 @@ function draw() {
     text('  H   C',100,580);
     fill(255);
     text('  B   W',100,640);
+    //default dark, dark blue, default light
     //rect(100,655,200,60);
     //rect(100,715,200,60);
     
