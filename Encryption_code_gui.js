@@ -80,9 +80,10 @@ var hoverpointer = 175;
 var hpy = 175;
 var syncbuttonpos = 75;
 var sbpos = 75;
-var onscreenkeyboard = 'off';
+var autoinvokekeyboard = 'on';
 var invokedkeyboard = 'no';
 var pressedinvoke = false;
+var revokedkeyboard = 30;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -170,13 +171,16 @@ function displaykeyboard(){
     rectx += 115;
   }
   rect(150,960,100,85);
-  rect(rectx-120,960,200,85);
   rectx = 200;
   while (rectx <= 1800){
     rect(rectx,1060,100,85);
     rectx += 115;
   }
-  rect(150,960,150,85);
+  rect(150,1060,200,85);
+  rect(150,1160,150,85);
+  rect(rectx-120,960,330,85);
+  rect(rectx-110,1060,315,85);
+  rect(rectx-110,1160,310,85);
   rectx = 220;
   while (rectx <= 1800){
     rect(rectx,1160,100,85);
@@ -184,11 +188,12 @@ function displaykeyboard(){
   }
   fill(255);
   textSize(70);
-  text('~    1    2    3    4    5    6    7    8    9    0    -    =    Backspace',152,925);
+  text('~    1    2    3    4    5    6    7    8    9    0    (     )    Backspace',152,925);
   textSize(65);
-  text(' Tab  Q    W    E    R    T    Y    U    I    O    P    [     ]      \\    Next',143,1025);
-  text('CapsLock A    S    D    F    G    H    J    K    L    ;    \' Sign in ',143,1125);
-
+  text(' Tab  Q    W    E    R    T    Y    U    I    O    P    ;     :      Hide keys ',143,1025);
+  text(' CapsLok  A    S    D    F    G    H    J    K    L    .       ,      Enter ',143, 1125);
+  text(' Shift    Z    X    C    V    B    N    M    !    ?    @    &      SPACE',143, 1225);
+  print(mouseX,mouseY);
 }
 
 function draw() {
@@ -490,7 +495,7 @@ function draw() {
     textSize(100);
  
   } else if (display == 'account' && signinstatus == 'signed out'){
-    if ((accountclick == 'username' || accountclick == 'password') && onscreenkeyboard == 'on'){
+    if ((accountclick == 'username' || accountclick == 'password') && invokedkeyboard == 'yes'){
       displaykeyboard();
       fill(150);
       rect(100,846,1748,400);
@@ -499,12 +504,20 @@ function draw() {
       createCanvas(2048,846);
       invokedkeyboard = 'no';
     }
+    if (revokedkeyboard == 15){
+      invokedkeyboard = 'no';
+    }
+    print(revokedkeyboard);
+    
+    revokedkeyboard += 1;
     pressedinvoke = false;
     
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     if (invokedkeyboard == 'yes'){
       displaykeyboard();
     }
+    fill(255,0,0);
+    //rect(1800,500,100,100);
     
     fill(textcolor[0],textcolor[1],textcolor[2]);
     textSize(100);
@@ -1378,9 +1391,18 @@ function mousePressed(){
     rect(600,475,800,150);
     if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 275 && mouseY <= 425){
       accountclick = 'username';
+      if (autoinvokekeyboard == 'on'){
+        invokedkeyboard = 'yes';
+      }
       pressedinvoke = true;
     } else if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 475 && mouseY <= 625){
       accountclick = 'password';
+      pressedinvoke = true;
+      if (autoinvokekeyboard == 'on'){
+        invokedkeyboard = 'yes';
+      }
+    } else if (mouseX >= 1800 && mouseX <= 1900 && mouseY >= 500 && mouseY <= 600){
+      accountclick = 'username';
       pressedinvoke = true;
     } else if (mouseX >= 1100 && mouseX <= 1400 && mouseY >= 700 && mouseY <= 800){
       accountclick = 'verifying';
@@ -1397,6 +1419,13 @@ function mousePressed(){
       showpassword = true;
     } else if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 550 && mouseY <= 625 && showpassword){
       showpassword = false;
+    } else if (mouseX >= 1680 && mouseX <= 2025 && mouseY >= 965 && mouseY <= 1050 && invokedkeyboard == 'yes'){
+      print('revoked');
+      window.scroll({
+      top: 0,
+      behavior: 'smooth' 
+      });
+      revokedkeyboard = 0;
     } else {
       accountclick = 'none';
     }
@@ -1476,7 +1505,7 @@ function mousePressed(){
       colorscheme = 'default light';
       newarrowheight = 235+60+60+60+60+60+60+60+60+60;
     } else if (mouseX >= 500 && mouseX <= 700 && mouseY >= 500 && mouseY <= 600){
-      onscreenkeyboard = 'on';
+      autoinvokekeyboard = 'on';
     }
   } else if (display == 'forgot password'){
     if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 175 && mouseY <= 325 && accountclick != 'new password'){
