@@ -80,7 +80,7 @@ var hoverpointer = 175;
 var hpy = 175;
 var syncbuttonpos = 75;
 var sbpos = 75;
-var autoinvokekeyboard = 'on';
+var autoinvokekeyboard = 'off';
 var invokedkeyboard = 'no';
 var pressedinvoke = false;
 var revokedkeyboard = 30;
@@ -603,6 +603,16 @@ function draw() {
     rect(1450,550,500,75);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Show password',1500,600);
+    
+    if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 425 && mouseY <= 500){
+      fill(200,100,0);
+    } else {
+      fill(200);
+    }
+    rect(1450,425,500,75);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
+    textSize(40);
+    text('Show on screen Keyboard',1470,475);
     
     if (accountclick == 'verifying' && animtime <= 125){
       accountanim();
@@ -1426,8 +1436,21 @@ function mousePressed(){
       behavior: 'smooth' 
       });
       revokedkeyboard = 0;
+    } else if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 425 && mouseY <= 500){
+      invokedkeyboard = 'yes';
+      pressedinvoke = true;
+      if (accountclick == 'none'){
+        accountclick = 'username';
+      }
     } else {
       accountclick = 'none';
+      if (invokedkeyboard == 'yes'){
+        window.scroll({
+        top: 0,
+        behavior: 'smooth' 
+        });
+        revokedkeyboard = 0;
+      }
     }
   }
   
