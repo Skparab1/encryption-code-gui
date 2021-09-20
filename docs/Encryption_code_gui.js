@@ -80,6 +80,10 @@ var hoverpointer = 175;
 var hpy = 175;
 var syncbuttonpos = 75;
 var sbpos = 75;
+var autoinvokekeyboard = 'on';
+var invokedkeyboard = 'no';
+var pressedinvoke = false;
+var revokedkeyboard = 30;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -142,6 +146,54 @@ function accountanim(){
       animtime = (1.07 * animtime) ;
       print(animtime);
       strokeWeight(3);
+}
+
+function displaykeyboard(){
+  createCanvas(2048,1300);
+  if (pressedinvoke){
+  window.scroll({
+  top: 846,
+  behavior: 'smooth' 
+   }); }
+  background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+  fill(150);
+  rect(100,846,1946,450);
+  fill(0);
+  let rectx = 150;
+  while (rectx <= 1600){
+    rect(rectx,860,100,85);
+    rectx += 115;
+  }
+  rect(rectx,860,375,85);
+  rectx = 180;
+  while (rectx <= 1800){
+    rect(rectx,960,100,85);
+    rectx += 115;
+  }
+  rect(150,960,100,85);
+  rectx = 200;
+  while (rectx <= 1800){
+    rect(rectx,1060,100,85);
+    rectx += 115;
+  }
+  rect(150,1060,200,85);
+  rect(150,1160,150,85);
+  rect(rectx-120,960,330,85);
+  rect(rectx-110,1060,315,85);
+  rect(rectx-110,1160,310,85);
+  rectx = 220;
+  while (rectx <= 1800){
+    rect(rectx,1160,100,85);
+    rectx += 115;
+  }
+  fill(255);
+  textSize(70);
+  text('~    1    2    3    4    5    6    7    8    9    0    (     )    Backspace',152,925);
+  textSize(65);
+  text(' Tab  Q    W    E    R    T    Y    U    I    O    P    ;     :      Hide keys ',143,1025);
+  text(' CapsLok  A    S    D    F    G    H    J    K    L    .       ,      Enter ',143, 1125);
+  text(' Shift    Z    X    C    V    B    N    M    !    ?    @    &      SPACE',143, 1225);
+  print(mouseX,mouseY);
 }
 
 function draw() {
@@ -443,8 +495,32 @@ function draw() {
     textSize(100);
  
   } else if (display == 'account' && signinstatus == 'signed out'){
+    if ((accountclick == 'username' || accountclick == 'password') && invokedkeyboard == 'yes'){
+      displaykeyboard();
+      fill(150);
+      rect(100,846,1748,400);
+      invokedkeyboard = 'yes';
+    } else {
+      createCanvas(2048,846);
+      invokedkeyboard = 'no';
+    }
+    if (revokedkeyboard == 15){
+      invokedkeyboard = 'no';
+    }
+    print(revokedkeyboard);
+    
+    revokedkeyboard += 1;
+    pressedinvoke = false;
+    
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    if (invokedkeyboard == 'yes'){
+      displaykeyboard();
+    }
+    fill(255,0,0);
+    //rect(1800,500,100,100);
+    
     fill(textcolor[0],textcolor[1],textcolor[2]);
+    textSize(100);
     text('Account',900,100);
     textSize(80);
     text('Sign in',900,200);
@@ -582,6 +658,7 @@ function draw() {
         }
       }
     }
+    
     fill(textcolor[0],textcolor[1],textcolor[2]);
     textSize(100);
     strokeWeight(2);
@@ -741,6 +818,7 @@ function draw() {
       localStorage.setItem('secq2',secq2);
       //saveFile();
     }
+    
     fill(0);
   } else if (display == 'account' && signinstatus != 'signed out'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
@@ -1150,6 +1228,9 @@ function draw() {
     //rect(100,655,200,60);
     //rect(100,715,200,60);
     
+    fill(255,0,0);
+    rect(500,500,200,100);
+    
     stroke(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     rect(300,175,7,(60*11));
@@ -1310,8 +1391,19 @@ function mousePressed(){
     rect(600,475,800,150);
     if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 275 && mouseY <= 425){
       accountclick = 'username';
+      if (autoinvokekeyboard == 'on'){
+        invokedkeyboard = 'yes';
+      }
+      pressedinvoke = true;
     } else if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 475 && mouseY <= 625){
       accountclick = 'password';
+      pressedinvoke = true;
+      if (autoinvokekeyboard == 'on'){
+        invokedkeyboard = 'yes';
+      }
+    } else if (mouseX >= 1800 && mouseX <= 1900 && mouseY >= 500 && mouseY <= 600){
+      accountclick = 'username';
+      pressedinvoke = true;
     } else if (mouseX >= 1100 && mouseX <= 1400 && mouseY >= 700 && mouseY <= 800){
       accountclick = 'verifying';
       tabstatus = true;
@@ -1327,6 +1419,13 @@ function mousePressed(){
       showpassword = true;
     } else if (mouseX >= 1450 && mouseX <= 1950 && mouseY >= 550 && mouseY <= 625 && showpassword){
       showpassword = false;
+    } else if (mouseX >= 1680 && mouseX <= 2025 && mouseY >= 965 && mouseY <= 1050 && invokedkeyboard == 'yes'){
+      print('revoked');
+      window.scroll({
+      top: 0,
+      behavior: 'smooth' 
+      });
+      revokedkeyboard = 0;
     } else {
       accountclick = 'none';
     }
@@ -1405,6 +1504,8 @@ function mousePressed(){
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60+60){
       colorscheme = 'default light';
       newarrowheight = 235+60+60+60+60+60+60+60+60+60;
+    } else if (mouseX >= 500 && mouseX <= 700 && mouseY >= 500 && mouseY <= 600){
+      autoinvokekeyboard = 'on';
     }
   } else if (display == 'forgot password'){
     if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 175 && mouseY <= 325 && accountclick != 'new password'){
