@@ -25,6 +25,7 @@ function setup() {
   }
 }
 
+var typed;
 var logosize = 250;
 var firsttime = true;
 var x = 0;
@@ -507,8 +508,7 @@ function draw() {
     if (revokedkeyboard == 15){
       invokedkeyboard = 'no';
     }
-    print(revokedkeyboard);
-    
+
     revokedkeyboard += 1;
     pressedinvoke = false;
     
@@ -1303,7 +1303,6 @@ function draw() {
     changingcolor = 255;
   }
 }
-var typed;
 
 function keyTyped(){
   if (accountclick == 'username' && keyCode != ENTER){
