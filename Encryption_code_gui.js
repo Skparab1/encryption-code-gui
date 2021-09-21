@@ -86,6 +86,7 @@ var invokedkeyboard = 'no';
 var pressedinvoke = false;
 var revokedkeyboard = 30;
 var capslock = 'off';
+var uppercase = 'off';
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -178,12 +179,25 @@ function displaykeyboard(){
     rect(rectx,1060,100,85);
     rectx += 115;
   }
+  
+  if (capslock == 'on'){
+    fill(200,100,0);
+  } else {
+    fill(0);
+  }
   rect(150,1060,200,85);
+  
+  if (uppercase == 'on'){
+    fill(200,100,0);
+  } else {
+    fill(0);
+  }
   rect(150,1160,150,85);
+  fill(0);
   rect(rectx-120,960,330,85);
   rect(rectx-110,1060,315,85);
   rect(rectx-110,1160,310,85);
-  rectx = 220;
+  rectx = 335;
   while (rectx <= 1800){
     rect(rectx,1160,100,85);
     rectx += 115;
@@ -1411,6 +1425,9 @@ function mousePressed(){
       if (autoinvokekeyboard == 'on'){
         invokedkeyboard = 'yes';
       }
+      if (invokedkeyboard == 'yes'){
+        invokekeyboard();
+      }
     } else if (mouseX >= 1800 && mouseX <= 1900 && mouseY >= 500 && mouseY <= 600){
       accountclick = 'username';
       pressedinvoke = true;
@@ -1464,46 +1481,49 @@ function mousePressed(){
     if (mouseX >= 1645 && mouseX <= 2025 && mouseY >= 860 && mouseY <= 950){ keyCode = BACKSPACE; keyReleased();}
     
     if (mouseX >= 150 && mouseX <= 280 && mouseY >= 960 && mouseY <= 1050){ key = '   '; keyTyped();}
-    if (mouseX >= 295 && mouseX <= 395 && mouseY >= 960 && mouseY <= 1050){ key = 'q'; keyTyped();}
-    if (mouseX >= 410 && mouseX <= 510 && mouseY >= 960 && mouseY <= 1050){ key = 'w'; keyTyped();}
-    if (mouseX >= 525 && mouseX <= 625 && mouseY >= 960 && mouseY <= 1050){ key = 'e'; keyTyped();}
-    if (mouseX >= 640 && mouseX <= 740 && mouseY >= 960 && mouseY <= 1050){ key = 'r'; keyTyped();}
-    if (mouseX >= 755 && mouseX <= 855 && mouseY >= 960 && mouseY <= 1050){ key = 't'; keyTyped();}
-    if (mouseX >= 870 && mouseX <= 970 && mouseY >= 960 && mouseY <= 1050){ key = 'y'; keyTyped();}
-    if (mouseX >= 985 && mouseX <= 1085 && mouseY >= 960 && mouseY <= 1050){ key = 'u'; keyTyped();}
-    if (mouseX >= 1100 && mouseX <= 1200 && mouseY >= 960 && mouseY <= 1050){ key = 'i'; keyTyped();}
-    if (mouseX >= 1215 && mouseX <= 1315 && mouseY >= 960 && mouseY <= 1050){ key = 'o'; keyTyped();}
-    if (mouseX >= 1330 && mouseX <= 1430 && mouseY >= 960 && mouseY <= 1050){ key = 'p'; keyTyped();}
-    if (mouseX >= 1445 && mouseX <= 1545 && mouseY >= 960 && mouseY <= 1050){ key = ';'; keyTyped();}
-    if (mouseX >= 1560 && mouseX <= 1660 && mouseY >= 960 && mouseY <= 1050){ key = ':'; keyTyped();}
+    if (mouseX >= 295 && mouseX <= 395 && mouseY >= 960 && mouseY <= 1050){ if (uppercase == 'off'){ key = 'q'; } else { key = 'Q'; } keyTyped();}
+    if (mouseX >= 410 && mouseX <= 510 && mouseY >= 960 && mouseY <= 1050){ if (uppercase == 'off'){ key = 'w'; } else { key = 'W'; } keyTyped();}
+    if (mouseX >= 525 && mouseX <= 625 && mouseY >= 960 && mouseY <= 1050){ if (uppercase == 'off'){ key = 'e'; } else { key = 'E'; } keyTyped();}
+    if (mouseX >= 640 && mouseX <= 740 && mouseY >= 960 && mouseY <= 1050){ if (uppercase == 'off'){ key = 'r'; } else { key = 'R'; } keyTyped();}
+    if (mouseX >= 755 && mouseX <= 855 && mouseY >= 960 && mouseY <= 1050){ if (uppercase == 'off'){ key = 't'; } else { key = 'T'; } keyTyped();}
+    if (mouseX >= 870 && mouseX <= 970 && mouseY >= 960 && mouseY <= 1050){ if (uppercase == 'off'){ key = 'y'; } else { key = 'Y'; } keyTyped();}
+    if (mouseX >= 985 && mouseX <= 1085 && mouseY >= 960 && mouseY <= 1050){ if (uppercase == 'off'){ key = 'u'; } else { key = 'U'; } keyTyped();}
+    if (mouseX >= 1100 && mouseX <= 1200 && mouseY >= 960 && mouseY <= 1050){ if (uppercase == 'off'){ key = 'i'; } else { key = 'I'; } keyTyped();}
+    if (mouseX >= 1215 && mouseX <= 1315 && mouseY >= 960 && mouseY <= 1050){ if (uppercase == 'off'){ key = 'o'; } else { key = 'O'; } keyTyped();}
+    if (mouseX >= 1330 && mouseX <= 1430 && mouseY >= 960 && mouseY <= 1050){ if (uppercase == 'off'){ key = 'p'; } else { key = 'P'; } keyTyped();}
+    if (mouseX >= 1445 && mouseX <= 1545 && mouseY >= 960 && mouseY <= 1050){key = ';'; keyTyped();}
+    if (mouseX >= 1560 && mouseX <= 1660 && mouseY >= 960 && mouseY <= 1050){key = ':'; keyTyped();}
     
-    if (mouseX >= 150 && mouseX <= 415 && mouseY >= 1067 && mouseY <= 1150){ capslock = 'on';}
-    if (mouseX >= 430 && mouseX <= 530 && mouseY >= 1067 && mouseY <= 1150){ key = 'a'; keyTyped();}
-    if (mouseX >= 545 && mouseX <= 645 && mouseY >= 1067 && mouseY <= 1150){ key = 's'; keyTyped();}
-    if (mouseX >= 660 && mouseX <= 760 && mouseY >= 1067 && mouseY <= 1150){ key = 'd'; keyTyped();}
-    if (mouseX >= 775 && mouseX <= 875 && mouseY >= 1067 && mouseY <= 1150){ key = 'f'; keyTyped();}
-    if (mouseX >= 890 && mouseX <= 990 && mouseY >= 1067 && mouseY <= 1150){ key = 'g'; keyTyped();}
-    if (mouseX >= 1005 && mouseX <= 1105 && mouseY >= 1067 && mouseY <= 1150){ key = 'h'; keyTyped();}
-    if (mouseX >= 1120 && mouseX <= 1220 && mouseY >= 1067 && mouseY <= 1150){ key = 'j'; keyTyped();}
-    if (mouseX >= 1235 && mouseX <= 1335 && mouseY >= 1067 && mouseY <= 1150){ key = 'k'; keyTyped();}
-    if (mouseX >= 1350 && mouseX <= 1450 && mouseY >= 1067 && mouseY <= 1150){ key = 'l'; keyTyped();}
+    if (mouseX >= 150 && mouseX <= 415 && mouseY >= 1067 && mouseY <= 1150){ if (capslock == 'off'){ capslock = 'on'; uppercase == 'on';} else { capslock = 'off'; uppercase == 'off';}}
+    if (mouseX >= 430 && mouseX <= 530 && mouseY >= 1067 && mouseY <= 1150){ if (uppercase == 'off'){ key = 'a'; } else { key = 'A'; } keyTyped();}
+    if (mouseX >= 545 && mouseX <= 645 && mouseY >= 1067 && mouseY <= 1150){ if (uppercase == 'off'){ key = 's'; } else { key = 'S'; } keyTyped();}
+    if (mouseX >= 660 && mouseX <= 760 && mouseY >= 1067 && mouseY <= 1150){ if (uppercase == 'off'){ key = 'd'; } else { key = 'D'; } keyTyped();}
+    if (mouseX >= 775 && mouseX <= 875 && mouseY >= 1067 && mouseY <= 1150){ if (uppercase == 'off'){ key = 'f'; } else { key = 'F'; } keyTyped();}
+    if (mouseX >= 890 && mouseX <= 990 && mouseY >= 1067 && mouseY <= 1150){ if (uppercase == 'off'){ key = 'g'; } else { key = 'G'; } keyTyped();}
+    if (mouseX >= 1005 && mouseX <= 1105 && mouseY >= 1067 && mouseY <= 1150){ if (uppercase == 'off'){ key = 'h'; } else { key = 'H'; } keyTyped();}
+    if (mouseX >= 1120 && mouseX <= 1220 && mouseY >= 1067 && mouseY <= 1150){ if (uppercase == 'off'){ key = 'j'; } else { key = 'J'; } keyTyped();}
+    if (mouseX >= 1235 && mouseX <= 1335 && mouseY >= 1067 && mouseY <= 1150){ if (uppercase == 'off'){ key = 'k'; } else { key = 'K'; } keyTyped();}
+    if (mouseX >= 1350 && mouseX <= 1450 && mouseY >= 1067 && mouseY <= 1150){ if (uppercase == 'off'){ key = 'l'; } else { key = 'L'; } keyTyped();}
     if (mouseX >= 1465 && mouseX <= 1565 && mouseY >= 1067 && mouseY <= 1150){ key = '.'; keyTyped();}
     if (mouseX >= 1580 && mouseX <= 1680 && mouseY >= 1067 && mouseY <= 1150){ key = ','; keyTyped();}
     if (mouseX >= 1695 && mouseX <= 2025 && mouseY >= 1067 && mouseY <= 1150){ keyCode = ENTER; keyReleased();}
     
-    if (mouseX >= 150 && mouseX <= 320 && mouseY >= 1167 && mouseY <= 1255){ keyCode = SHIFT; keyReleased();}
-    if (mouseX >= 335 && mouseX <= 435 && mouseY >= 1167 && mouseY <= 1255){ key = 'z'; keyTyped();}
-    if (mouseX >= 450 && mouseX <= 550 && mouseY >= 1167 && mouseY <= 1255){ key = 'x'; keyTyped();}
-    if (mouseX >= 565 && mouseX <= 665 && mouseY >= 1167 && mouseY <= 1255){ key = 'c'; keyTyped();}
-    if (mouseX >= 680 && mouseX <= 780 && mouseY >= 1167 && mouseY <= 1255){ key = 'v'; keyTyped();}
-    if (mouseX >= 795 && mouseX <= 895 && mouseY >= 1167 && mouseY <= 1255){ key = 'b'; keyTyped();}
-    if (mouseX >= 910 && mouseX <= 1010 && mouseY >= 1167 && mouseY <= 1255){ key = 'n'; keyTyped();}
-    if (mouseX >= 1025 && mouseX <= 1125 && mouseY >= 1167 && mouseY <= 1255){ key = 'm'; keyTyped();}
+    if (mouseX >= 335 && mouseX <= 435 && mouseY >= 1167 && mouseY <= 1255){ if (uppercase == 'off'){ key = 'z';} else { key = 'Z'; } keyTyped();}
+    if (mouseX >= 450 && mouseX <= 550 && mouseY >= 1167 && mouseY <= 1255){ if (uppercase == 'off'){ key = 'x';} else { key = 'X'; } keyTyped();}
+    if (mouseX >= 565 && mouseX <= 665 && mouseY >= 1167 && mouseY <= 1255){ if (uppercase == 'off'){ key = 'c';} else { key = 'C'; } keyTyped();}
+    if (mouseX >= 680 && mouseX <= 780 && mouseY >= 1167 && mouseY <= 1255){ if (uppercase == 'off'){ key = 'v';} else { key = 'V'; } keyTyped();}
+    if (mouseX >= 795 && mouseX <= 895 && mouseY >= 1167 && mouseY <= 1255){ if (uppercase == 'off'){ key = 'b';} else { key = 'B'; } keyTyped();}
+    if (mouseX >= 910 && mouseX <= 1010 && mouseY >= 1167 && mouseY <= 1255){ if (uppercase == 'off'){ key = 'n';} else { key = 'N'; } keyTyped();}
+    if (mouseX >= 1025 && mouseX <= 1125 && mouseY >= 1167 && mouseY <= 1255){ if (uppercase == 'off'){ key = 'm';} else { key = 'M'; } keyTyped();}
     if (mouseX >= 1140 && mouseX <= 1240 && mouseY >= 1167 && mouseY <= 1255){ key = '!'; keyTyped();}
     if (mouseX >= 1255 && mouseX <= 1355 && mouseY >= 1167 && mouseY <= 1255){ key = '?'; keyTyped();}
     if (mouseX >= 1370 && mouseX <= 1470 && mouseY >= 1167 && mouseY <= 1255){ key = '@'; keyTyped();}
     if (mouseX >= 1485 && mouseX <= 1585 && mouseY >= 1167 && mouseY <= 1255){ key = '&'; keyTyped();}
     if (mouseX >= 1600 && mouseX <= 2025 && mouseY >= 1167 && mouseY <= 1255){ key = ' '; keyTyped();}   
+    if (capslock == 'off'){
+      uppercase = 'off' ;}
+    
+    if (mouseX >= 150 && mouseX <= 320 && mouseY >= 1167 && mouseY <= 1255){if (uppercase == 'on'){uppercase = 'off';} else {uppercase = 'on';}}
 }
   
   if (display == 'account' && signinstatus != 'signed out'){
