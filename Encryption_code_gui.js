@@ -1462,6 +1462,19 @@ function mousePressed(){
     if (mouseX >= 1530 && mouseX <= 1630 && mouseY >= 860 && mouseY <= 950){ key = ')'; keyTyped();}
     if (mouseX >= 1645 && mouseX <= 2025 && mouseY >= 860 && mouseY <= 950){ keyCode = BACKSPACE; keyReleased();}
     
+    if (mouseX >= 150 && mouseX <= 280 && mouseY >= 960 && mouseY <= 1050){ key = '   '; keyTyped();}
+    if (mouseX >= 295 && mouseX <= 395 && mouseY >= 960 && mouseY <= 1050){ key = 'q'; keyTyped();}
+    if (mouseX >= 410 && mouseX <= 510 && mouseY >= 960 && mouseY <= 1050){ key = 'w'; keyTyped();}
+    if (mouseX >= 525 && mouseX <= 625 && mouseY >= 960 && mouseY <= 1050){ key = 'e'; keyTyped();}
+    if (mouseX >= 640 && mouseX <= 740 && mouseY >= 960 && mouseY <= 1050){ key = 'r'; keyTyped();}
+    if (mouseX >= 755 && mouseX <= 855 && mouseY >= 960 && mouseY <= 1050){ key = 't'; keyTyped();}
+    if (mouseX >= 870 && mouseX <= 970 && mouseY >= 960 && mouseY <= 1050){ key = 'y'; keyTyped();}
+    if (mouseX >= 985 && mouseX <= 1085 && mouseY >= 960 && mouseY <= 1050){ key = 'u'; keyTyped();}
+    if (mouseX >= 1100 && mouseX <= 1200 && mouseY >= 960 && mouseY <= 1050){ key = 'i'; keyTyped();}
+    if (mouseX >= 1215 && mouseX <= 1315 && mouseY >= 960 && mouseY <= 1050){ key = 'o'; keyTyped();}
+    if (mouseX >= 1330 && mouseX <= 1430 && mouseY >= 960 && mouseY <= 1050){ key = 'p'; keyTyped();}
+    if (mouseX >= 1445 && mouseX <= 1545 && mouseY >= 960 && mouseY <= 1050){ key = ';'; keyTyped();}
+    if (mouseX >= 1560 && mouseX <= 1660 && mouseY >= 960 && mouseY <= 1050){ key = ':'; keyTyped();}
     
 }
   
