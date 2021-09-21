@@ -25,6 +25,7 @@ function setup() {
   }
 }
 
+var typed;
 var logosize = 250;
 var firsttime = true;
 var x = 0;
@@ -507,8 +508,7 @@ function draw() {
     if (revokedkeyboard == 15){
       invokedkeyboard = 'no';
     }
-    print(revokedkeyboard);
-    
+
     revokedkeyboard += 1;
     pressedinvoke = false;
     
@@ -1303,7 +1303,6 @@ function draw() {
     changingcolor = 255;
   }
 }
-var typed;
 
 function keyTyped(){
   if (accountclick == 'username' && keyCode != ENTER){
@@ -1443,16 +1442,28 @@ function mousePressed(){
         accountclick = 'username';
       }
     } else {
-      accountclick = 'none';
-      if (invokedkeyboard == 'yes'){
-        window.scroll({
-        top: 0,
-        behavior: 'smooth' 
-        });
-        revokedkeyboard = 0;
-      }
+      //accountclick = 'none';
     }
   }
+  
+  if (invokedkeyboard == 'yes'){
+    if (mouseX >= 150 && mouseX <= 250 && mouseY >= 860 && mouseY <= 950){ key = '~'; keyTyped();}
+    if (mouseX >= 265 && mouseX <= 365 && mouseY >= 860 && mouseY <= 950){ key = '1'; keyTyped();}
+    if (mouseX >= 380 && mouseX <= 480 && mouseY >= 860 && mouseY <= 950){ key = '2'; keyTyped();}
+    if (mouseX >= 495 && mouseX <= 595 && mouseY >= 860 && mouseY <= 950){ key = '3'; keyTyped();}
+    if (mouseX >= 610 && mouseX <= 710 && mouseY >= 860 && mouseY <= 950){ key = '4'; keyTyped();}
+    if (mouseX >= 725 && mouseX <= 825 && mouseY >= 860 && mouseY <= 950){ key = '5'; keyTyped();}
+    if (mouseX >= 840 && mouseX <= 940 && mouseY >= 860 && mouseY <= 950){ key = '6'; keyTyped();}
+    if (mouseX >= 955 && mouseX <= 1055 && mouseY >= 860 && mouseY <= 950){ key = '7'; keyTyped();}
+    if (mouseX >= 1070 && mouseX <= 1170 && mouseY >= 860 && mouseY <= 950){ key = '8'; keyTyped();}
+    if (mouseX >= 1185 && mouseX <= 1285 && mouseY >= 860 && mouseY <= 950){ key = '9'; keyTyped();}
+    if (mouseX >= 1300 && mouseX <= 1400 && mouseY >= 860 && mouseY <= 950){ key = '0'; keyTyped();}
+    if (mouseX >= 1415 && mouseX <= 1515 && mouseY >= 860 && mouseY <= 950){ key = '('; keyTyped();}
+    if (mouseX >= 1530 && mouseX <= 1630 && mouseY >= 860 && mouseY <= 950){ key = ')'; keyTyped();}
+    if (mouseX >= 1645 && mouseX <= 2025 && mouseY >= 860 && mouseY <= 950){ keyCode = BACKSPACE; keyReleased();}
+    
+    
+}
   
   if (display == 'account' && signinstatus != 'signed out'){
     if (mouseX >= 1400 && mouseX <= 1900 && mouseY >= 50 && mouseY <= 150){
