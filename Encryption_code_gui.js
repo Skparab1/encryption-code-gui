@@ -85,6 +85,7 @@ var autoinvokekeyboard = 'off';
 var invokedkeyboard = 'no';
 var pressedinvoke = false;
 var revokedkeyboard = 30;
+var capslock = 'off';
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -1476,6 +1477,33 @@ function mousePressed(){
     if (mouseX >= 1445 && mouseX <= 1545 && mouseY >= 960 && mouseY <= 1050){ key = ';'; keyTyped();}
     if (mouseX >= 1560 && mouseX <= 1660 && mouseY >= 960 && mouseY <= 1050){ key = ':'; keyTyped();}
     
+    if (mouseX >= 150 && mouseX <= 415 && mouseY >= 1067 && mouseY <= 1150){ capslock = 'on';}
+    if (mouseX >= 430 && mouseX <= 530 && mouseY >= 1067 && mouseY <= 1150){ key = 'a'; keyTyped();}
+    if (mouseX >= 545 && mouseX <= 645 && mouseY >= 1067 && mouseY <= 1150){ key = 's'; keyTyped();}
+    if (mouseX >= 660 && mouseX <= 760 && mouseY >= 1067 && mouseY <= 1150){ key = 'd'; keyTyped();}
+    if (mouseX >= 775 && mouseX <= 875 && mouseY >= 1067 && mouseY <= 1150){ key = 'f'; keyTyped();}
+    if (mouseX >= 890 && mouseX <= 990 && mouseY >= 1067 && mouseY <= 1150){ key = 'g'; keyTyped();}
+    if (mouseX >= 1005 && mouseX <= 1105 && mouseY >= 1067 && mouseY <= 1150){ key = 'h'; keyTyped();}
+    if (mouseX >= 1120 && mouseX <= 1220 && mouseY >= 1067 && mouseY <= 1150){ key = 'j'; keyTyped();}
+    if (mouseX >= 1235 && mouseX <= 1335 && mouseY >= 1067 && mouseY <= 1150){ key = 'k'; keyTyped();}
+    if (mouseX >= 1350 && mouseX <= 1450 && mouseY >= 1067 && mouseY <= 1150){ key = 'l'; keyTyped();}
+    if (mouseX >= 1465 && mouseX <= 1565 && mouseY >= 1067 && mouseY <= 1150){ key = '.'; keyTyped();}
+    if (mouseX >= 1580 && mouseX <= 1680 && mouseY >= 1067 && mouseY <= 1150){ key = ','; keyTyped();}
+    if (mouseX >= 1695 && mouseX <= 2025 && mouseY >= 1067 && mouseY <= 1150){ keyCode = ENTER; keyReleased();}
+    
+    if (mouseX >= 150 && mouseX <= 320 && mouseY >= 1167 && mouseY <= 1255){ keyCode = SHIFT; keyReleased();}
+    if (mouseX >= 335 && mouseX <= 435 && mouseY >= 1167 && mouseY <= 1255){ key = 'z'; keyTyped();}
+    if (mouseX >= 450 && mouseX <= 550 && mouseY >= 1167 && mouseY <= 1255){ key = 'x'; keyTyped();}
+    if (mouseX >= 565 && mouseX <= 665 && mouseY >= 1167 && mouseY <= 1255){ key = 'c'; keyTyped();}
+    if (mouseX >= 680 && mouseX <= 780 && mouseY >= 1167 && mouseY <= 1255){ key = 'v'; keyTyped();}
+    if (mouseX >= 795 && mouseX <= 895 && mouseY >= 1167 && mouseY <= 1255){ key = 'b'; keyTyped();}
+    if (mouseX >= 910 && mouseX <= 1010 && mouseY >= 1167 && mouseY <= 1255){ key = 'n'; keyTyped();}
+    if (mouseX >= 1025 && mouseX <= 1125 && mouseY >= 1167 && mouseY <= 1255){ key = 'm'; keyTyped();}
+    if (mouseX >= 1140 && mouseX <= 1240 && mouseY >= 1167 && mouseY <= 1255){ key = '!'; keyTyped();}
+    if (mouseX >= 1255 && mouseX <= 1355 && mouseY >= 1167 && mouseY <= 1255){ key = '?'; keyTyped();}
+    if (mouseX >= 1370 && mouseX <= 1470 && mouseY >= 1167 && mouseY <= 1255){ key = '@'; keyTyped();}
+    if (mouseX >= 1485 && mouseX <= 1585 && mouseY >= 1167 && mouseY <= 1255){ key = '&'; keyTyped();}
+    if (mouseX >= 1600 && mouseX <= 2025 && mouseY >= 1167 && mouseY <= 1255){ key = ' '; keyTyped();}   
 }
   
   if (display == 'account' && signinstatus != 'signed out'){
