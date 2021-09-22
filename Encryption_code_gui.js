@@ -185,7 +185,7 @@ function displaykeyboard(){
   } else {
     fill(0);
   }
-  rect(150,1060,200,85);
+  rect(150,1060,270,85);
   
   if (uppercase == 'on'){
     fill(200,100,0);
@@ -1494,7 +1494,7 @@ function mousePressed(){
     if (mouseX >= 1445 && mouseX <= 1545 && mouseY >= 960 && mouseY <= 1050){key = ';'; keyTyped();}
     if (mouseX >= 1560 && mouseX <= 1660 && mouseY >= 960 && mouseY <= 1050){key = ':'; keyTyped();}
     
-    if (mouseX >= 150 && mouseX <= 415 && mouseY >= 1067 && mouseY <= 1150){ if (capslock == 'off'){ capslock = 'on'; uppercase == 'on';} else { capslock = 'off'; uppercase == 'off';}}
+    if (mouseX >= 150 && mouseX <= 415 && mouseY >= 1067 && mouseY <= 1150){ if (capslock == 'off'){ capslock = 'on'; uppercase = 'on';} else { capslock = 'off'; uppercase = 'off';}}
     if (mouseX >= 430 && mouseX <= 530 && mouseY >= 1067 && mouseY <= 1150){ if (uppercase == 'off'){ key = 'a'; } else { key = 'A'; } keyTyped();}
     if (mouseX >= 545 && mouseX <= 645 && mouseY >= 1067 && mouseY <= 1150){ if (uppercase == 'off'){ key = 's'; } else { key = 'S'; } keyTyped();}
     if (mouseX >= 660 && mouseX <= 760 && mouseY >= 1067 && mouseY <= 1150){ if (uppercase == 'off'){ key = 'd'; } else { key = 'D'; } keyTyped();}
