@@ -55,6 +55,7 @@ var bg;
 var ccstart = 255;
 var ccs = 255;
 var toencrypt = '';
+var cursorblinker = 0;
 
 //var signinstatus = 'signed out';
 try{
@@ -556,7 +557,17 @@ function draw() {
     }
     rect(600,475,800,150);
     fill(textcolor[0],textcolor[1],textcolor[2]);
-    text(username,630,360);
+    text(username,630,380);
+    fill(75);
+    if (cursorblinker <= 35 && accountclick == 'username'){
+      rect(640+(39*username.length),310,7,100);
+    } else if (cursorblinker <= 35 && accountclick == 'password'){
+      rect(635+(30*displaypass.length),490,7,100);
+    } else if (cursorblinker >= 70){
+      cursorblinker = 0;
+    }
+    cursorblinker += 1;
+    
     if (showpassword == false){
         let y = 0;
         displaypass = '';
@@ -602,7 +613,7 @@ function draw() {
     text('Sign in',1150,780);
     if (wrongpassword){
       textSize(35);
-      text('Username or Password incorrect',1420,500);
+      text('Username or Password incorrect',1430,330);
       textSize(60);
     }
     text('New User? Create account!',175,780);
