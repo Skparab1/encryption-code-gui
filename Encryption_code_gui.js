@@ -10,6 +10,7 @@ function preload() {
 function setup() {
   createCanvas(2048,846);
   background(0);
+  
   try{
     usernames = table.getColumn(0);
     passwords = table.getColumn(1);
@@ -25,7 +26,7 @@ function setup() {
   }
 }
 
-var typed;
+var typed = '';
 var logosize = 250;
 var firsttime = true;
 var x = 0;
@@ -73,7 +74,7 @@ var tabstatus = false;
 var isignedout = false;
 var accountcounter = 0;
 var foundglobalaccount = false;
-var encryptionclick = 'input';
+var encryptionclick = 'encrypting';
 var signintype = 'signed out';
 var sync = 'on';
 var nowarrowheight = 175;
@@ -210,7 +211,7 @@ function displaykeyboard(){
   text(' Tab  Q    W    E    R    T    Y    U    I    O    P    ;     :      Hide keys ',143,1025);
   text(' CapsLok  A    S    D    F    G    H    J    K    L    .       ,      Enter ',143, 1125);
   text(' Shift    Z    X    C    V    B    N    M    !    ?    @    &      SPACE',143, 1225);
-  print(mouseX,mouseY);
+  //print(mouseX,mouseY);
 }
 
 function draw() {
@@ -472,6 +473,21 @@ function draw() {
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Encryption',900,100);
+    
+    if ((encryptionclick == 'encrypting') && invokedkeyboard == 'yes'){
+      displaykeyboard();
+      invokedkeyboard = 'yes';
+    } else {
+      createCanvas(2048,846);
+      invokedkeyboard = 'no';
+    }
+    if (revokedkeyboard == 15){
+      invokedkeyboard = 'no';
+    }
+
+    revokedkeyboard += 1;
+    pressedinvoke = false;
+    
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
       fill(200,0,0);
     } else {
@@ -481,7 +497,7 @@ function draw() {
     textSize(60);
     fill(255);
     text('Back',90,120);
-    if (encryptionclick == 'input'){
+    if (encryptionclick == 'encrypting'){
       fill(255);
     } else {
       fill(150);
@@ -495,6 +511,17 @@ function draw() {
     textSize(50);
     text('Download Txt',800,750);
     
+    if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 425 && mouseY <= 500){
+      fill(200,100,0);
+    } else if (invokedkeyboard == 'yes'){
+      fill(0,200,0);
+    } else {
+      fill(200);
+    }
+    rect(1450,425,500,75);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
+    textSize(40);
+    text('Show on screen Keyboard',1470,475);
     
   } else if (display == 'decryption'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
@@ -613,7 +640,7 @@ function draw() {
     text('Sign in',1150,780);
     if (wrongpassword){
       textSize(35);
-      text('Username or Password incorrect',1430,330);
+      text('Username or Password incorrect',1430,330 );
       textSize(60);
     }
     text('New User? Create account!',175,780);
@@ -632,6 +659,8 @@ function draw() {
     
     if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 425 && mouseY <= 500){
       fill(200,100,0);
+    } else if (invokedkeyboard == 'yes'){
+      fill(0,200,0);
     } else {
       fill(200);
     }
@@ -1432,13 +1461,10 @@ function mousePressed(){
       pressedinvoke = true;
     } else if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 475 && mouseY <= 625){
       accountclick = 'password';
-      pressedinvoke = true;
       if (autoinvokekeyboard == 'on'){
         invokedkeyboard = 'yes';
       }
-      if (invokedkeyboard == 'yes'){
-        invokekeyboard();
-      }
+      pressedinvoke = true;
     } else if (mouseX >= 1800 && mouseX <= 1900 && mouseY >= 500 && mouseY <= 600){
       accountclick = 'username';
       pressedinvoke = true;
@@ -1646,13 +1672,20 @@ function mousePressed(){
       let writer = createWriter('encrypted_text.txt');
       writer.write(toencrypt);
       writer.close();
-    }
+    } else if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 425 && mouseY <= 500){
+      invokedkeyboard = 'yes';
+      pressedinvoke = true;
+      if (accountclick == 'none'){
+        accountclick = 'username';
+      }
+      print('invoked');
   }
   accountanimx = 1000;
   accountanimy = 750;
   aaxd = 'right';
   aayd = 'down';
   animtime = 1;
+}
 }
 
 function saveFile(){
