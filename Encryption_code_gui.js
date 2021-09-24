@@ -165,7 +165,13 @@ function displaykeyboard(){
   rect(100,846,1946,450);
   fill(0);
   let rectx = 150;
+  let buttonnum = 1;
   while (rectx <= 1600){
+    if ((buttonnum == 1 && key == '~')||(buttonnum == 2 && key == '1')||(buttonnum == 3 && key == '2')||(buttonnum == 4 && key == '3')||(buttonnum == 5 && key == '4')||(buttonnum == 6 && key == '7')||(buttonnum == 7 && key == '8')||(buttonnum == 8 && key == '9')||(buttonnum == 9 && key == '0')||(buttonnum == 10 && key == '(')||(buttonnum == 11 && key == ')')){      fill(200,100,0);
+    } else {
+      fill(0);
+    }
+    buttonnum += 1;
     rect(rectx,860,100,85);
     rectx += 115;
   }
