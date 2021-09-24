@@ -1374,9 +1374,12 @@ function keyTyped(){
     secq2 += key;
   } else if (logosize < 5250){
     hovered = true;
-  } else if (display == 'encryption' && encryptionclick == 'encrypting' && keyCode != ENTER){
-    toencrypt += key;
+  } 
+  if (display == 'encryption' && encryptionclick == 'encrypting' ){
+    toencrypt = toencrypt + key;
+    print('wrote');
   }
+  print(encryptionclick) ;
   typed += key; 
 }
 
@@ -1394,7 +1397,8 @@ function keyReleased(){
     secq1 = secq1.substring(0, secq1.length -1);
   } else if (accountclick == 'secq2'){
     secq2 = secq2.substring(0, secq2.length -1);
-  } else if (display == 'encryption' && encryptionclick == 'encrypting'){
+  }
+  if (display == 'encryption' && encryptionclick == 'encrypting'){
     toencrypt = toencrypt.substring(0,toencrypt.length-1);
   }
   } else {
@@ -1500,8 +1504,10 @@ function mousePressed(){
       //accountclick = 'none';
     }
   }
+
   
   if (invokedkeyboard == 'yes'){
+    print('pressed button');
     if (mouseX >= 150 && mouseX <= 250 && mouseY >= 860 && mouseY <= 950){ key = '~'; keyTyped();}
     if (mouseX >= 265 && mouseX <= 365 && mouseY >= 860 && mouseY <= 950){ key = '1'; keyTyped();}
     if (mouseX >= 380 && mouseX <= 480 && mouseY >= 860 && mouseY <= 950){ key = '2'; keyTyped();}
@@ -1679,7 +1685,14 @@ function mousePressed(){
         accountclick = 'username';
       }
       print('invoked');
-  }
+    } else if (mouseX >= 1680 && mouseX <= 2025 && mouseY >= 965 && mouseY <= 1050 && invokedkeyboard == 'yes'){
+      print('revoked');
+      window.scroll({
+      top: 0,
+      behavior: 'smooth' 
+      });
+      revokedkeyboard = 0;
+    }
   accountanimx = 1000;
   accountanimy = 750;
   aaxd = 'right';
