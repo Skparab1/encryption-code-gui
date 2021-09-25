@@ -22,8 +22,20 @@
 - has horizontal top bar
 - spinning wheel
 
+## On screen keyboard
+- has full functionality to type (including caps lock and shift key)
+- invoking and revoking keyboard works
+- working on light up key feedback (top row is done)
+
 ## Syncing
-- Encryption code is synced across all tabs and windows, even private windows, of the same browser.
+- Encryption code is synced across all tabs and windows, even private windows, of the same browser. 
+  - For some tests it works across private windows, for some it doesn't, but it ALWAYS works across tabs and non-private windows
 - If Encryption code GUI is open in multiple tabs or windows, the account status will be synced.
 - So, if you sign in one tab, the other account will automatically sign itself in
 - if you sign out in one tab, the other tab's session will expire and it will log you out.
+
+## Additional minor features
+- turn off sync (although i will likely take this out....it can be used to manipulate the signin)
+- user shift to click instead of clicking the mouse
+- press any key to begin in addition to hovering
+- setting to automaticaly invoke keyboard when clicking in input prompt
