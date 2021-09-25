@@ -599,11 +599,11 @@ function draw() {
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text(username,630,380);
     fill(75);
-    if (cursorblinker <= 35 && accountclick == 'username'){
+    if (cursorblinker <= 20 && accountclick == 'username'){
       rect(640+(39*username.length),310,7,100);
     } else if (cursorblinker <= 35 && accountclick == 'password'){
       rect(635+(30*displaypass.length),490,7,100);
-    } else if (cursorblinker >= 70){
+    } else if (cursorblinker >= 35){
       cursorblinker = 0;
     }
     cursorblinker += 1;
@@ -1373,9 +1373,6 @@ function draw() {
 }
 
 function keyTyped(){
-  if (keyCode == SHIFT){
-    mousePressed();
-  }
   if (accountclick == 'username' && keyCode != ENTER){
     username += key;
   } else if ((accountclick == 'password' || accountclick == 'new password') && keyCode != ENTER){
@@ -1403,6 +1400,7 @@ function keyReleased(){
   if (keyCode == SHIFT){
     mousePressed();
   }
+  keyCode = '';
   if (keyCode == BACKSPACE){
   if (accountclick == 'username'){
     username = username.substring(0, username.length -1);
