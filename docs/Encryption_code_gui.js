@@ -57,6 +57,8 @@ var ccstart = 255;
 var ccs = 255;
 var toencrypt = '';
 var cursorblinker = 0;
+var pressedkey = 'no';
+var pressedtab = 'no';
 
 //var signinstatus = 'signed out';
 try{
@@ -177,20 +179,38 @@ function displaykeyboard(){
     rectx += 115;
   }
   buttonnum = 1;
+  if (keyCode == BACKSPACE){
+    fill(200,100,0);
+  } else {
+    fill(0);
+  }
   rect(rectx,860,375,85);
   rectx = 180;
   while (rectx <= 1800){
-    if ((buttonnum == 1 && key == 'a')||(buttonnum == 2 && key == '1')||(buttonnum == 3 && key == '2')||(buttonnum == 4 && key == '3')||(buttonnum == 5 && key == '4')||(buttonnum == 6 && key == '5')||(buttonnum == 7 && key == '6')||(buttonnum == 8 && key == '7')||(buttonnum == 9 && key == '8')||(buttonnum == 10 && key == '9')||(buttonnum == 11 && key == '0')||(buttonnum == 12 && key == '(')||(buttonnum == 13 && key == ')')){      fill(200,100,0);
+    if ((buttonnum == 2 && key == 'q')||(buttonnum == 3 && key == 'w')||(buttonnum == 4 && key == 'e')||(buttonnum == 5 && key == 'r')||(buttonnum == 6 && key == 't')||(buttonnum == 7 && key == 'y')||(buttonnum == 8 && key == 'u')||(buttonnum == 9 && key == 'i')||(buttonnum == 10 && key == 'o')||(buttonnum == 11 && key == 'p')||(buttonnum == 12 && key == ';')||(buttonnum == 13 && key == ':')){      fill(200,100,0);
       fill(200,100,0);
     } else {
       fill(0);
     }
+    buttonnum += 1;
     rect(rectx,960,100,85);
     rectx += 115;
   }
-  rect(150,960,100,85);
+  if (pressedtab == 'yes'){
+    fill(200,100,0);
+  } else {
+    fill(0);
+  }
+  rect(150,960,130,85);
   rectx = 200;
+  buttonnum = 1;
   while (rectx <= 1800){
+    if ((buttonnum == 3 && key == 'a')||(buttonnum == 4 && key == 's')||(buttonnum == 5 && key == 'd')||(buttonnum == 6 && key == 'f')||(buttonnum == 7 && key == 'g')||(buttonnum == 8 && key == 'h')||(buttonnum == 9 && key == 'j')||(buttonnum == 10 && key == 'k')||(buttonnum == 11 && key == 'l')||(buttonnum == 12 && key == '.')||(buttonnum == 13 && key == ',')){      fill(200,100,0);
+      fill(200,100,0);
+    } else {
+      fill(0);
+    }
+    buttonnum += 1;
     rect(rectx,1060,100,85);
     rectx += 115;
   }
@@ -206,17 +226,31 @@ function displaykeyboard(){
     fill(200,100,0);
   } else {
     fill(0);
+    capslock = 'off';
   }
-  rect(150,1160,150,85);
+  rect(150,1160,170,85);
   fill(0);
   rect(rectx-120,960,330,85);
   rect(rectx-110,1060,315,85);
-  rect(rectx-110,1160,310,85);
   rectx = 335;
-  while (rectx <= 1800){
+  buttonnum = 1;
+  while (rectx <= 1590){
+    if ((buttonnum == 1 && key == 'z')||(buttonnum == 2 && key == 'x')||(buttonnum == 3 && key == 'c')||(buttonnum == 4 && key == 'v')||(buttonnum == 5 && key == 'b')||(buttonnum == 6 && key == 'n')||(buttonnum == 7 && key == 'm')||(buttonnum == 8 && key == '!')||(buttonnum == 9 && key == '?')||(buttonnum == 10 && key == '@')||(buttonnum == 11 && key == '&')){      fill(200,100,0);
+      fill(200,100,0);
+    } else {
+      fill(0);
+    }
+    buttonnum += 1;
     rect(rectx,1160,100,85);
     rectx += 115;
   }
+  if (key == ' '){
+    fill(200,100,0);
+  } else {
+    fill(0);
+  }
+  rect(rectx+10,1160,400,85);
+  
   fill(255);
   textSize(70);
   text('~    1    2    3    4    5    6    7    8    9    0    (     )    Backspace',152,925);
@@ -1392,15 +1426,19 @@ function keyTyped(){
     toencrypt = toencrypt + key;
     print('wrote');
   }
+  if (true){
+    keyCode = '';
+  }
+  
   print(encryptionclick) ;
   typed += key; 
 }
 
 function keyReleased(){
   if (keyCode == SHIFT){
-    mousePressed();
+   mousePressed();
+    keyCode = '';
   }
-  keyCode = '';
   if (keyCode == BACKSPACE){
   if (accountclick == 'username'){
     username = username.substring(0, username.length -1);
@@ -1440,6 +1478,10 @@ function keyReleased(){
     accountclick = 'secq2';
   } 
   }
+  if (pressedkey == 'yes'){
+    key = '';
+  }
+  pressedkey = 'no';
 }
 
 function mousePressed(){
@@ -1524,7 +1566,8 @@ function mousePressed(){
 
   
   if (invokedkeyboard == 'yes'){
-    print('pressed button');
+    pressedkey = 'yes';
+    pressedtab = 'no';
     if (mouseX >= 150 && mouseX <= 250 && mouseY >= 860 && mouseY <= 950){ key = '~'; keyTyped();}
     if (mouseX >= 265 && mouseX <= 365 && mouseY >= 860 && mouseY <= 950){ key = '1'; keyTyped();}
     if (mouseX >= 380 && mouseX <= 480 && mouseY >= 860 && mouseY <= 950){ key = '2'; keyTyped();}
@@ -1540,7 +1583,7 @@ function mousePressed(){
     if (mouseX >= 1530 && mouseX <= 1630 && mouseY >= 860 && mouseY <= 950){ key = ')'; keyTyped();}
     if (mouseX >= 1645 && mouseX <= 2025 && mouseY >= 860 && mouseY <= 950){ keyCode = BACKSPACE; keyReleased();}
     
-    if (mouseX >= 150 && mouseX <= 280 && mouseY >= 960 && mouseY <= 1050){ key = '   '; keyTyped();}
+    if (mouseX >= 150 && mouseX <= 280 && mouseY >= 960 && mouseY <= 1050){ key = '   '; pressedtab = 'yes'; keyTyped();}
     if (mouseX >= 295 && mouseX <= 395 && mouseY >= 960 && mouseY <= 1050){ if (uppercase == 'off'){ key = 'q'; } else { key = 'Q'; } keyTyped();}
     if (mouseX >= 410 && mouseX <= 510 && mouseY >= 960 && mouseY <= 1050){ if (uppercase == 'off'){ key = 'w'; } else { key = 'W'; } keyTyped();}
     if (mouseX >= 525 && mouseX <= 625 && mouseY >= 960 && mouseY <= 1050){ if (uppercase == 'off'){ key = 'e'; } else { key = 'E'; } keyTyped();}
