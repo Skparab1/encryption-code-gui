@@ -15,8 +15,7 @@
   - however, you will not be able to stora any data.
 
 ## Settings
-- Can change color theme
-- selector is animated
+- Animated color theme change selector
 
 ## Loading animation
 - has horizontal top bar
