@@ -23,7 +23,8 @@
   - Automatically invoke on screen keyboard when input box is pressed
     - the functionality and button are done for this, but i'm going to change the position and add text.
   - show light up for on screen keyboard
-  - disable/enable
+  - disable/enable press shift to click
+    - 
     
 ## Loading animation
 - has horizontal top bar
