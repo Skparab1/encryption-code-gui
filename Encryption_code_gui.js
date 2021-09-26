@@ -1393,7 +1393,18 @@ function draw() {
     text('•',0,nowarrowheight+135);
     textSize(60);
     text('>',40,hpy+48);
+    
+    textSize(80);
+    fill(textcolor[0],textcolor[1],textcolor[2]);
+    text('Keyboard settings',1400,240);
+    
+    textSize(25);
+    text('Automatically invoke on screen keyboard',1400,300);
+    text('Ahow light up feedback on screen keyboard',1400,360);
+    
     textSize(100);
+    
+    
   }
   if (changingcolor < 255){
     changingcolor += 3;
@@ -1404,6 +1415,7 @@ function draw() {
   if (changingcolor >= 1020){
     changingcolor = 255;
   }
+  
 }
 
 function keyTyped(){
