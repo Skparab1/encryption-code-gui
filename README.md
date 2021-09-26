@@ -17,6 +17,9 @@
 ## Settings
 - Animated color theme change selector
 - To do selectors/buttons 
+  - Turning off sync 
+    - actually this is in account but im probably going to remove it altogether because it can be used to manipulate accounts
+    - this one is animated, i'll likely use the same framework for the other switch selectors
 
 ## Loading animation
 - has horizontal top bar
