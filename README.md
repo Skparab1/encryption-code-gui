@@ -16,6 +16,7 @@
 
 ## Settings
 - Animated color theme change selector
+- To do selectors/buttons 
 
 ## Loading animation
 - has horizontal top bar
