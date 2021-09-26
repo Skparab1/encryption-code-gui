@@ -20,7 +20,9 @@
   - Turning off sync 
     - actually this is in account but im probably going to remove it altogether because it can be used to manipulate accounts
     - this one is animated, i'll likely use the same framework for the other switch selectors
-
+  - Automatically invoke on screen keyboard when input box is pressed
+    - the functionality and button are done for this, but i'm going to change the position and add text.
+    
 ## Loading animation
 - has horizontal top bar
 - spinning wheel
