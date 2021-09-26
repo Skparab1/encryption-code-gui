@@ -22,6 +22,8 @@
     - this one is animated, i'll likely use the same framework for the other switch selectors
   - Automatically invoke on screen keyboard when input box is pressed
     - the functionality and button are done for this, but i'm going to change the position and add text.
+  - show light up for on screen keyboard
+  - disable/enable
     
 ## Loading animation
 - has horizontal top bar
