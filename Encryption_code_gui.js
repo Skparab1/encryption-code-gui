@@ -1400,9 +1400,8 @@ function keyTyped(){
 function keyReleased(){
   if (keyCode == SHIFT){
     mousePressed();
+    keyCode = '';
   }
-  print('in');
-  keyCode = '';
   if (keyCode == BACKSPACE){
   if (accountclick == 'username'){
     username = username.substring(0, username.length -1);
