@@ -180,11 +180,12 @@ function displaykeyboard(){
   rect(rectx,860,375,85);
   rectx = 180;
   while (rectx <= 1800){
-    if ((buttonnum == 1 && key == 'a')||(buttonnum == 2 && key == '1')||(buttonnum == 3 && key == '2')||(buttonnum == 4 && key == '3')||(buttonnum == 5 && key == '4')||(buttonnum == 6 && key == '5')||(buttonnum == 7 && key == '6')||(buttonnum == 8 && key == '7')||(buttonnum == 9 && key == '8')||(buttonnum == 10 && key == '9')||(buttonnum == 11 && key == '0')||(buttonnum == 12 && key == '(')||(buttonnum == 13 && key == ')')){      fill(200,100,0);
+    if ((buttonnum == 2 && key == 'q')||(buttonnum == 3 && key == 'w')||(buttonnum == 4 && key == 'e')||(buttonnum == 5 && key == 'r')||(buttonnum == 6 && key == 't')||(buttonnum == 7 && key == 'y')||(buttonnum == 8 && key == 'u')||(buttonnum == 9 && key == 'i')||(buttonnum == 10 && key == 'o')||(buttonnum == 11 && key == 'p')||(buttonnum == 12 && key == '.')||(buttonnum == 13 && key == ',')){      fill(200,100,0);
       fill(200,100,0);
     } else {
       fill(0);
     }
+    buttonnum += 1;
     rect(rectx,960,100,85);
     rectx += 115;
   }
@@ -1400,6 +1401,7 @@ function keyReleased(){
   if (keyCode == SHIFT){
     mousePressed();
   }
+  print('in');
   keyCode = '';
   if (keyCode == BACKSPACE){
   if (accountclick == 'username'){
