@@ -59,6 +59,7 @@ var toencrypt = '';
 var cursorblinker = 0;
 var pressedkey = 'no';
 var pressedtab = 'no';
+var shiftclicked = 'no';
 
 //var signinstatus = 'signed out';
 try{
@@ -1438,9 +1439,7 @@ function keyTyped(){
     toencrypt = toencrypt + key;
     print('wrote');
   }
-  if (true){
-    keyCode = '';
-  }
+  keyCode = '';
   
   print(encryptionclick) ;
   typed += key; 
@@ -1448,10 +1447,12 @@ function keyTyped(){
 
 function keyReleased(){
   if (keyCode == SHIFT){
-   mousePressed();
+    mousePressed();
+    shiftclicked = 'yes';
     keyCode = '';
   }
   if (keyCode == BACKSPACE){
+    key = '';
   if (accountclick == 'username'){
     username = username.substring(0, username.length -1);
   } else if (accountclick == 'password' || accountclick == 'new password'){
@@ -1490,7 +1491,7 @@ function keyReleased(){
     accountclick = 'secq2';
   } 
   }
-  if (pressedkey == 'yes'){
+  if (pressedkey == 'yes' && shiftclick == 'no'){
     key = '';
   }
   pressedkey = 'no';
