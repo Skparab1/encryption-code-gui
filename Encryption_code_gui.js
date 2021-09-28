@@ -1410,12 +1410,6 @@ function draw() {
     text('Automatically invoke on screen keyboard',1275,250);
     text('Show light up feedback on screen keyboard',1275,350);
     
-    if (autoinvokekeyboard == 'on'){
-      shouldbex = 1300;
-    } else {
-      shouldbex = 1500;
-    }
-    
     if (invokex < shouldbex){
       invokex += 20;
     } else if (invokex > shouldbex){
@@ -1426,6 +1420,20 @@ function draw() {
     rect(1300,200,200,100);
     fill(0,255,0);
     rect(invokex,200,1500-invokex,100);
+    
+    if (autoinvokekeyboard == 'on'){
+      shouldbex = 1300;
+      stroke(0,255,0);
+    } else {
+      shouldbex = 1500;
+      stroke(255,0,0);
+    }
+    
+    textSize(40);
+    fill(0,255,0);
+    text('ON  ',1320,250);
+    fill(255,0,0);
+    text('      OFF',1320,250);
     
     textSize(100);
     
