@@ -94,6 +94,8 @@ var capslock = 'off';
 var uppercase = 'off';
 var dimmer = 0;
 var sliderx = 0;
+var invokex = 1500;
+var shouldbex = 1500;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -1349,9 +1351,6 @@ function draw() {
     //rect(100,655,200,60);
     //rect(100,715,200,60);
     
-    fill(255,0,0);
-    rect(500,500,200,100);
-    
     stroke(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     rect(300,175,7,(60*11));
@@ -1403,13 +1402,30 @@ function draw() {
     textSize(60);
     text('>',40,hpy+48);
     
-    textSize(80);
+    textSize(70);
     fill(textcolor[0],textcolor[1],textcolor[2]);
-    text('Keyboard settings',1400,240);
+    text('Keyboard settings',1350,150);
     
     textSize(25);
-    text('Automatically invoke on screen keyboard',1400,300);
-    text('Ahow light up feedback on screen keyboard',1400,360);
+    text('Automatically invoke on screen keyboard',1275,250);
+    text('Show light up feedback on screen keyboard',1275,350);
+    
+    if (autoinvokekeyboard == 'on'){
+      shouldbex = 1300;
+    } else {
+      shouldbex = 1500;
+    }
+    
+    if (invokex < shouldbex){
+      invokex += 20;
+    } else if (invokex > shouldbex){
+      invokex -= 20;
+    }
+    
+    fill(255,0,0);
+    rect(1300,200,200,100);
+    fill(0,255,0);
+    rect(invokex,200,1500-invokex,100);
     
     textSize(100);
     
@@ -1735,8 +1751,10 @@ function mousePressed(){
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60+60){
       colorscheme = 'default light';
       newarrowheight = 235+60+60+60+60+60+60+60+60+60;
-    } else if (mouseX >= 500 && mouseX <= 700 && mouseY >= 500 && mouseY <= 600){
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 250 && mouseY <= 350 && autoinvokekeyboard == 'off'){
       autoinvokekeyboard = 'on';
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 250 && mouseY <= 350 && autoinvokekeyboard == 'on'){
+      autoinvokekeyboard = 'off';
     } else if (mouseX >= 1400 && mouseX <= 1500 && mouseY >= 500 && mouseY <= 600){
       dimmer += 10;
     } else if (mouseX >= 1500 && mouseX <= 1600 && mouseY >= 500 && mouseY <= 600){
