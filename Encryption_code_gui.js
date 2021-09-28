@@ -93,6 +93,7 @@ var revokedkeyboard = 30;
 var capslock = 'off';
 var uppercase = 'off';
 var dimmer = 0;
+var sliderx = 0;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -403,6 +404,9 @@ function draw() {
   
   textcolor = [textcolor[0]+dimmer,textcolor[1]+dimmer,textcolor[2]+dimmer];
   backgroundcolor = [backgroundcolor[0]+dimmer,backgroundcolor[1]+dimmer,backgroundcolor[1]+dimmer];
+  red += dimmer;
+  green += dimmer;
+  blue += dimmer;
   
   stroke(textcolor[0], textcolor[1], textcolor[2]);
     
@@ -1414,7 +1418,14 @@ function draw() {
     fill(100);
     rect(1500,500,100,100);
     
-    
+    rect(1400,400,450,40);
+    rect(1600+(sliderx*2),390,30,100);
+    if (sliderx > dimmer){
+      sliderx -= 1;
+    } else if (sliderx < dimmer){
+      sliderx += 1;
+    }
+
   }
   if (changingcolor < 255){
     changingcolor += 3;
@@ -1727,9 +1738,9 @@ function mousePressed(){
     } else if (mouseX >= 500 && mouseX <= 700 && mouseY >= 500 && mouseY <= 600){
       autoinvokekeyboard = 'on';
     } else if (mouseX >= 1400 && mouseX <= 1500 && mouseY >= 500 && mouseY <= 600){
-      dimmer += 1;
+      dimmer += 10;
     } else if (mouseX >= 1500 && mouseX <= 1600 && mouseY >= 500 && mouseY <= 600){
-      dimmer -= 1;
+      dimmer -= 10;
     }
     rect(1400,500,100,100);
   } else if (display == 'forgot password'){
