@@ -48,3 +48,5 @@
 - user shift to click instead of clicking the mouse
 - press any key to begin in addition to hovering
 - setting to automaticaly invoke keyboard when clicking in input prompt
+- change brightness in settings
+  - how this works: it essentially manipulates all of the rgb values BEFORE they get to the graphics display. This causes colors to become lighter and dimmer, causing and change in brightness.
