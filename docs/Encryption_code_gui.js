@@ -92,6 +92,10 @@ var pressedinvoke = false;
 var revokedkeyboard = 30;
 var capslock = 'off';
 var uppercase = 'off';
+var dimmer = 0;
+var sliderx = 0;
+var invokex = 1500;
+var shouldbex = 1500;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -399,6 +403,12 @@ function draw() {
   textcolor = [0,0,0];
   backgroundcolor = [200,200,200];
   }
+  
+  textcolor = [textcolor[0]+dimmer,textcolor[1]+dimmer,textcolor[2]+dimmer];
+  backgroundcolor = [backgroundcolor[0]+dimmer,backgroundcolor[1]+dimmer,backgroundcolor[1]+dimmer];
+  red += dimmer;
+  green += dimmer;
+  blue += dimmer;
   
   stroke(textcolor[0], textcolor[1], textcolor[2]);
     
@@ -1341,9 +1351,6 @@ function draw() {
     //rect(100,655,200,60);
     //rect(100,715,200,60);
     
-    fill(255,0,0);
-    rect(500,500,200,100);
-    
     stroke(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     rect(300,175,7,(60*11));
@@ -1395,17 +1402,54 @@ function draw() {
     textSize(60);
     text('>',40,hpy+48);
     
-    textSize(80);
+    textSize(70);
     fill(textcolor[0],textcolor[1],textcolor[2]);
-    text('Keyboard settings',1400,240);
+    text('Keyboard settings',1350,150);
     
     textSize(25);
-    text('Automatically invoke on screen keyboard',1400,300);
-    text('Ahow light up feedback on screen keyboard',1400,360);
+    text('Automatically invoke on screen keyboard',1275,250);
+    text('Show light up feedback on screen keyboard',1275,350);
+    
+    if (invokex < shouldbex){
+      invokex += 20;
+    } else if (invokex > shouldbex){
+      invokex -= 20;
+    }
+    
+    fill(255,0,0);
+    rect(1300,200,200,100);
+    fill(0,255,0);
+    rect(invokex,200,1500-invokex,100);
+    
+    if (autoinvokekeyboard == 'on'){
+      shouldbex = 1300;
+      stroke(0,255,0);
+    } else {
+      shouldbex = 1500;
+      stroke(255,0,0);
+    }
+    
+    textSize(40);
+    fill(0,255,0);
+    text('ON  ',1320,250);
+    fill(255,0,0);
+    text('      OFF',1320,250);
     
     textSize(100);
     
+    text(dimmer,1400,400);
+    rect(1400,500,100,100);
+    fill(100);
+    rect(1500,500,100,100);
     
+    rect(1400,400,450,40);
+    rect(1600+(sliderx*2),390,30,100);
+    if (sliderx > dimmer){
+      sliderx -= 1;
+    } else if (sliderx < dimmer){
+      sliderx += 1;
+    }
+
   }
   if (changingcolor < 255){
     changingcolor += 3;
@@ -1715,9 +1759,16 @@ function mousePressed(){
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60+60){
       colorscheme = 'default light';
       newarrowheight = 235+60+60+60+60+60+60+60+60+60;
-    } else if (mouseX >= 500 && mouseX <= 700 && mouseY >= 500 && mouseY <= 600){
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 250 && mouseY <= 350 && autoinvokekeyboard == 'off'){
       autoinvokekeyboard = 'on';
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 250 && mouseY <= 350 && autoinvokekeyboard == 'on'){
+      autoinvokekeyboard = 'off';
+    } else if (mouseX >= 1400 && mouseX <= 1500 && mouseY >= 500 && mouseY <= 600){
+      dimmer += 10;
+    } else if (mouseX >= 1500 && mouseX <= 1600 && mouseY >= 500 && mouseY <= 600){
+      dimmer -= 10;
     }
+    rect(1400,500,100,100);
   } else if (display == 'forgot password'){
     if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 175 && mouseY <= 325 && accountclick != 'new password'){
       accountclick = 'username';
