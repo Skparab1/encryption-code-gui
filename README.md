@@ -3,7 +3,7 @@
 
 # Main features that work
 
-## FIX THIS BUG: mac backspace key boesn't work
+## FIX THIS BUG: mac backspace key renders "Backpace"
 
 ## Starting Animation
 - Hover operated with text
