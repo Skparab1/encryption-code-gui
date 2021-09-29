@@ -1406,8 +1406,8 @@ function draw() {
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Keyboard settings',1350,150);
     
-    textSize(25);
-    text('Automatically invoke on screen keyboard',1275,250);
+    textSize(29);
+    text('Automatically invoke on screen keyboard',1515,250);
     text('Show light up feedback on screen keyboard',1275,350);
     
     if (invokex < shouldbex){
@@ -1454,7 +1454,7 @@ function draw() {
   if (changingcolor < 255){
     changingcolor += 3;
   } else {
-    changingcolor += 0.6;
+    changingcolor += 0.8;
   }
   
   if (changingcolor >= 1020){
@@ -1759,9 +1759,9 @@ function mousePressed(){
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60+60){
       colorscheme = 'default light';
       newarrowheight = 235+60+60+60+60+60+60+60+60+60;
-    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 250 && mouseY <= 350 && autoinvokekeyboard == 'off'){
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 200 && mouseY <= 300 && autoinvokekeyboard == 'off'){
       autoinvokekeyboard = 'on';
-    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 250 && mouseY <= 350 && autoinvokekeyboard == 'on'){
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 200 && mouseY <= 300 && autoinvokekeyboard == 'on'){
       autoinvokekeyboard = 'off';
     } else if (mouseX >= 1400 && mouseX <= 1500 && mouseY >= 500 && mouseY <= 600){
       dimmer += 10;
