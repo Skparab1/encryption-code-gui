@@ -312,13 +312,15 @@ function draw() {
   }
   backgroundcolor = [200,200,200];
   textcolor = [red,green,blue];
-  } else  if (colorscheme == 'spectrum bright'){
-  red = (255-Math.abs(255-changingcolor));
-  green = (255-Math.abs(510-changingcolor));
-  blue = (255-Math.abs(765-changingcolor));
+  } else if (colorscheme == 'spectrum bright'){
+  red = (255-Math.abs(255-changingcolor))+100;
+  green = (255-Math.abs(510-changingcolor))+100;
+  blue = (255-Math.abs(765-changingcolor))+100;
+  
   if (changingcolor >= 765){
-    red = (255-Math.abs(1020-changingcolor));
-  }
+        red = (255-Math.abs(1020-changingcolor))+100;
+      }
+  
   textcolor = [0,0,0];
   if (blue < 0){
     blue = 0;
@@ -329,15 +331,14 @@ function draw() {
   if (red < 0){
     red = 0;
   }
-  if ((blue + green + red < 510) && (changingcolor >= 255)){
-    red = red + (510 - blue + green + red);  
+  let addcolor = (255 - (blue + green + red)/3);
+  if ((blue + green + red < 255) && (changingcolor >= 255)){
+    red = red + addcolor; 
+    green = green + addcolor;   
+    blue = blue + addcolor;
   }
-  if ((blue + green + red < 510) && (changingcolor >= 255)){
-    green = green + (510 - blue + green + red);   
-  }
-  if ((blue + green + red < 510) && (changingcolor >= 255)){
-    blue = blue + (510 - blue + green + red);
-  }
+  //changingcolor += 3;
+  
   backgroundcolor = [red,green,blue];
   } else if (colorscheme == 'red-green'){
   red = (255-Math.abs(255-changingcolor));
@@ -1197,6 +1198,7 @@ function draw() {
     }
     let xpos = 100;
     let cc = ccstart;
+    print(ccstart);
     while (xpos <= 300){
       red = (255-Math.abs(255-cc));
       green = (255-Math.abs(510-cc));
@@ -1246,15 +1248,7 @@ function draw() {
       if (red < 0){
         red = 0;
       }
-      if ((blue + green + red < 510) && (changingcolor >= 255)){
-        red = red + (510 - blue + green + red);  
-      }
-      if ((blue + green + red < 510) && (changingcolor >= 255)){
-        green = green + (510 - blue + green + red);   
-      }
-      if ((blue + green + red < 510) && (changingcolor >= 255)){
-        blue = blue + (510 - blue + green + red);
-      }
+      
       stroke(red,green,blue);
       fill(red,green,blue);
       rect(xpos,295,1,60);
@@ -1419,21 +1413,22 @@ function draw() {
     }
     if (changingcolor >= 100){
       channels += 1;
-    } if (channels >= 255){
+    } if (changingcolor >= 255){
       channels += 1;
-    } if (channels >= 400){
+    } if (changingcolor >= 400){
       channels += 1;
-    } if (channels >= 420){
+    } if (changingcolor >= 420){
       channels -= 2;
-    } if (channels >= 500){
+    } if (changingcolor >= 500){
       channels += 3;
-    } if (channels >= 570){
+    } if (changingcolor >= 570){
       channels -= 2;
-    } if (channels >= 640){
+    } if (changingcolor >= 640){
       channels -= 3;
-    } if (channels >= 710){
+    } if (changingcolor >= 710){
       channels += 1;
     }
+    text('Changingcolorvar   '+changingcolor,620,350);
     text('Background colors RGB   '+backgroundcolor[0]+' '+backgroundcolor[1]+' '+backgroundcolor[2],620,500);
     text('Text colors RGB                '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],620,550);
     text('Login status                      '+signinstatus,620,600);
