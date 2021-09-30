@@ -96,6 +96,7 @@ var dimmer = 0;
 var sliderx = 0;
 var invokex = 1500;
 var shouldbex = 1500;
+var framerenderct = 0;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -267,6 +268,7 @@ function displaykeyboard(){
 }
 
 function draw() {
+  framerenderct += 1;
   if (sync == 'on'){
     readstatus = localStorage.getItem('localstatus');
     if (readstatus == 'signed out' && signinstatus != 'signed out'){
@@ -1179,9 +1181,7 @@ function draw() {
     text('Default Dark',310,575 + 60 + 60);
     text('Dark Blue',310,575 + 60 + 60 + 60);
     text('Default Light',310,575 + 60 + 60 + 60 + 60);
-    
-    
-    text('Backend',900,850);
+
     
     
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
@@ -1409,15 +1409,39 @@ function draw() {
     
     textSize(35);    
     fill(255,0,0);
-    rect(600,420,650,300);
+    rect(600,370,650,500);
     fill(0);
-    text('Backend Logistical quickstats',620,460);
+    text('Backend Logistical quickstats',620,410);
     textSize(35);
-    text('Background colors RGB '+backgroundcolor[0]+' '+backgroundcolor[1]+' '+backgroundcolor[2],620,550);
-    text('text colors RGB '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],620,600);
-    text('Login status '+signinstatus,620,650);
-    text('Server connection channels '+(Math.round((Math.random(1,50)*10+2)%3)),620,700);
-
+    let channels = (Math.round((Math.random(1,50)*10+2)%3));
+    if (channels != 1){
+      channels = 2;
+    }
+    if (changingcolor >= 100){
+      channels += 1;
+    } if (channels >= 255){
+      channels += 1;
+    } if (channels >= 400){
+      channels += 1;
+    } if (channels >= 420){
+      channels -= 2;
+    } if (channels >= 500){
+      channels += 3;
+    } if (channels >= 570){
+      channels -= 2;
+    } if (channels >= 640){
+      channels -= 3;
+    } if (channels >= 710){
+      channels += 1;
+    }
+    text('Background colors RGB   '+backgroundcolor[0]+' '+backgroundcolor[1]+' '+backgroundcolor[2],620,500);
+    text('Text colors RGB                '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],620,550);
+    text('Login status                      '+signinstatus,620,600);
+    text('Server com channels        '+channels,620,650);
+    text('System workload               Normal',620,700);
+    text('Fps rate                             '+(channels+57),620,750);
+    text('Frame render count          '+framerenderct,620,800);
+    
     textSize(29);
     text('Automatically invoke on screen keyboard',1515,250);
     text('Show light up feedback on screen keyboard',1275,350);
