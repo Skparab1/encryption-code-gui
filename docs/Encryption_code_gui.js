@@ -309,6 +309,7 @@ function draw() {
     red = (255-Math.abs(1020-changingcolor));
   }
   backgroundcolor = [200,200,200];
+  textcolor = [red,green,blue];
   } else  if (colorscheme == 'spectrum bright'){
   red = (255-Math.abs(255-changingcolor));
   green = (255-Math.abs(510-changingcolor));
@@ -405,7 +406,7 @@ function draw() {
   }
   
   textcolor = [textcolor[0]+dimmer,textcolor[1]+dimmer,textcolor[2]+dimmer];
-  backgroundcolor = [backgroundcolor[0]+dimmer,backgroundcolor[1]+dimmer,backgroundcolor[1]+dimmer];
+  backgroundcolor = [backgroundcolor[0]+dimmer,backgroundcolor[1]+dimmer,backgroundcolor[2]+dimmer];
   red += dimmer;
   green += dimmer;
   blue += dimmer;
@@ -1406,6 +1407,17 @@ function draw() {
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Keyboard settings',1350,150);
     
+    textSize(35);    
+    fill(255,0,0);
+    rect(600,420,650,300);
+    fill(0);
+    text('Backend Logistical quickstats',620,460);
+    textSize(35);
+    text('Background colors RGB '+backgroundcolor[0]+' '+backgroundcolor[1]+' '+backgroundcolor[2],620,550);
+    text('text colors RGB '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],620,600);
+    text('Login status '+signinstatus,620,650);
+    text('Server connection channels '+(Math.round((Math.random(1,50)*10+2)%3)),620,700);
+
     textSize(29);
     text('Automatically invoke on screen keyboard',1515,250);
     text('Show light up feedback on screen keyboard',1275,350);
@@ -1454,7 +1466,7 @@ function draw() {
   if (changingcolor < 255){
     changingcolor += 3;
   } else {
-    changingcolor += 0.8;
+    changingcolor += 1;
   }
   
   if (changingcolor >= 1020){
