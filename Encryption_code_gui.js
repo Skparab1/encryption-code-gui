@@ -313,14 +313,15 @@ function draw() {
   backgroundcolor = [200,200,200];
   textcolor = [red,green,blue];
   } else if (colorscheme == 'spectrum bright'){
-  red = (255-Math.abs(255-changingcolor))+100;
-  green = (255-Math.abs(510-changingcolor))+100;
+  red = (255-Math.abs(255-changingcolor))+100; // = 0
+  green = (255-Math.abs(510-changingcolor))+100; // = 100
   blue = (255-Math.abs(765-changingcolor))+100;
   
   if (changingcolor >= 765){
-        red = (255-Math.abs(1020-changingcolor))+100;
+        red = (255-Math.abs(1020-changingcolor))+(((changingcolor-765)/255)*100);
+        //green = 10 + (((changingcolor-765)/255)*100); //=410
       }
-  
+      
   textcolor = [0,0,0];
   if (blue < 0){
     blue = 0;
@@ -1429,7 +1430,7 @@ function draw() {
       channels += 1;
     }
     text('Changingcolorvar   '+changingcolor,620,350);
-    text('Background colors RGB   '+backgroundcolor[0]+' '+backgroundcolor[1]+' '+backgroundcolor[2],620,500);
+    text('Background colors RGB   '+round(backgroundcolor[0])+' '+round(backgroundcolor[1])+' '+round(backgroundcolor[2]),620,500);
     text('Text colors RGB                '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],620,550);
     text('Login status                      '+signinstatus,620,600);
     text('Server com channels        '+channels,620,650);
@@ -1488,7 +1489,9 @@ function draw() {
     changingcolor += 1;
   }
   
-  if (changingcolor >= 1020){
+  if (changingcolor >= 1020 && colorscheme != 'spectrum bright'){
+    changingcolor = 255;
+  } else if (changingcolor >= 1020+255){
     changingcolor = 255;
   }
   
