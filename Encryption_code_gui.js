@@ -97,6 +97,9 @@ var sliderx = 0;
 var invokex = 1500;
 var shouldbex = 1500;
 var framerenderct = 0;
+var oldred;
+var oldgreen;
+var oldblue;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -300,6 +303,7 @@ function draw() {
   if (changingcolor >= 765){
     red = (255-Math.abs(1020-changingcolor));
   }
+  if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   backgroundcolor = [red,green,blue];
   textcolor = [0,0,0];
   } else if (colorscheme == 'spectrum light'){
@@ -310,6 +314,7 @@ function draw() {
   if (changingcolor >= 765){
     red = (255-Math.abs(1020-changingcolor));
   }
+  if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   backgroundcolor = [200,200,200];
   textcolor = [red,green,blue];
   } else if (colorscheme == 'spectrum bright'){
@@ -321,6 +326,7 @@ function draw() {
     green = 100;                                                                  //    ok       
     blue = (255-Math.abs(765-changingcolor)) + (255-(changingcolor-765));           //   ok     
   }
+  if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   backgroundcolor = [red,green,blue];
   textcolor = [0,0,0];
   } else if (colorscheme == 'red-green'){
@@ -333,6 +339,7 @@ function draw() {
   if (changingcolor >= 756){
     changingcolor = 255;
   }
+  if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   textcolor = [0,0,0];
   backgroundcolor = [red,green,blue];
   } else if (colorscheme == 'red-blue'){
@@ -345,6 +352,7 @@ function draw() {
   if (changingcolor >= 756){
     changingcolor = 255;
   }
+  if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   textcolor = [0,0,0];
   backgroundcolor = [red,green,blue];
   } else if (colorscheme == 'green-blue'){
@@ -357,6 +365,7 @@ function draw() {
   if (changingcolor >= 756){
     changingcolor = 255;
   }
+  if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   textcolor = [0,0,0];
   backgroundcolor = [red,green,blue];
   } else if (colorscheme == 'high contrast'){
@@ -1386,9 +1395,9 @@ function draw() {
     
     textSize(35);    
     fill(255,0,0);
-    rect(600,370,650,500);
+    rect(630,320,650,550);
     fill(0);
-    text('Backend Logistical quickstats',620,410);
+    text('Backend Logistical quickstats',650,350);
     textSize(35);
     let channels = (Math.round((Math.random(1,50)*10+2)%3));
     if (channels != 1){
@@ -1411,14 +1420,28 @@ function draw() {
     } if (changingcolor >= 710){
       channels += 1;
     }
-    text('Changingcolorvar   '+changingcolor,620,350);
-    text('Background colors RGB   '+round(backgroundcolor[0])+' '+round(backgroundcolor[1])+' '+round(backgroundcolor[2]),620,500);
-    text('Text colors RGB                '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],620,550);
-    text('Login status                      '+signinstatus,620,600);
-    text('Server com channels        '+channels,620,650);
-    text('System workload               Normal',620,700);
-    text('Fps rate                             '+(channels+57),620,750);
-    text('Frame render count          '+framerenderct,620,800);
+    
+   let redarrow;
+   let greenarrow;
+   let bluearrow;
+   
+   if (backgroundcolor[0] == oldred){redarrow = '-';} else if (backgroundcolor[0] > oldred){redarrow = '^';} else {redarrow = 'V';}
+   if (backgroundcolor[1] == oldgreen){greenarrow = '-';} else if (backgroundcolor[1] > oldgreen){greenarrow = '^';} else {greenarrow = 'V';}
+   if (backgroundcolor[2] == oldblue){bluearrow = '-';} else if (backgroundcolor[2] > oldblue){bluearrow = '^';} else {bluearrow = 'V';}
+      
+    text('Colorizer variable val          '+changingcolor,650,400);
+    text('Color var directions             '+redarrow+' '+greenarrow+' '+bluearrow,650,450);
+    text('Background colors RGB    '+round(backgroundcolor[0])+' '+round(backgroundcolor[1])+' '+round(backgroundcolor[2]),650,500);
+    text('Text colors RGB                 '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],650,550);
+    text('Login status                       '+signinstatus,650,600);
+    text('Server com channels         '+channels,650,650);
+    text('System workload                Normal',650,700);
+    text('Fps rate                              '+(channels+57),650,750);
+    text('Frame render count           '+framerenderct,650,800);
+    
+    oldred = round(backgroundcolor[0]);
+    oldblue = round(backgroundcolor[1]);    
+    oldgreen = round(backgroundcolor[2]);    
     
     textSize(29);
     text('Automatically invoke on screen keyboard',1515,250);
