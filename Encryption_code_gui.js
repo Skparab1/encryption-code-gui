@@ -1395,7 +1395,7 @@ function draw() {
     
     textSize(35);    
     fill(255,0,0);
-    rect(630,320,650,550);
+    rect(630,310,650,550);
     fill(0);
     text('Backend Logistical quickstats',650,350);
     textSize(35);
@@ -1425,17 +1425,17 @@ function draw() {
    let greenarrow;
    let bluearrow;
    
-   if (backgroundcolor[0] == oldred){redarrow = '-';} else if (backgroundcolor[0] > oldred){redarrow = '^';} else {redarrow = 'V';}
-   if (backgroundcolor[1] == oldgreen){greenarrow = '-';} else if (backgroundcolor[1] > oldgreen){greenarrow = '^';} else {greenarrow = 'V';}
-   if (backgroundcolor[2] == oldblue){bluearrow = '-';} else if (backgroundcolor[2] > oldblue){bluearrow = '^';} else {bluearrow = 'V';}
+   if (backgroundcolor[0] == 0){redarrow = '-';} else if (backgroundcolor[0] > oldred){redarrow = '^';} else {redarrow = 'V';}
+   if (backgroundcolor[1] == 0){greenarrow = '-';} else if (backgroundcolor[1] > oldgreen){greenarrow = '^';} else {greenarrow = 'V';}
+   if (backgroundcolor[2] == 0){bluearrow = '-';} else if (backgroundcolor[2] > oldblue){bluearrow = '^';} else {bluearrow = 'V';}
       
     text('Colorizer variable val          '+changingcolor,650,400);
     text('Color var directions             '+redarrow+' '+greenarrow+' '+bluearrow,650,450);
     text('Background colors RGB    '+round(backgroundcolor[0])+' '+round(backgroundcolor[1])+' '+round(backgroundcolor[2]),650,500);
     text('Text colors RGB                 '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],650,550);
-    text('Login status                       '+signinstatus,650,600);
+    text('System workload                Normal',650,600);
     text('Server com channels         '+channels,650,650);
-    text('System workload                Normal',650,700);
+    text('Current downtime               '+round(framerenderct/60),650,700);
     text('Fps rate                              '+(channels+57),650,750);
     text('Frame render count           '+framerenderct,650,800);
     
