@@ -5,6 +5,8 @@
 
 ## FIX THIS BUG: mac backspace key renders "Backpace"
 
+## GUI is now being hosted on github pages view it [here](skparab1.github.io/encryption-code-gui)
+
 ## Starting Animation
 - Hover operated with text
 
