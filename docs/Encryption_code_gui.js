@@ -97,6 +97,9 @@ var sliderx = 0;
 var invokex = 1500;
 var shouldbex = 1500;
 var framerenderct = 0;
+var oldred;
+var oldgreen;
+var oldblue;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -293,13 +296,14 @@ function draw() {
   clear();
   background(0);
   // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
-  if (colorscheme == 'Spectrum (Default)'){
+  if (colorscheme == 'Spectrum (Default)'){     // @ 765       @255
   red = (255-Math.abs(255-changingcolor));
   green = (255-Math.abs(510-changingcolor));
   blue = (255-Math.abs(765-changingcolor));
   if (changingcolor >= 765){
     red = (255-Math.abs(1020-changingcolor));
   }
+  if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   backgroundcolor = [red,green,blue];
   textcolor = [0,0,0];
   } else if (colorscheme == 'spectrum light'){
@@ -310,35 +314,21 @@ function draw() {
   if (changingcolor >= 765){
     red = (255-Math.abs(1020-changingcolor));
   }
+  if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   backgroundcolor = [200,200,200];
   textcolor = [red,green,blue];
-  } else  if (colorscheme == 'spectrum bright'){
-  red = (255-Math.abs(255-changingcolor));
-  green = (255-Math.abs(510-changingcolor));
-  blue = (255-Math.abs(765-changingcolor));
-  if (changingcolor >= 765){
-    red = (255-Math.abs(1020-changingcolor));
+  } else if (colorscheme == 'spectrum bright'){
+  red = (255-Math.abs(255-changingcolor))+100; //   0          255              
+  green = (255-Math.abs(510-changingcolor))+100; // 100        100 
+  blue = (255-Math.abs(765-changingcolor))+100; //  255         0       
+  if (changingcolor >= 765){                                                        // @765    @1020
+    red = (255-Math.abs(1020-changingcolor)) + (255 * ((changingcolor-765)/255)); //   ok        255+255
+    green = 100;                                                                  //    ok       
+    blue = (255-Math.abs(765-changingcolor)) + (255-(changingcolor-765));           //   ok     
   }
-  textcolor = [0,0,0];
-  if (blue < 0){
-    blue = 0;
-  }
-  if (green < 0){
-    green = 0;
-  }
-  if (red < 0){
-    red = 0;
-  }
-  if ((blue + green + red < 510) && (changingcolor >= 255)){
-    red = red + (510 - blue + green + red);  
-  }
-  if ((blue + green + red < 510) && (changingcolor >= 255)){
-    green = green + (510 - blue + green + red);   
-  }
-  if ((blue + green + red < 510) && (changingcolor >= 255)){
-    blue = blue + (510 - blue + green + red);
-  }
+  if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   backgroundcolor = [red,green,blue];
+  textcolor = [0,0,0];
   } else if (colorscheme == 'red-green'){
   red = (255-Math.abs(255-changingcolor));
   green = (255-Math.abs(510-changingcolor));
@@ -349,6 +339,7 @@ function draw() {
   if (changingcolor >= 756){
     changingcolor = 255;
   }
+  if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   textcolor = [0,0,0];
   backgroundcolor = [red,green,blue];
   } else if (colorscheme == 'red-blue'){
@@ -361,6 +352,7 @@ function draw() {
   if (changingcolor >= 756){
     changingcolor = 255;
   }
+  if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   textcolor = [0,0,0];
   backgroundcolor = [red,green,blue];
   } else if (colorscheme == 'green-blue'){
@@ -373,6 +365,7 @@ function draw() {
   if (changingcolor >= 756){
     changingcolor = 255;
   }
+  if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   textcolor = [0,0,0];
   backgroundcolor = [red,green,blue];
   } else if (colorscheme == 'high contrast'){
@@ -1197,6 +1190,7 @@ function draw() {
     }
     let xpos = 100;
     let cc = ccstart;
+    print(ccstart);
     while (xpos <= 300){
       red = (255-Math.abs(255-cc));
       green = (255-Math.abs(510-cc));
@@ -1246,15 +1240,7 @@ function draw() {
       if (red < 0){
         red = 0;
       }
-      if ((blue + green + red < 510) && (changingcolor >= 255)){
-        red = red + (510 - blue + green + red);  
-      }
-      if ((blue + green + red < 510) && (changingcolor >= 255)){
-        green = green + (510 - blue + green + red);   
-      }
-      if ((blue + green + red < 510) && (changingcolor >= 255)){
-        blue = blue + (510 - blue + green + red);
-      }
+      
       stroke(red,green,blue);
       fill(red,green,blue);
       rect(xpos,295,1,60);
@@ -1409,9 +1395,9 @@ function draw() {
     
     textSize(35);    
     fill(255,0,0);
-    rect(600,370,650,500);
+    rect(630,320,650,550);
     fill(0);
-    text('Backend Logistical quickstats',620,410);
+    text('Backend Logistical quickstats',650,350);
     textSize(35);
     let channels = (Math.round((Math.random(1,50)*10+2)%3));
     if (channels != 1){
@@ -1419,28 +1405,43 @@ function draw() {
     }
     if (changingcolor >= 100){
       channels += 1;
-    } if (channels >= 255){
+    } if (changingcolor >= 255){
       channels += 1;
-    } if (channels >= 400){
+    } if (changingcolor >= 400){
       channels += 1;
-    } if (channels >= 420){
+    } if (changingcolor >= 420){
       channels -= 2;
-    } if (channels >= 500){
+    } if (changingcolor >= 500){
       channels += 3;
-    } if (channels >= 570){
+    } if (changingcolor >= 570){
       channels -= 2;
-    } if (channels >= 640){
+    } if (changingcolor >= 640){
       channels -= 3;
-    } if (channels >= 710){
+    } if (changingcolor >= 710){
       channels += 1;
     }
-    text('Background colors RGB   '+backgroundcolor[0]+' '+backgroundcolor[1]+' '+backgroundcolor[2],620,500);
-    text('Text colors RGB                '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],620,550);
-    text('Login status                      '+signinstatus,620,600);
-    text('Server com channels        '+channels,620,650);
-    text('System workload               Normal',620,700);
-    text('Fps rate                             '+(channels+57),620,750);
-    text('Frame render count          '+framerenderct,620,800);
+    
+   let redarrow;
+   let greenarrow;
+   let bluearrow;
+   
+   if (backgroundcolor[0] == oldred){redarrow = '-';} else if (backgroundcolor[0] > oldred){redarrow = '^';} else {redarrow = 'V';}
+   if (backgroundcolor[1] == oldgreen){greenarrow = '-';} else if (backgroundcolor[1] > oldgreen){greenarrow = '^';} else {greenarrow = 'V';}
+   if (backgroundcolor[2] == oldblue){bluearrow = '-';} else if (backgroundcolor[2] > oldblue){bluearrow = '^';} else {bluearrow = 'V';}
+      
+    text('Colorizer variable val          '+changingcolor,650,400);
+    text('Color var directions             '+redarrow+' '+greenarrow+' '+bluearrow,650,450);
+    text('Background colors RGB    '+round(backgroundcolor[0])+' '+round(backgroundcolor[1])+' '+round(backgroundcolor[2]),650,500);
+    text('Text colors RGB                 '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],650,550);
+    text('Login status                       '+signinstatus,650,600);
+    text('Server com channels         '+channels,650,650);
+    text('System workload                Normal',650,700);
+    text('Fps rate                              '+(channels+57),650,750);
+    text('Frame render count           '+framerenderct,650,800);
+    
+    oldred = round(backgroundcolor[0]);
+    oldblue = round(backgroundcolor[1]);    
+    oldgreen = round(backgroundcolor[2]);    
     
     textSize(29);
     text('Automatically invoke on screen keyboard',1515,250);
@@ -1493,10 +1494,9 @@ function draw() {
     changingcolor += 1;
   }
   
-  if (changingcolor >= 1020){
+  if (changingcolor >= 1020 ){
     changingcolor = 255;
   }
-  
 }
 
 function keyTyped(){
