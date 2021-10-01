@@ -293,7 +293,7 @@ function draw() {
   clear();
   background(0);
   // Colors: Spectrum (Default), spectrum light, spectrum bright, red-green, red-blue, green-blue, high-contrast, black-white, default dark, dark blue, default light
-  if (colorscheme == 'Spectrum (Default)'){
+  if (colorscheme == 'Spectrum (Default)'){     // @ 765       @255
   red = (255-Math.abs(255-changingcolor));
   green = (255-Math.abs(510-changingcolor));
   blue = (255-Math.abs(765-changingcolor));
@@ -313,34 +313,16 @@ function draw() {
   backgroundcolor = [200,200,200];
   textcolor = [red,green,blue];
   } else if (colorscheme == 'spectrum bright'){
-  red = (255-Math.abs(255-changingcolor))+100; // = 0
-  green = (255-Math.abs(510-changingcolor))+100; // = 100
-  blue = (255-Math.abs(765-changingcolor))+100;
-  
-  if (changingcolor >= 765){
-        red = (255-Math.abs(1020-changingcolor))+(((changingcolor-765)/255)*100);
-        //green = 10 + (((changingcolor-765)/255)*100); //=410
-      }
-      
-  textcolor = [0,0,0];
-  if (blue < 0){
-    blue = 0;
+  red = (255-Math.abs(255-changingcolor))+100; //   0          255              
+  green = (255-Math.abs(510-changingcolor))+100; // 100        100 
+  blue = (255-Math.abs(765-changingcolor))+100; //  255         0       
+  if (changingcolor >= 765){                                                        // @765    @1020
+    red = (255-Math.abs(1020-changingcolor)) + (255 * ((changingcolor-765)/255)); //   ok        255+255
+    green = 100;                                                                  //    ok       
+    blue = (255-Math.abs(765-changingcolor)) + (255-(changingcolor-765));           //   ok     
   }
-  if (green < 0){
-    green = 0;
-  }
-  if (red < 0){
-    red = 0;
-  }
-  let addcolor = (255 - (blue + green + red)/3);
-  if ((blue + green + red < 255) && (changingcolor >= 255)){
-    red = red + addcolor; 
-    green = green + addcolor;   
-    blue = blue + addcolor;
-  }
-  //changingcolor += 3;
-  
   backgroundcolor = [red,green,blue];
+  textcolor = [0,0,0];
   } else if (colorscheme == 'red-green'){
   red = (255-Math.abs(255-changingcolor));
   green = (255-Math.abs(510-changingcolor));
@@ -1489,12 +1471,9 @@ function draw() {
     changingcolor += 1;
   }
   
-  if (changingcolor >= 1020 && colorscheme != 'spectrum bright'){
-    changingcolor = 255;
-  } else if (changingcolor >= 1020+255){
+  if (changingcolor >= 1020 ){
     changingcolor = 255;
   }
-  
 }
 
 function keyTyped(){
