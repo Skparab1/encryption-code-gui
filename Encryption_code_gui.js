@@ -524,7 +524,6 @@ function draw() {
       display = 'main menu';
     }
   } else if (display == 'encryption'){
-    background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Encryption',900,100);
     
@@ -538,7 +537,8 @@ function draw() {
     if (revokedkeyboard == 15){
       invokedkeyboard = 'no';
     }
-
+    
+    background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     revokedkeyboard += 1;
     pressedinvoke = false;
     
@@ -1799,12 +1799,15 @@ function mousePressed(){
       autoinvokekeyboard = 'on';
     } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 200 && mouseY <= 300 && autoinvokekeyboard == 'on'){
       autoinvokekeyboard = 'off';
-    } else if (mouseX >= 1400 && mouseX <= 1500 && mouseY >= 500 && mouseY <= 600){
-      dimmer += 10;
-    } else if (mouseX >= 1500 && mouseX <= 1600 && mouseY >= 500 && mouseY <= 600){
+    } else if (mouseX >= 1400 && mouseX <= 1500 && mouseY >= 500 && mouseY <= 600 && dimmer >= -100){
       dimmer -= 10;
+    } else if (mouseX >= 1500 && mouseX <= 1600 && mouseY >= 500 && mouseY <= 600 && dimmer <= 100){
+      dimmer += 10;
+    } else if (mouseX >= 1400 && mouseX <= 1950 && mouseY >= 390 && mouseY <= 490 && dimmer <= 100){
+      dimmer = mouseX-1600;
     }
-    rect(1400,500,100,100);
+    rect(1400,400,450,40);
+
   } else if (display == 'forgot password'){
     if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 175 && mouseY <= 325 && accountclick != 'new password'){
       accountclick = 'username';
