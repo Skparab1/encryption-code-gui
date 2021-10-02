@@ -537,7 +537,6 @@ function draw() {
     if (revokedkeyboard == 15){
       invokedkeyboard = 'no';
     }
-    
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     revokedkeyboard += 1;
     pressedinvoke = false;
@@ -1467,9 +1466,9 @@ function draw() {
     }
     
     textSize(40);
-    fill(0,255,0);
-    text('ON  ',1320,250);
     fill(255,0,0);
+    text('ON  ',1320,250);
+    fill(0,255,0);
     text('      OFF',1320,250);
     
     textSize(100);
