@@ -1513,7 +1513,18 @@ function keyTyped(){
     secq2 += key;
   } else if (logosize < 5250){
     hovered = true;
-  } 
+  } else if (display == 'main menu'){
+    if (key == 'e'){
+      display = 'encryption';
+    } else if (key == 'd'){
+      display = 'decryption';
+    } else if (key == 'a'){
+      display = 'account';
+    } else if (key == 's'){
+      display = 'settings';
+    }
+    key = '';
+  }
   if (display == 'encryption' && encryptionclick == 'encrypting' ){
     toencrypt = toencrypt + key;
     print('wrote');
