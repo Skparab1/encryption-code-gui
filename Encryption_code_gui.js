@@ -77,7 +77,7 @@ var tabstatus = false;
 var isignedout = false;
 var accountcounter = 0;
 var foundglobalaccount = false;
-var encryptionclick = 'encrypting';
+var encryptionclick = 'none';
 var signintype = 'signed out';
 var sync = 'on';
 var nowarrowheight = 175;
@@ -1524,6 +1524,10 @@ function keyTyped(){
       display = 'settings';
     }
     key = '';
+  } else if ((accountclick == 'none' && (display == 'account' || display == 'create account' || display == 'forgot password')) || (encryptionclick == 'none' && display == 'encryption') || display == 'settings' || display == 'decryption'){
+    if (key == 'b'){
+      display = 'main menu';
+    }
   }
   if (display == 'encryption' && encryptionclick == 'encrypting' ){
     toencrypt = toencrypt + key;
@@ -1663,7 +1667,7 @@ function mousePressed(){
         accountclick = 'username';
       }
     } else {
-      //accountclick = 'none';
+      accountclick = 'none';
     }
   }
 
