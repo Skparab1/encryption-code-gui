@@ -100,6 +100,8 @@ var framerenderct = 0;
 var oldred;
 var oldgreen;
 var oldblue;
+var lastchangedsetting = 'theme';
+var bgc;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -303,11 +305,14 @@ function draw() {
   if (changingcolor >= 765){
     red = (255-Math.abs(1020-changingcolor));
   }
+  bgc = [0,0,0];
   if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   backgroundcolor = [red,green,blue];
+  bgc = [red,green,blue];
   textcolor = [0,0,0];
   } else if (colorscheme == 'spectrum light'){
   background(150);
+  bgc = [150,150,150];
   red = (255-Math.abs(255-changingcolor));
   green = (255-Math.abs(510-changingcolor));
   blue = (255-Math.abs(765-changingcolor));
@@ -329,6 +334,7 @@ function draw() {
   if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   backgroundcolor = [red,green,blue];
   textcolor = [0,0,0];
+  bgc = [0,0,0];
   } else if (colorscheme == 'red-green'){
   red = (255-Math.abs(255-changingcolor));
   green = (255-Math.abs(510-changingcolor));
@@ -341,6 +347,7 @@ function draw() {
   }
   if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   textcolor = [0,0,0];
+  bgc = [0,0,0];
   backgroundcolor = [red,green,blue];
   } else if (colorscheme == 'red-blue'){
   red = (255-Math.abs(255-changingcolor));
@@ -354,6 +361,7 @@ function draw() {
   }
   if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   textcolor = [0,0,0];
+  bgc = [0,0,0];
   backgroundcolor = [red,green,blue];
   } else if (colorscheme == 'green-blue'){
   green = (255-Math.abs(255-changingcolor));
@@ -372,6 +380,7 @@ function draw() {
   green = (255);
   blue = (0);
   red = (255);
+  bgc = [0,0,0];
   textcolor = [255,255,0];
   backgroundcolor = [0,0,0];
   } else if (colorscheme == 'black-white'){
@@ -380,24 +389,28 @@ function draw() {
   red = (255);
   textcolor = [255,255,255];
   backgroundcolor = [0,0,0];
+  bgc = [0,0,0];
   } else if (colorscheme == 'default dark'){
   green = (100);
   blue = (50);
   red = (150);
   textcolor = [255,255,190];
   backgroundcolor = [100,100,100];
+  bgc = backgroundcolor;
   } else if (colorscheme == 'dark blue'){
   green = (50);
   blue = (100);
   red = (100);
   textcolor = [0,100,255];
   backgroundcolor = [0,0,100];
+  bgc = backgroundcolor;
   } else if (colorscheme == 'default light'){
   green = (170);
   blue = (170);
   red = (170);
   textcolor = [0,0,0];
   backgroundcolor = [200,200,200];
+  bgc = backgroundcolor;
   }
   
   textcolor = [textcolor[0]+dimmer,textcolor[1]+dimmer,textcolor[2]+dimmer];
@@ -1388,11 +1401,11 @@ function draw() {
     textSize(60);
     text('>',40,hpy+48);
     
-    textSize(70);
+    textSize(58);
     fill(textcolor[0],textcolor[1],textcolor[2]);
-    text('Keyboard settings',1350,150);
-    
     textSize(35);    
+    text('Setting Preview',1350,40);
+    
     fill(255,0,0);
     rect(630,310,650,550);
     fill(0);
@@ -1443,7 +1456,7 @@ function draw() {
     oldgreen = round(backgroundcolor[2]);    
     
     textSize(29);
-    text('Automatically invoke on screen keyboard',1515,240);
+    text('Automatically invoke on screen keyboard',1515,300);
     text('Show light up feedback on screen keyboard',1515,350);
     
     if (invokex < shouldbex){
@@ -1453,9 +1466,9 @@ function draw() {
     }
     
     fill(255,0,0);
-    rect(1300,200,200,50);
+    rect(1300,280,200,50);
     fill(0,255,0);
-    rect(invokex,200,1500-invokex,50);
+    rect(invokex,280,1500-invokex,50);
     
     if (autoinvokekeyboard == 'on'){
       shouldbex = 1300;
@@ -1467,9 +1480,11 @@ function draw() {
     
     textSize(40);
     fill(255,0,0);
-    text('ON  ',1320,240);
+    text('ON  ',1320,320);
     fill(0,255,0);
-    text('      OFF',1320,240);
+    text('      OFF',1320,320);
+    
+    text('Reset all',1320,500);
     
     textSize(100);
     
@@ -1484,6 +1499,19 @@ function draw() {
       sliderx -= 1;
     } else if (sliderx < dimmer){
       sliderx += 1;
+    }
+    fill(bgc[0],bgc[1],bgc[2]);
+    rect(1300,55,650,200);
+    
+    if (lastchangedsetting == 'theme'){
+      fill(backgroundcolor[1],backgroundcolor[2],backgroundcolor[0]);
+      rect(1400,100,100,50);
+      fill(backgroundcolor[2],backgroundcolor[0]-33,backgroundcolor[1]);
+      rect(1700,100,100,50);
+      fill(backgroundcolor[1],backgroundcolor[0]-66,backgroundcolor[2]);
+      rect(1400,175,100,50);
+      fill(backgroundcolor[0]-100,backgroundcolor[1],backgroundcolor[2]);
+      rect(1700,175,100,50);
     }
 
   }
@@ -1809,9 +1837,9 @@ function mousePressed(){
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60+60){
       colorscheme = 'default light';
       newarrowheight = 235+60+60+60+60+60+60+60+60+60;
-    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 200 && mouseY <= 300 && autoinvokekeyboard == 'off'){
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280 && mouseY <= 330 && autoinvokekeyboard == 'off'){
       autoinvokekeyboard = 'on';
-    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 200 && mouseY <= 300 && autoinvokekeyboard == 'on'){
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280 && mouseY <= 330 && autoinvokekeyboard == 'on'){
       autoinvokekeyboard = 'off';
     } else if (mouseX >= 1400 && mouseX <= 1500 && mouseY >= 730 && mouseY <= 830 && dimmer >= -100){
       dimmer -= 10;
