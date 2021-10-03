@@ -30,6 +30,8 @@
   - disable/enable press shift to click
     - when testing i found that sometimes when typing a caps letter shift+letter can wrongly invoke this feature, and if it's over abuttone then it can change your screen
     - however this isn't a big deal because even if you exit the screen everything will be saved and if you type an extra letter then you can backspace it not a huge deal
+  - Keyboard navigation (e,a,s,d,b)
+  -    navigates to the corresponding page
     
 ## Loading animation
 - has horizontal top bar
