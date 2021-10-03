@@ -1443,8 +1443,8 @@ function draw() {
     oldgreen = round(backgroundcolor[2]);    
     
     textSize(29);
-    text('Automatically invoke on screen keyboard',1515,250);
-    text('Show light up feedback on screen keyboard',1275,350);
+    text('Automatically invoke on screen keyboard',1515,240);
+    text('Show light up feedback on screen keyboard',1515,350);
     
     if (invokex < shouldbex){
       invokex += 20;
@@ -1453,9 +1453,9 @@ function draw() {
     }
     
     fill(255,0,0);
-    rect(1300,200,200,100);
+    rect(1300,200,200,50);
     fill(0,255,0);
-    rect(invokex,200,1500-invokex,100);
+    rect(invokex,200,1500-invokex,50);
     
     if (autoinvokekeyboard == 'on'){
       shouldbex = 1300;
@@ -1467,19 +1467,19 @@ function draw() {
     
     textSize(40);
     fill(255,0,0);
-    text('ON  ',1320,250);
+    text('ON  ',1320,240);
     fill(0,255,0);
-    text('      OFF',1320,250);
+    text('      OFF',1320,240);
     
     textSize(100);
     
-    text(dimmer,1400,400);
-    rect(1400,500,100,100);
+    text(dimmer,1400,630);
+    rect(1400,730,100,100);
     fill(100);
-    rect(1500,500,100,100);
+    rect(1500,730,100,100);
     
-    rect(1400,400,450,40);
-    rect(1600+(sliderx*2),390,30,100);
+    rect(1400,630,450,40);
+    rect(1600+(sliderx*2),620,30,100);
     if (sliderx > dimmer){
       sliderx -= 1;
     } else if (sliderx < dimmer){
@@ -1813,11 +1813,11 @@ function mousePressed(){
       autoinvokekeyboard = 'on';
     } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 200 && mouseY <= 300 && autoinvokekeyboard == 'on'){
       autoinvokekeyboard = 'off';
-    } else if (mouseX >= 1400 && mouseX <= 1500 && mouseY >= 500 && mouseY <= 600 && dimmer >= -100){
+    } else if (mouseX >= 1400 && mouseX <= 1500 && mouseY >= 730 && mouseY <= 830 && dimmer >= -100){
       dimmer -= 10;
-    } else if (mouseX >= 1500 && mouseX <= 1600 && mouseY >= 500 && mouseY <= 600 && dimmer <= 100){
+    } else if (mouseX >= 1500 && mouseX <= 1600 && mouseY >= 730 && mouseY <= 830 && dimmer <= 100){
       dimmer += 10;
-    } else if (mouseX >= 1400 && mouseX <= 1950 && mouseY >= 390 && mouseY <= 490 && dimmer <= 100){
+    } else if (mouseX >= 1400 && mouseX <= 1950 && mouseY >= 620 && mouseY <= 720 && dimmer <= 100){
       dimmer = mouseX-1600;
     }
     rect(1400,400,450,40);
