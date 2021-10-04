@@ -102,6 +102,7 @@ var oldgreen;
 var oldblue;
 var lastchangedsetting = 'theme';
 var bgc;
+var settingdowntime = 0;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -308,7 +309,6 @@ function draw() {
   bgc = [0,0,0];
   if (red < 0){red = 0;} if (green < 0){green = 0;} if (blue < 0 ){blue = 0;}
   backgroundcolor = [red,green,blue];
-  bgc = [red,green,blue];
   textcolor = [0,0,0];
   } else if (colorscheme == 'spectrum light'){
   background(150);
@@ -1169,6 +1169,7 @@ function draw() {
       }
     }
   } else if (display == 'settings'){
+    settingdowntime += 1;
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     stroke(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
@@ -1501,18 +1502,34 @@ function draw() {
       sliderx += 1;
     }
     fill(bgc[0],bgc[1],bgc[2]);
-    rect(1300,55,650,200);
+    rect(1360,55,484,200);
+    if (colorscheme == 'high contrast'){
+      backgroundcolor = [255,255,0];
+    }
     
     if (lastchangedsetting == 'theme'){
       fill(backgroundcolor[1],backgroundcolor[2],backgroundcolor[0]);
-      rect(1400,100,100,50);
+      if (colorscheme == 'black-white'){fill(255,255,255);}
+      rect(1440,100,100,50);
       fill(backgroundcolor[2],backgroundcolor[0]-33,backgroundcolor[1]);
-      rect(1700,100,100,50);
+      if (colorscheme == 'black-white'){fill(255,255,255);}
+      rect(1675,100,100,50);
       fill(backgroundcolor[1],backgroundcolor[0]-66,backgroundcolor[2]);
-      rect(1400,175,100,50);
+      if (colorscheme == 'black-white'){fill(255,255,255);}      
+      rect(1440,175,100,50);
       fill(backgroundcolor[0]-100,backgroundcolor[1],backgroundcolor[2]);
-      rect(1700,175,100,50);
+      if (colorscheme == 'black-white'){fill(255,255,255);}
+      rect(1675,175,100,50);
+      fill(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+      if (colorscheme == 'black-white'){fill(255,255,255);}      
+      textSize(15);
+      text('Encryption code Graphical User Interface (GUI)',1425,85);
+      fill(bgc[0],bgc[1],bgc[2]);
+      text('Encryption                                          Account',1450,125);
+      text('Decryption                                          Settings',1450,200);
     }
+    
+    textSize(100);
 
   }
   if (changingcolor < 255){
@@ -1636,6 +1653,7 @@ function mousePressed(){
     }
     rect(200,500,700,250);
     if (mouseX >= 1100 && mouseX <= 1800 && mouseY >= 500 && mouseY <= 750){
+      settingdowntime = 0;
       display = 'settings';
     }
   }
@@ -1807,45 +1825,58 @@ function mousePressed(){
     if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235-60 && mouseY <= 235){
       colorscheme = 'Spectrum (Default)';
       newarrowheight = 175;
+      lastchangedsetting = 'theme';
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235 && mouseY <= 235+60){
       colorscheme = 'spectrum light';
       newarrowheight = 235;
+      lastchangedsetting = 'theme';
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60 && mouseY <= 235+60+60){
       colorscheme = 'spectrum bright';
       newarrowheight = 235+60;
+      lastchangedsetting = 'theme';
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60 && mouseY <= 235+60+60+60){
       colorscheme = 'red-green';
       newarrowheight = 235+60+60;
+      lastchangedsetting = 'theme';
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60 && mouseY <= 235+60+60+60+60){
       colorscheme = 'red-blue';
       newarrowheight = 235+60+60+60;
+      lastchangedsetting = 'theme';
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60 && mouseY <= 235+60+60+60+60+60){
       colorscheme = 'green-blue';
       newarrowheight = 235+60+60+60+60;
+      lastchangedsetting = 'theme';
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60){
       colorscheme = 'high contrast';
       newarrowheight = 235+60+60+60+60+60;
+      lastchangedsetting = 'theme';
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60){
       colorscheme = 'black-white';
       newarrowheight = 235+60+60+60+60+60+60;
+      lastchangedsetting = 'theme';
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60){
       colorscheme = 'default dark';
       newarrowheight = 235+60+60+60+60+60+60+60;
+      lastchangedsetting = 'theme';
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60){
       colorscheme = 'dark blue';
       newarrowheight = 235+60+60+60+60+60+60+60+60;
+      lastchangedsetting = 'theme';
     } else if (mouseX >= 100 && mouseX <= 300 && mouseY >= 235+60+60+60+60+60+60+60+60+60 && mouseY <= 235+60+60+60+60+60+60+60+60+60+60){
       colorscheme = 'default light';
       newarrowheight = 235+60+60+60+60+60+60+60+60+60;
+      lastchangedsetting = 'theme';
     } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280 && mouseY <= 330 && autoinvokekeyboard == 'off'){
       autoinvokekeyboard = 'on';
+      lastchangedsetting = 'keyboard';
     } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280 && mouseY <= 330 && autoinvokekeyboard == 'on'){
       autoinvokekeyboard = 'off';
-    } else if (mouseX >= 1400 && mouseX <= 1500 && mouseY >= 730 && mouseY <= 830 && dimmer >= -100){
+      lastchangedsetting = 'keyboard';
+    } else if (mouseX >= 1400 && mouseX <= 1500 && mouseY >= 730 && mouseY <= 830 && dimmer >= -100 && settingdowntime >= 15){
       dimmer -= 10;
-    } else if (mouseX >= 1500 && mouseX <= 1600 && mouseY >= 730 && mouseY <= 830 && dimmer <= 100){
+    } else if (mouseX >= 1500 && mouseX <= 1600 && mouseY >= 730 && mouseY <= 830 && dimmer <= 100 && settingdowntime >= 15){
       dimmer += 10;
-    } else if (mouseX >= 1400 && mouseX <= 1950 && mouseY >= 620 && mouseY <= 720 && dimmer <= 100){
+    } else if (mouseX >= 1400 && mouseX <= 1950 && mouseY >= 620 && mouseY <= 720 && dimmer <= 100 && settingdowntime >= 15){
       dimmer = mouseX-1600;
     }
     rect(1400,400,450,40);
