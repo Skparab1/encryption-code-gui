@@ -1470,8 +1470,20 @@ function draw() {
     
     fill(255,0,0);
     rect(1300,280,200,50);
+    rect(1300,280+60,200,50);
+    rect(1300,280+60+60,200,50);
+    rect(1300,280+60+60+60,200,50);
+    rect(1300,280+60+60+60+60,200,50);
+    rect(1300,280+60+60+60+60+60,200,50);
+
     fill(0,255,0);
     rect(invokex,280,1500-invokex,50);
+    rect(invokex,280+60,1500-invokex,50);
+    rect(invokex,280+60+60,1500-invokex,50);
+    rect(invokex,280+60+60+60,1500-invokex,50);
+    rect(invokex,280+60+60+60+60,1500-invokex,50);
+    rect(invokex,280+60+60+60+60+60,1500-invokex,50);
+    
     
     if (autoinvokekeyboard == 'on'){
       shouldbex = 1300;
@@ -1484,27 +1496,37 @@ function draw() {
     textSize(40);
     fill(255,0,0);
     text('ON  ',1320,320);
+    text('ON  ',1320,+60320);
+    text('ON  ',1320,320);
+    text('ON  ',1320,320);
+    text('ON  ',1320,320);
+    text('ON  ',1320,320);
+    text('ON  ',1320,320);
     fill(0,255,0);
     text('      OFF',1320,320);
     
     text('Reset all',1320,500);
     
     textSize(100);
-    
-    text(dimmer,1400,630);
-    rect(1400,730,100,100);
-    fill(100);
-    rect(1500,730,100,100);
-    
-    rect(1400,630,450,40);
-    rect(1600+(sliderx*2),620,30,100);
     fill(200,0,0);
-    text('0',1600,600);
-    rect(1600,620,30,100);
-    if (sliderx > dimmer){
-      sliderx -= 1;
+    rect(1600,720,10,50);
+    text(dimmer,1857,800);
+    rect(1300,700,75,75);
+    fill(100);
+    rect(1300,775,75,75);
+    rect(1400,750,450,40);
+    rect(1600+(sliderx*2),720,30,100);
+    if (dimmer >= 100){
+      dimmer = 100;
+    } else if (dimmer <= -100){
+      dimmer = -100;
+    }
+    
+    if (Math.abs(sliderx-dimmer) <= 4){
+    }else if (sliderx > dimmer){
+      sliderx -= 4;
     } else if (sliderx < dimmer){
-      sliderx += 1;
+      sliderx += 4;
     }
     
     if (lastchangedsetting == 'theme'){
@@ -1649,12 +1671,15 @@ function keyReleased(){
 }
 
 function mouseDragged(){
-  if (display == 'settings'){
-    if (mouseX >= 1400 && mouseX <= 1500 && mouseY >= 730 && mouseY <= 830 && dimmer >= -100 && settingdowntime >= 15){
+  rect(1300,700,75,75);
+    fill(100);
+    rect(1300,775,75,75);
+  if (display == 'settings' && dimmer <= 100 && dimmer >= -100){
+    if (mouseX >= 1300 && mouseX <= 1375 && mouseY >= 700 && mouseY <= 775 && dimmer >= -100 && settingdowntime >= 15){
       dimmer -= 10;
-    } else if (mouseX >= 1500 && mouseX <= 1600 && mouseY >= 730 && mouseY <= 830 && dimmer <= 100 && settingdowntime >= 15){
+    } else if (mouseX >= 1300 && mouseX <= 1375 && mouseY >= 775 && mouseY <= 850 && dimmer <= 100 && settingdowntime >= 15){
       dimmer += 10;
-    } else if (mouseX >= 1400 && mouseX <= 1950 && mouseY >= 620 && mouseY <= 720 && dimmer <= 100 && settingdowntime >= 15){
+    } else if (mouseX >= 1400 && mouseX <= 1950 && mouseY >= 720 && mouseY <= 830 && dimmer <= 100 && settingdowntime >= 15){
       dimmer = round((mouseX-1600)/2)-8 ;
     }
   }
@@ -1896,11 +1921,11 @@ function mousePressed(){
     } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280 && mouseY <= 330 && autoinvokekeyboard == 'on'){
       autoinvokekeyboard = 'off';
       lastchangedsetting = 'keyboard';
-    } else if (mouseX >= 1400 && mouseX <= 1500 && mouseY >= 730 && mouseY <= 830 && dimmer >= -100 && settingdowntime >= 15){
+    } else if (mouseX >= 1300 && mouseX <= 1375 && mouseY >= 700 && mouseY <= 775 && dimmer >= -100 && settingdowntime >= 15){
       dimmer -= 10;
-    } else if (mouseX >= 1500 && mouseX <= 1600 && mouseY >= 730 && mouseY <= 830 && dimmer <= 100 && settingdowntime >= 15){
+    } else if (mouseX >= 1300 && mouseX <= 1375 && mouseY >= 775 && mouseY <= 850 && dimmer <= 100 && settingdowntime >= 15){
       dimmer += 10;
-    } else if (mouseX >= 1400 && mouseX <= 1950 && mouseY >= 620 && mouseY <= 720 && dimmer <= 100 && settingdowntime >= 15){
+    } else if (mouseX >= 1400 && mouseX <= 1950 && mouseY >= 720 && mouseY <= 820 && dimmer <= 100 && dimmer >= -100 && settingdowntime >= 15){
       dimmer = round((mouseX-1600)/2)-8 ;
     }
     rect(1400,400,450,40);
