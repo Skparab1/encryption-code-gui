@@ -1498,6 +1498,9 @@ function draw() {
     
     rect(1400,630,450,40);
     rect(1600+(sliderx*2),620,30,100);
+    fill(200,0,0);
+    text('0',1600,600);
+    rect(1600,620,30,100);
     if (sliderx > dimmer){
       sliderx -= 1;
     } else if (sliderx < dimmer){
@@ -1643,6 +1646,18 @@ function keyReleased(){
     key = '';
   }
   pressedkey = 'no';
+}
+
+function mouseDragged(){
+  if (display == 'settings'){
+    if (mouseX >= 1400 && mouseX <= 1500 && mouseY >= 730 && mouseY <= 830 && dimmer >= -100 && settingdowntime >= 15){
+      dimmer -= 10;
+    } else if (mouseX >= 1500 && mouseX <= 1600 && mouseY >= 730 && mouseY <= 830 && dimmer <= 100 && settingdowntime >= 15){
+      dimmer += 10;
+    } else if (mouseX >= 1400 && mouseX <= 1950 && mouseY >= 620 && mouseY <= 720 && dimmer <= 100 && settingdowntime >= 15){
+      dimmer = round((mouseX-1600)/2)-8 ;
+    }
+  }
 }
 
 function mousePressed(){
@@ -1886,7 +1901,7 @@ function mousePressed(){
     } else if (mouseX >= 1500 && mouseX <= 1600 && mouseY >= 730 && mouseY <= 830 && dimmer <= 100 && settingdowntime >= 15){
       dimmer += 10;
     } else if (mouseX >= 1400 && mouseX <= 1950 && mouseY >= 620 && mouseY <= 720 && dimmer <= 100 && settingdowntime >= 15){
-      dimmer = mouseX-1600;
+      dimmer = round((mouseX-1600)/2)-8 ;
     }
     rect(1400,400,450,40);
 
