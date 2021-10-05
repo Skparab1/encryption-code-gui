@@ -4,6 +4,8 @@ var table = [];
 
 function preload() {
   logo = loadImage("logo.png");
+  nokeyboard = loadImage("nokeyboard.png");
+  oskeyboard = loadImage("oskeyboard.png");
   table = loadTable("accounts.csv","csv","header");
 }
 
@@ -1501,13 +1503,13 @@ function draw() {
     } else if (sliderx < dimmer){
       sliderx += 1;
     }
-    fill(bgc[0],bgc[1],bgc[2]);
-    rect(1360,55,484,200);
-    if (colorscheme == 'high contrast'){
-      backgroundcolor = [255,255,0];
-    }
     
     if (lastchangedsetting == 'theme'){
+      fill(bgc[0],bgc[1],bgc[2]);
+      rect(1360,55,484,200);
+      if (colorscheme == 'high contrast'){
+        backgroundcolor = [255,255,0];
+      }
       fill(backgroundcolor[1],backgroundcolor[2],backgroundcolor[0]);
       if (colorscheme == 'black-white'){fill(255,255,255);}
       rect(1440,100,100,50);
@@ -1527,8 +1529,15 @@ function draw() {
       fill(bgc[0],bgc[1],bgc[2]);
       text('Encryption                                          Account',1450,125);
       text('Decryption                                          Settings',1450,200);
+    tint(255, 250);
+    } else if (lastchangedsetting == 'keyboard' && autoinvokekeyboard == 'off'){
+      image(nokeyboard,1360,55,484,200);
+      print('in 1');
+      
+    } else if (lastchangedsetting == 'keyboard' && autoinvokekeyboard == 'on'){
+      image(oskeyboard,1360,55,484,200);
+      print('in 2');
     }
-    
     textSize(100);
 
   }
@@ -1673,14 +1682,14 @@ function mousePressed(){
       accountclick = 'username';
       if (autoinvokekeyboard == 'on'){
         invokedkeyboard = 'yes';
+        pressedinvoke = true;
       }
-      pressedinvoke = true;
     } else if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 475 && mouseY <= 625){
       accountclick = 'password';
       if (autoinvokekeyboard == 'on'){
         invokedkeyboard = 'yes';
+        pressedinvoke = true;
       }
-      pressedinvoke = true;
     } else if (mouseX >= 1800 && mouseX <= 1900 && mouseY >= 500 && mouseY <= 600){
       accountclick = 'username';
       pressedinvoke = true;
@@ -1713,7 +1722,7 @@ function mousePressed(){
         accountclick = 'username';
       }
     } else {
-      accountclick = 'none';
+      //accountclick = 'none'; this interferes with auto invoking keyboard
     }
   }
 
