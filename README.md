@@ -4,6 +4,8 @@
 # Main features that work
 
 ## FIX THIS BUG: mac backspace key renders "Backpace"
+## THINGS TO ADD: when account session expires, give option to log in 
+## add Mousedragged to slider bar
 
 ## GUI is now being hosted on github pages view it [here](https://skparab1.github.io/encryption-code-gui)
 
