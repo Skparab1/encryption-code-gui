@@ -105,16 +105,8 @@ var oldblue;
 var lastchangedsetting = 'theme';
 var bgc;
 var settingdowntime = 0;
-var settingx1 = 1300;
-var settingx2 = 1300;
-var settingx3 = 1300;
-var settingx4 = 1300;
-var settingx5 = 1300;
-var s1 = 'on';
-var s2 = 'on';
-var s3 = 'on';
-var s4 = 'on';
-var s5 = 'on';
+var lightupx = 1300;
+var lightup = 'on';
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -193,7 +185,7 @@ function displaykeyboard(){
   let rectx = 150;
   let buttonnum = 1;
   while (rectx <= 1600){
-    if ((buttonnum == 1 && key == '~')||(buttonnum == 2 && key == '1')||(buttonnum == 3 && key == '2')||(buttonnum == 4 && key == '3')||(buttonnum == 5 && key == '4')||(buttonnum == 6 && key == '5')||(buttonnum == 7 && key == '6')||(buttonnum == 8 && key == '7')||(buttonnum == 9 && key == '8')||(buttonnum == 10 && key == '9')||(buttonnum == 11 && key == '0')||(buttonnum == 12 && key == '(')||(buttonnum == 13 && key == ')')){      fill(200,100,0);
+    if (((buttonnum == 1 && key == '~')||(buttonnum == 2 && key == '1')||(buttonnum == 3 && key == '2')||(buttonnum == 4 && key == '3')||(buttonnum == 5 && key == '4')||(buttonnum == 6 && key == '5')||(buttonnum == 7 && key == '6')||(buttonnum == 8 && key == '7')||(buttonnum == 9 && key == '8')||(buttonnum == 10 && key == '9')||(buttonnum == 11 && key == '0')||(buttonnum == 12 && key == '(')||(buttonnum == 13 && key == ')')) && (lightup == 'on')){      fill(200,100,0);
       fill(200,100,0);
     } else {
       fill(0);
@@ -211,7 +203,7 @@ function displaykeyboard(){
   rect(rectx,860,375,85);
   rectx = 180;
   while (rectx <= 1800){
-    if ((buttonnum == 2 && key == 'q')||(buttonnum == 3 && key == 'w')||(buttonnum == 4 && key == 'e')||(buttonnum == 5 && key == 'r')||(buttonnum == 6 && key == 't')||(buttonnum == 7 && key == 'y')||(buttonnum == 8 && key == 'u')||(buttonnum == 9 && key == 'i')||(buttonnum == 10 && key == 'o')||(buttonnum == 11 && key == 'p')||(buttonnum == 12 && key == ';')||(buttonnum == 13 && key == ':')){      fill(200,100,0);
+    if (((buttonnum == 2 && key == 'q')||(buttonnum == 3 && key == 'w')||(buttonnum == 4 && key == 'e')||(buttonnum == 5 && key == 'r')||(buttonnum == 6 && key == 't')||(buttonnum == 7 && key == 'y')||(buttonnum == 8 && key == 'u')||(buttonnum == 9 && key == 'i')||(buttonnum == 10 && key == 'o')||(buttonnum == 11 && key == 'p')||(buttonnum == 12 && key == ';')||(buttonnum == 13 && key == ':')) && (lightup == 'on')){      fill(200,100,0);
       fill(200,100,0);
     } else {
       fill(0);
@@ -229,7 +221,7 @@ function displaykeyboard(){
   rectx = 200;
   buttonnum = 1;
   while (rectx <= 1800){
-    if ((buttonnum == 3 && key == 'a')||(buttonnum == 4 && key == 's')||(buttonnum == 5 && key == 'd')||(buttonnum == 6 && key == 'f')||(buttonnum == 7 && key == 'g')||(buttonnum == 8 && key == 'h')||(buttonnum == 9 && key == 'j')||(buttonnum == 10 && key == 'k')||(buttonnum == 11 && key == 'l')||(buttonnum == 12 && key == '.')||(buttonnum == 13 && key == ',')){      fill(200,100,0);
+    if (((buttonnum == 3 && key == 'a')||(buttonnum == 4 && key == 's')||(buttonnum == 5 && key == 'd')||(buttonnum == 6 && key == 'f')||(buttonnum == 7 && key == 'g')||(buttonnum == 8 && key == 'h')||(buttonnum == 9 && key == 'j')||(buttonnum == 10 && key == 'k')||(buttonnum == 11 && key == 'l')||(buttonnum == 12 && key == '.')||(buttonnum == 13 && key == ',')) && (lightup == 'on')){      fill(200,100,0);
       fill(200,100,0);
     } else {
       fill(0);
@@ -259,7 +251,7 @@ function displaykeyboard(){
   rectx = 335;
   buttonnum = 1;
   while (rectx <= 1590){
-    if ((buttonnum == 1 && key == 'z')||(buttonnum == 2 && key == 'x')||(buttonnum == 3 && key == 'c')||(buttonnum == 4 && key == 'v')||(buttonnum == 5 && key == 'b')||(buttonnum == 6 && key == 'n')||(buttonnum == 7 && key == 'm')||(buttonnum == 8 && key == '!')||(buttonnum == 9 && key == '?')||(buttonnum == 10 && key == '@')||(buttonnum == 11 && key == '&')){      fill(200,100,0);
+    if (((buttonnum == 1 && key == 'z')||(buttonnum == 2 && key == 'x')||(buttonnum == 3 && key == 'c')||(buttonnum == 4 && key == 'v')||(buttonnum == 5 && key == 'b')||(buttonnum == 6 && key == 'n')||(buttonnum == 7 && key == 'm')||(buttonnum == 8 && key == '!')||(buttonnum == 9 && key == '?')||(buttonnum == 10 && key == '@')||(buttonnum == 11 && key == '&')) && (lightup == 'on')){      fill(200,100,0);
       fill(200,100,0);
     } else {
       fill(0);
@@ -1481,12 +1473,17 @@ function draw() {
     } else if (invokex > shouldbex){
       invokex -= 40;
     }
-    if (settingx1 < s1){  settingx1 += 40;  } else if (settingx1 > s1){ settingx1 -= 40; }
-    if (settingx2 < s2){  settingx2 += 40;  } else if (settingx2 > s2){ settingx2 -= 40; }
-    if (settingx3 < s3){  settingx3 += 40;  } else if (settingx3 > s3){ settingx3 -= 40; }
-    if (settingx4 < s4){  settingx4 += 40;  } else if (settingx4 > s4){ settingx4 -= 40; }
-    if (settingx5 < s5){  settingx5 += 40;  } else if (settingx5 > s5){ settingx5 -= 40; }
-    
+    if (lightup == 'on'){
+      sbx = 1300;
+    } else {
+      sbx = 1500;
+    }
+    if (lightupx < sbx){
+      lightupx += 40;
+    } else if (lightupx > sbx){
+      lightupx -= 40;
+    }
+        
     fill(255,0,0);
     rect(1300,280,200,50);
     rect(1300,280+60,200,50);
@@ -1497,11 +1494,11 @@ function draw() {
 
     fill(0,255,0);
     rect(invokex,280,1500-invokex,50);
-    rect(settingx1,280+60,1500-settingx1,50);
-    rect(settingx2,280+60+60,1500-settingx2,50);
-    rect(settingx3,280+60+60+60,1500-settingx3,50);
-    rect(settingx4,280+60+60+60+60,1500-settingx4,50);
-    rect(settingx5,280+60+60+60+60+60,1500-settingx5,50);
+    rect(lightupx,280+60,1500-lightupx,50);
+    rect(invokex,280+60+60,1500-invokex,50);
+    rect(invokex,280+60+60+60,1500-invokex,50);
+    rect(invokex,280+60+60+60+60,1500-invokex,50);
+    rect(invokex,280+60+60+60+60+60,1500-invokex,50);
     
     
     if (autoinvokekeyboard == 'on'){
@@ -1958,8 +1955,10 @@ function mousePressed(){
     } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280 && mouseY <= 330 && autoinvokekeyboard == 'on'){
       autoinvokekeyboard = 'off';
       lastchangedsetting = 'keyboard';
-    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60 && mouseY <= 330+60 && s1 == 1300){
-      s1 = 1500;
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60 && mouseY <= 330+60 && lightup == 'on'){
+      lightup = 'off';
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60 && mouseY <= 330+60 && lightup == 'off'){
+      lightup = 'on';
     } else if (mouseX >= 1300 && mouseX <= 1375 && mouseY >= 700 && mouseY <= 775 && dimmer >= -100 && settingdowntime >= 15){
       dimmer -= 10;
     } else if (mouseX >= 1300 && mouseX <= 1375 && mouseY >= 775 && mouseY <= 850 && dimmer <= 100 && settingdowntime >= 15){
