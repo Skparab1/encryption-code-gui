@@ -107,6 +107,14 @@ var bgc;
 var settingdowntime = 0;
 var lightupx = 1300;
 var lightup = 'on';
+var shiftclick = 'on';
+var shiftx = 1300;
+var keynav = 'on'; 
+var keyx = 1300;
+var loadanim = 'on';
+var loadx = 1300;
+var autologout = 'on';
+var logx = 1300;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -1478,10 +1486,52 @@ function draw() {
     } else {
       sbx = 1500;
     }
+    
+    if (shiftclick == 'on'){
+      x1 = 1300;
+    } else {
+      x1 = 1500;
+    }
+    if (keynav == 'on'){
+      x2 = 1300;
+    } else {
+      x2 = 1500;
+    }
+    if (loadanim == 'on'){
+      x3 = 1300;
+    } else {
+      x3 = 1500;
+    }
+    if (autologout == 'on'){
+      x4 = 1300;
+    } else {
+      x4 = 1500;
+    }
+    
     if (lightupx < sbx){
       lightupx += 40;
     } else if (lightupx > sbx){
       lightupx -= 40;
+    }
+    if (shiftx < x1){
+      shiftx += 40;
+    } else if (shiftx > x1){
+      shiftx -= 40;
+    }
+    if (keyx < x2){
+      keyx += 40;
+    } else if (keyx > x2){
+      keyx -= 40;
+    }
+    if (loadx < x3){
+      loadx += 40;
+    } else if (loadx > x3){
+      loadx -= 40;
+    }
+    if (logx < x4){
+      logx += 40;
+    } else if (logx > x4){
+      logx -= 40;
     }
         
     fill(255,0,0);
@@ -1495,10 +1545,10 @@ function draw() {
     fill(0,255,0);
     rect(invokex,280,1500-invokex,50);
     rect(lightupx,280+60,1500-lightupx,50);
-    rect(invokex,280+60+60,1500-invokex,50);
-    rect(invokex,280+60+60+60,1500-invokex,50);
-    rect(invokex,280+60+60+60+60,1500-invokex,50);
-    rect(invokex,280+60+60+60+60+60,1500-invokex,50);
+    rect(shiftx,280+60+60,1500-shiftx,50);
+    rect(keyx,280+60+60+60,1500-keyx,50);
+    rect(loadx,280+60+60+60+60,1500-loadx,50);
+    rect(logx,280+60+60+60+60+60,1500-logx,50);
     
     
     if (autoinvokekeyboard == 'on'){
@@ -1518,6 +1568,7 @@ function draw() {
     text(' ON  ',1320,320+60+60+60+60);
     text(' ON  ',1320,320+60+60+60+60+60);
     fill(0,255,0);
+    stroke(0,255,0);
     text('      OFF',1320,320);
     text('      OFF',1320,320+60);
     text('      OFF',1320,320+60+60);
@@ -1626,7 +1677,7 @@ function keyTyped(){
       logosize = 5250;
       changingcolor = 255;
     }
-  } else if (display == 'main menu'){
+  } else if (display == 'main menu' && keynav == 'on'){
     if (key == 'e'){
       display = 'encryption';
     } else if (key == 'd'){
@@ -1638,7 +1689,7 @@ function keyTyped(){
     }
     key = '';
   } else if ((accountclick == 'none' && (display == 'account' || display == 'create account' || display == 'forgot password')) || (encryptionclick == 'none' && display == 'encryption') || display == 'settings' || display == 'decryption'){
-    if (key == 'b'){
+    if (key == 'b' && keynav == 'on'){
       display = 'main menu';
     }
   }
@@ -1653,7 +1704,7 @@ function keyTyped(){
 }
 
 function keyReleased(){
-  if (keyCode == SHIFT){
+  if (keyCode == SHIFT && shiftclick == 'on'){
     mousePressed();
     shiftclicked = 'yes';
     keyCode = '';
@@ -1959,6 +2010,22 @@ function mousePressed(){
       lightup = 'off';
     } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60 && mouseY <= 330+60 && lightup == 'off'){
       lightup = 'on';
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60+60 && mouseY <= 330+60+60 && shiftclick == 'on'){
+      shiftclick = 'off';
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60+60 && mouseY <= 330+60+60 && shiftclick == 'off'){
+      shiftclick = 'on';
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60+60+60 && mouseY <= 330+60+60+60 && keynav == 'on'){
+      keynav = 'off';
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60+60+60 && mouseY <= 330+60+60+60 && keynav == 'off'){
+      keynav = 'on'; 
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60+60+60+60 && mouseY <= 330+60+60+60+60 && loadanim == 'on'){
+      loadanim = 'off';
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60+60+60+60 && mouseY <= 330+60+60+60+60 && loadanim == 'off'){
+      loadanim = 'on'; 
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60+60+60+60+60 && mouseY <= 330+60+60+60+60+60 && autologout == 'on'){
+      autologout = 'off';
+    } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60+60+60+60+60 && mouseY <= 330+60+60+60+60+60 && autologout == 'off'){
+      autologout = 'on'; 
     } else if (mouseX >= 1300 && mouseX <= 1375 && mouseY >= 700 && mouseY <= 775 && dimmer >= -100 && settingdowntime >= 15){
       dimmer -= 10;
     } else if (mouseX >= 1300 && mouseX <= 1375 && mouseY >= 775 && mouseY <= 850 && dimmer <= 100 && settingdowntime >= 15){
@@ -1971,6 +2038,11 @@ function mousePressed(){
       colorscheme = 'Spectrum (Default)';
       newarrowheight = 175;
       lastchangedsetting = 'theme';
+      lightup = 'on';
+      shiftclick = 'on';
+      loadanim = 'on';
+      autologout = 'on';
+      keynav = 'on';
     }
 
   } else if (display == 'forgot password'){
