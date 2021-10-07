@@ -1,6 +1,8 @@
 # Encryption code GUI
 ## With Great Graphics comes great capability
 
+Click [here](https://skparab1.github.io/encryption-code-gui)
+
 # Main features that work
 
 ## FIX THIS BUG: mac backspace key renders "Backpace"
