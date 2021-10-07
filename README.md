@@ -1,7 +1,7 @@
 # Encryption code GUI
 ## With Great Graphics comes great capability
 
-Click [here](https://skparab1.github.io/encryption-code-gui)
+Click [here](https://skparab1.github.io/encryption-code-gui) to see current prototype hosting
 
 # Main features that work
 
