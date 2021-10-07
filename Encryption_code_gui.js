@@ -12,6 +12,7 @@ function preload() {
 function setup() {
   createCanvas(2048,846);
   background(0);
+  var starttime = minute();
   
   try{
     usernames = table.getColumn(0);
@@ -137,6 +138,7 @@ if (signinstatus == 'signed out'){
 }
 
 function accountanim(){
+  if (loadanim == 'on'){
       fill(200,0,0);
       strokeWeight(10);
       stroke(0,0,200);
@@ -177,6 +179,9 @@ function accountanim(){
       animtime = (1.07 * animtime) ;
       print(animtime);
       strokeWeight(3);
+  } else {
+    animtime = (1.3 * animtime);
+  }
 }
 
 function displaykeyboard(){
@@ -1463,6 +1468,7 @@ function draw() {
     text('Current downtime               '+round(framerenderct/60),650,700);
     text('Fps rate                              '+(channels+57),650,750);
     text('Frame render count           '+framerenderct,650,800);
+    //text(timenow,800,800);
     
     oldred = round(backgroundcolor[0]);
     oldblue = round(backgroundcolor[1]);    
@@ -1656,6 +1662,23 @@ function draw() {
   if (changingcolor >= 1020 ){
     changingcolor = 255;
   }
+  
+  //let expiretime = 1;//starttime + 1;
+  //if (expiretime > 60){
+  //  expiretime = expiretime - 60;
+  //}
+  
+  //let timenow = minute();
+  //if (timenow >= expiretime){
+  //  signinstatus = 'signed out';
+  //  tabstatus = true;
+  //  username = '';
+  //  password = '';
+  //  secq1 = '';
+  //  secq2 = '';
+  //  display = 'expired';
+  //  localStorage.setItem('localstatus','signed out' );
+  //}
 }
 
 function keyTyped(){
