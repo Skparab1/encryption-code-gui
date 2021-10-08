@@ -417,8 +417,8 @@ function draw() {
   backgroundcolor = [100,100,100];
   bgc = backgroundcolor;
   } else if (colorscheme == 'dark blue'){
-  green = (50);
-  blue = (100);
+  green = (100);
+  blue = (200);
   red = (100);
   textcolor = [0,100,255];
   backgroundcolor = [0,0,100];
@@ -1495,6 +1495,8 @@ function draw() {
     oldblue = round(backgroundcolor[1]);    
     oldgreen = round(backgroundcolor[2]);    
     
+    fill(textcolor[0],textcolor[1],textcolor[2] );
+    
     textSize(29);
     text('Auto invoke on screen keyboard',1515,300+15);
     text('Light up feedback on screen keyboard',1515,360+15);
@@ -1614,7 +1616,7 @@ function draw() {
       fill(200);
     }
     rect(750,170,450,100);
-    fill(0);
+    fill(textcolor[0],textcolor[1],textcolor[2] );
     textSize(55);
     text('Screen Brightness',1400,700);
     textSize(75);
