@@ -12,7 +12,6 @@ function preload() {
 function setup() {
   createCanvas(2048,846);
   background(0);
-  var starttime = minute();
   
   try{
     usernames = table.getColumn(0);
@@ -116,6 +115,8 @@ var loadanim = 'on';
 var loadx = 1300;
 var autologout = 'on';
 var logx = 1300;
+var starttime = 100;
+var inactivetime = 0;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -291,6 +292,7 @@ function displaykeyboard(){
 }
 
 function draw() {
+  inactivetime += 1;
   framerenderct += 1;
   if (sync == 'on'){
     readstatus = localStorage.getItem('localstatus');
@@ -546,13 +548,32 @@ function draw() {
     fill(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     textSize(60);
     text('User session expired. You are logged out.',500,300);
-    text('Looks like you signed out in another tab',500,400);
+    text('Looks like you logged out in another tab',500,400);
     text('Encryption code GUI is synced between tabs',500,500);
     text('Click anywhere to continue',550,600);
+    fill(backgroundcolor[1],backgroundcolor[2],backgroundcolor[0]);
+    //rect(600,620,800,200);
+    fill(0);
+    textSize(100);
+    //text('Log in',9980,620);
+    
     localStorage.setItem('localstatus','signed out');
     if (tabstatus){
       display = 'main menu';
     }
+  } else if (display == 'timeout'){
+    background(0);
+    setInterval(donothing,1000);
+    fill(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    textSize(60);
+    text('User session timed out. You are logged out.',500,300);
+    text('You were inactive for 60 minutes',500,400);
+    text('You can turn this off in Settings',500,500);
+    text('Click anywhere to continue',550,600);
+    localStorage.setItem('localstatus','signed out');
+    //if (tabstatus){
+    //  display = 'main menu';
+    //}
   } else if (display == 'encryption'){
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Encryption',900,100);
@@ -1568,10 +1589,15 @@ function draw() {
     textSize(40);
     fill(255,0,0);
     text(' ON  ',1320,320);
+    if (lightup == 'on'){ stroke(0,255,0); } else { stroke(255,0,0);}
     text(' ON  ',1320,320+60);
+    if (shiftclick == 'on'){ stroke(0,255,0); } else { stroke(255,0,0);}
     text(' ON  ',1320,320+60+60);
+    if (keynav == 'on'){ stroke(0,255,0); } else { stroke(255,0,0);}
     text(' ON  ',1320,320+60+60+60);
+    if (loadanim == 'on'){ stroke(0,255,0); } else { stroke(255,0,0);}
     text(' ON  ',1320,320+60+60+60+60);
+    if (autologout == 'on'){ stroke(0,255,0); } else { stroke(255,0,0);}
     text(' ON  ',1320,320+60+60+60+60+60);
     fill(0,255,0);
     stroke(0,255,0);
@@ -1663,25 +1689,32 @@ function draw() {
     changingcolor = 255;
   }
   
-  //let expiretime = 1;//starttime + 1;
-  //if (expiretime > 60){
-  //  expiretime = expiretime - 60;
-  //}
+  let expiretime = starttime + 2;
+  if (expiretime > 60){
+    expiretime = expiretime - 60;
+  }
   
-  //let timenow = minute();
-  //if (timenow >= expiretime){
-  //  signinstatus = 'signed out';
-  //  tabstatus = true;
-  //  username = '';
-  //  password = '';
-  //  secq1 = '';
-  //  secq2 = '';
-  //  display = 'expired';
-  //  localStorage.setItem('localstatus','signed out' );
-  //}
+  print(expiretime);
+  
+  // var inactivity is practically useless
+  
+  let timenow = minute();
+  if (timenow >= expiretime && signinstatus != 'signed out' && autologout == 'on'){
+    signinstatus = 'signed out';
+    tabstatus = true;
+    username = '';
+    password = '';
+    secq1 = '';
+    secq2 = '';
+    display = 'timeout';
+    localStorage.setItem('localstatus','signed out' );
+    //print('autologgedout');
+  }
 }
 
 function keyTyped(){
+  inactivetime = 0;
+  starttime = minute();
   if (accountclick == 'username' && keyCode != ENTER){
     username += key;
   } else if ((accountclick == 'password' || accountclick == 'new password') && keyCode != ENTER){
@@ -1727,6 +1760,8 @@ function keyTyped(){
 }
 
 function keyReleased(){
+  inactivetime = 0;
+  starttime = minute();
   if (keyCode == SHIFT && shiftclick == 'on'){
     mousePressed();
     shiftclicked = 'yes';
@@ -1754,7 +1789,9 @@ function keyReleased(){
   typed = typed.substring(0, typed.length -1);
   }
   if (keyCode == ENTER){
-  if (accountclick == 'username' && display == 'account'){
+  if (accountclick == 'none' && display == 'account'){
+    accountclick = 'username' ;
+  } else if (accountclick == 'username' && display == 'account'){
     accountclick = 'password';
   } else if (accountclick == 'password' && display == 'account'){
     accountclick = 'verifying';
@@ -1779,6 +1816,8 @@ function keyReleased(){
 }
 
 function mouseDragged(){
+  inactivetime = 0;
+  starttime = minute();
   rect(1300,700,75,75);
     fill(100);
     rect(1300,775,75,75);
@@ -1794,6 +1833,11 @@ function mouseDragged(){
 }
 
 function mousePressed(){
+  inactivetime = 0;
+  starttime = minute();
+  if (display == 'timeout'){
+    display = 'main menu';
+  }
   if (display == 'main menu') {
   if (mouseX >= 200 && mouseX <= 900 && mouseY >= 200 && mouseY <= 450){
       display = 'encryption';
