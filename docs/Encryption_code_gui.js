@@ -115,6 +115,9 @@ var loadanim = 'on';
 var loadx = 1300;
 var autologout = 'on';
 var logx = 1300;
+var starttime = 100;
+var inactivetime = 0;
+var freezecolors = 'off';
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -137,6 +140,7 @@ if (signinstatus == 'signed out'){
 }
 
 function accountanim(){
+  if (loadanim == 'on'){
       fill(200,0,0);
       strokeWeight(10);
       stroke(0,0,200);
@@ -177,6 +181,9 @@ function accountanim(){
       animtime = (1.07 * animtime) ;
       print(animtime);
       strokeWeight(3);
+  } else {
+    animtime = (1.3 * animtime);
+  }
 }
 
 function displaykeyboard(){
@@ -286,6 +293,7 @@ function displaykeyboard(){
 }
 
 function draw() {
+  inactivetime += 1;
   framerenderct += 1;
   if (sync == 'on'){
     readstatus = localStorage.getItem('localstatus');
@@ -410,8 +418,8 @@ function draw() {
   backgroundcolor = [100,100,100];
   bgc = backgroundcolor;
   } else if (colorscheme == 'dark blue'){
-  green = (50);
-  blue = (100);
+  green = (100);
+  blue = (200);
   red = (100);
   textcolor = [0,100,255];
   backgroundcolor = [0,0,100];
@@ -541,13 +549,32 @@ function draw() {
     fill(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     textSize(60);
     text('User session expired. You are logged out.',500,300);
-    text('Looks like you signed out in another tab',500,400);
+    text('Looks like you logged out in another tab',500,400);
     text('Encryption code GUI is synced between tabs',500,500);
     text('Click anywhere to continue',550,600);
+    fill(backgroundcolor[1],backgroundcolor[2],backgroundcolor[0]);
+    //rect(600,620,800,200);
+    fill(0);
+    textSize(100);
+    //text('Log in',9980,620);
+    
     localStorage.setItem('localstatus','signed out');
     if (tabstatus){
       display = 'main menu';
     }
+  } else if (display == 'timeout'){
+    background(0);
+    setInterval(donothing,1000);
+    fill(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    textSize(60);
+    text('User session timed out. You are logged out.',500,300);
+    text('You were inactive for 60 minutes',500,400);
+    text('You can turn this off in Settings',500,500);
+    text('Click anywhere to continue',550,600);
+    localStorage.setItem('localstatus','signed out');
+    //if (tabstatus){
+    //  display = 'main menu';
+    //}
   } else if (display == 'encryption'){
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Encryption',900,100);
@@ -1463,10 +1490,13 @@ function draw() {
     text('Current downtime               '+round(framerenderct/60),650,700);
     text('Fps rate                              '+(channels+57),650,750);
     text('Frame render count           '+framerenderct,650,800);
+    //text(timenow,800,800);
     
     oldred = round(backgroundcolor[0]);
     oldblue = round(backgroundcolor[1]);    
     oldgreen = round(backgroundcolor[2]);    
+    
+    fill(textcolor[0],textcolor[1],textcolor[2] );
     
     textSize(29);
     text('Auto invoke on screen keyboard',1515,300+15);
@@ -1562,10 +1592,15 @@ function draw() {
     textSize(40);
     fill(255,0,0);
     text(' ON  ',1320,320);
+    if (lightup == 'on'){ stroke(0,255,0); } else { stroke(255,0,0);}
     text(' ON  ',1320,320+60);
+    if (shiftclick == 'on'){ stroke(0,255,0); } else { stroke(255,0,0);}
     text(' ON  ',1320,320+60+60);
+    if (keynav == 'on'){ stroke(0,255,0); } else { stroke(255,0,0);}
     text(' ON  ',1320,320+60+60+60);
+    if (loadanim == 'on'){ stroke(0,255,0); } else { stroke(255,0,0);}
     text(' ON  ',1320,320+60+60+60+60);
+    if (autologout == 'on'){ stroke(0,255,0); } else { stroke(255,0,0);}
     text(' ON  ',1320,320+60+60+60+60+60);
     fill(0,255,0);
     stroke(0,255,0);
@@ -1576,13 +1611,39 @@ function draw() {
     text('      OFF',1320,320+60+60+60+60);
     text('      OFF',1320,320+60+60+60+60+60);
     
+    if (mouseX >= 325 && mouseX < 325+450 && mouseY >= 25 && mouseY <= 80 && freezecolors == 'on'){
+      fill(255,0,0);
+      rect(325,25,450,55);
+      fill(0);
+      text('Click to Unfreeze colors',350,70);
+    } else if (mouseX >= 325 && mouseX < 325+450 && mouseY >= 25 && mouseY <= 80){
+      fill(255,0,0);
+      rect(325,25,450,55);
+      fill(0);
+      text('Click to Freeze colors',350,70);
+    } else if (freezecolors == 'on'){
+      fill(0,255,0);
+      rect(325,25,450,55);
+      fill(0);
+      text('Unfreeze colors',350,70);
+    } else {
+      fill(200);
+      rect(325,25,450,55);
+      fill(0);
+      text('Freeze colors',350,70);
+    }
+
+    textSize(35);
+    
+    
     if (mouseX >= 750 && mouseX < 750+450 && mouseY >= 170 && mouseY <= 270){
       fill(255,0,0);
     } else {
       fill(200);
     }
+   
     rect(750,170,450,100);
-    fill(0);
+    fill(textcolor[0],textcolor[1],textcolor[2] );
     textSize(55);
     text('Screen Brightness',1400,700);
     textSize(75);
@@ -1647,18 +1708,42 @@ function draw() {
     textSize(100);
 
   }
-  if (changingcolor < 255){
+  if (changingcolor < 255 && freezecolors == 'off'){
     changingcolor += 3;
-  } else {
+  } else if (freezecolors == 'off'){
     changingcolor += 1;
   }
   
   if (changingcolor >= 1020 ){
     changingcolor = 255;
   }
+  
+  let expiretime = starttime + 2;
+  if (expiretime > 60){
+    expiretime = expiretime - 60;
+  }
+  
+  print(expiretime);
+  
+  // var inactivity is practically useless
+  
+  let timenow = minute();
+  if (timenow >= expiretime && signinstatus != 'signed out' && autologout == 'on'){
+    signinstatus = 'signed out';
+    tabstatus = true;
+    username = '';
+    password = '';
+    secq1 = '';
+    secq2 = '';
+    display = 'timeout';
+    localStorage.setItem('localstatus','signed out' );
+    //print('autologgedout');
+  }
 }
 
 function keyTyped(){
+  inactivetime = 0;
+  starttime = minute();
   if (accountclick == 'username' && keyCode != ENTER){
     username += key;
   } else if ((accountclick == 'password' || accountclick == 'new password') && keyCode != ENTER){
@@ -1704,6 +1789,8 @@ function keyTyped(){
 }
 
 function keyReleased(){
+  inactivetime = 0;
+  starttime = minute();
   if (keyCode == SHIFT && shiftclick == 'on'){
     mousePressed();
     shiftclicked = 'yes';
@@ -1731,7 +1818,9 @@ function keyReleased(){
   typed = typed.substring(0, typed.length -1);
   }
   if (keyCode == ENTER){
-  if (accountclick == 'username' && display == 'account'){
+  if (accountclick == 'none' && display == 'account'){
+    accountclick = 'username' ;
+  } else if (accountclick == 'username' && display == 'account'){
     accountclick = 'password';
   } else if (accountclick == 'password' && display == 'account'){
     accountclick = 'verifying';
@@ -1756,6 +1845,8 @@ function keyReleased(){
 }
 
 function mouseDragged(){
+  inactivetime = 0;
+  starttime = minute();
   rect(1300,700,75,75);
     fill(100);
     rect(1300,775,75,75);
@@ -1771,6 +1862,11 @@ function mouseDragged(){
 }
 
 function mousePressed(){
+  inactivetime = 0;
+  starttime = minute();
+  if (display == 'timeout'){
+    display = 'main menu';
+  }
   if (display == 'main menu') {
   if (mouseX >= 200 && mouseX <= 900 && mouseY >= 200 && mouseY <= 450){
       display = 'encryption';
@@ -2026,6 +2122,10 @@ function mousePressed(){
       autologout = 'off';
     } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60+60+60+60+60 && mouseY <= 330+60+60+60+60+60 && autologout == 'off'){
       autologout = 'on'; 
+    } else if (mouseX >= 325 && mouseX < 325+450 && mouseY >= 25 && mouseY <= 80 && freezecolors == 'off'){
+      freezecolors = 'on';
+    } else if (mouseX >= 325 && mouseX < 325+450 && mouseY >= 25 && mouseY <= 80 && freezecolors == 'on'){
+      freezecolors = 'off';
     } else if (mouseX >= 1300 && mouseX <= 1375 && mouseY >= 700 && mouseY <= 775 && dimmer >= -100 && settingdowntime >= 15){
       dimmer -= 10;
     } else if (mouseX >= 1300 && mouseX <= 1375 && mouseY >= 775 && mouseY <= 850 && dimmer <= 100 && settingdowntime >= 15){
