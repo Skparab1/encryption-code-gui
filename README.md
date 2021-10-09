@@ -1,7 +1,7 @@
 # Encryption code GUI
 ## With Great Graphics comes great capability
 
-Click [here](https://skparab1.github.io/encryption-code-gui) to see current prototype hosting
+Click [here](https://skparab1.github.io/encryption-code-gui) to see current prototype hosting. Has most Beta features.
 
 # Beta features:
 - logging out after 60 mins of inactivity
