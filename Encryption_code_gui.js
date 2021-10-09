@@ -117,6 +117,7 @@ var autologout = 'on';
 var logx = 1300;
 var starttime = 100;
 var inactivetime = 0;
+var freezecolors = 'off';
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -1610,11 +1611,37 @@ function draw() {
     text('      OFF',1320,320+60+60+60+60);
     text('      OFF',1320,320+60+60+60+60+60);
     
+    if (mouseX >= 325 && mouseX < 325+450 && mouseY >= 25 && mouseY <= 80 && freezecolors == 'on'){
+      fill(255,0,0);
+      rect(325,25,450,55);
+      fill(0);
+      text('Click to Unfreeze colors',350,70);
+    } else if (mouseX >= 325 && mouseX < 325+450 && mouseY >= 25 && mouseY <= 80){
+      fill(255,0,0);
+      rect(325,25,450,55);
+      fill(0);
+      text('Click to Freeze colors',350,70);
+    } else if (freezecolors == 'on'){
+      fill(0,255,0);
+      rect(325,25,450,55);
+      fill(0);
+      text('Unfreeze colors',350,70);
+    } else {
+      fill(200);
+      rect(325,25,450,55);
+      fill(0);
+      text('Freeze colors',350,70);
+    }
+
+    textSize(35);
+    
+    
     if (mouseX >= 750 && mouseX < 750+450 && mouseY >= 170 && mouseY <= 270){
       fill(255,0,0);
     } else {
       fill(200);
     }
+   
     rect(750,170,450,100);
     fill(textcolor[0],textcolor[1],textcolor[2] );
     textSize(55);
@@ -1681,9 +1708,9 @@ function draw() {
     textSize(100);
 
   }
-  if (changingcolor < 255){
+  if (changingcolor < 255 && freezecolors == 'off'){
     changingcolor += 3;
-  } else {
+  } else if (freezecolors == 'off'){
     changingcolor += 1;
   }
   
@@ -2095,6 +2122,10 @@ function mousePressed(){
       autologout = 'off';
     } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60+60+60+60+60 && mouseY <= 330+60+60+60+60+60 && autologout == 'off'){
       autologout = 'on'; 
+    } else if (mouseX >= 325 && mouseX < 325+450 && mouseY >= 25 && mouseY <= 80 && freezecolors == 'off'){
+      freezecolors = 'on';
+    } else if (mouseX >= 325 && mouseX < 325+450 && mouseY >= 25 && mouseY <= 80 && freezecolors == 'on'){
+      freezecolors = 'off';
     } else if (mouseX >= 1300 && mouseX <= 1375 && mouseY >= 700 && mouseY <= 775 && dimmer >= -100 && settingdowntime >= 15){
       dimmer -= 10;
     } else if (mouseX >= 1300 && mouseX <= 1375 && mouseY >= 775 && mouseY <= 850 && dimmer <= 100 && settingdowntime >= 15){
