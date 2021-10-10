@@ -118,6 +118,10 @@ var logx = 1300;
 var starttime = 100;
 var inactivetime = 0;
 var freezecolors = 'off';
+var b1color = [0,0,0];
+var b2colors = [0,0,0];
+var b3colors = [0,0,0];
+var b4colors = [0,0,0];
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -515,10 +519,38 @@ function draw() {
     text(signinstatus,900,175);
     textSize(90);
     if (mouseX >= 200 && mouseX <= 900 && mouseY >= 200 && mouseY <= 450 && changingcolor >= 254){
-      fill(200,0,0);
+      if (b1color[0] < 200){
+        b1color = [b1color[0]+10,b1color[1],b1color[2]];
+      } 
+      if (b1color[0] > 210){
+        b1color = [b1color[0]-10,b1color[1],b1color[2]];
+      } 
+      if (b1color[1] > 0){
+        b1color = [b1color[0],b1color[1]-10,b1color[2]];
+      } 
+      if (b1color[2] > 0){
+        b1color = [b1color[0],b1color[1],b1color[2]-10];
+      } 
+    } else if (changingcolor >= 255) {
+      
+      if (b1color[0] < green){
+        b1color = [b1color[0]+1,b1color[1],b1color[2]]; }
+      if (b1color[0] > green){
+        b1color = [b1color[0]-1,b1color[1],b1color[2]]; }
+      if (b1color[1] < blue){
+        b1color = [b1color[0],b1color[1]+1,b1color[2]]; }
+      if (b1color[1] > blue){
+        b1color = [b1color[0],b1color[1]-1,b1color[2]]; }
+      if (b1color[2] < red){
+        b1color = [b1color[0],b1color[1],b1color[2]+1]; }
+      if (b1color[2] > red){
+        b1color = [b1color[0],b1color[1],b1color[2]-1]; }
+        
     } else {
-      fill(green,blue,red);
+      b1color = [green,blue,red];
     }
+    
+    fill(b1color[0],b1color[1],b1color[2]);
     rect(200,200,700,250);
     if (mouseX >= 1100 && mouseX <= 1800 && mouseY >= 200 && mouseY <= 450 && changingcolor >= 254){
       fill(200,0,0);
