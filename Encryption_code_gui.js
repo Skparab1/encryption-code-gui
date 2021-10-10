@@ -1615,12 +1615,12 @@ function draw() {
       fill(255,0,0);
       rect(325,25,450,55);
       fill(0);
-      text('Click to Unfreeze colors',350,70);
+      text('Unfreeze colors?',350,70);
     } else if (mouseX >= 325 && mouseX < 325+450 && mouseY >= 25 && mouseY <= 80){
       fill(255,0,0);
       rect(325,25,450,55);
       fill(0);
-      text('Click to Freeze colors',350,70);
+      text('Freeze colors?',350,70);
     } else if (freezecolors == 'on'){
       fill(0,255,0);
       rect(325,25,450,55);
