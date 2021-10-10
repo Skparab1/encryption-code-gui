@@ -1793,6 +1793,7 @@ function keyTyped(){
     if (keyCode == ENTER){
       logosize = 5250;
       changingcolor = 255;
+      b1color = [0,0,255];
     }
   } else if (display == 'main menu' && keynav == 'on'){
     if (key == 'e'){
