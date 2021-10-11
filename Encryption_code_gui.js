@@ -122,6 +122,7 @@ var b1color = [0,0,0];
 var b2colors = [0,0,0];
 var b3colors = [0,0,0];
 var b4colors = [0,0,0];
+var hoveredb1 = 100;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -519,53 +520,62 @@ function draw() {
     text(signinstatus,900,175);
     textSize(90);
     if (mouseX >= 200 && mouseX <= 900 && mouseY >= 200 && mouseY <= 450 && changingcolor >= 254){
-      if (b1color[0] < 200){
+      if (b1color[0] < green + 90){
         b1color = [b1color[0]+10,b1color[1],b1color[2]];
       } 
-      if (b1color[0] > 210){
+      if (b1color[0] > green + 100){
         b1color = [b1color[0]-10,b1color[1],b1color[2]];
       } 
-      if (b1color[1] > 0){
+      if (b1color[1] > blue + 90){
         b1color = [b1color[0],b1color[1]-10,b1color[2]];
       } 
-      if (b1color[2] > 0){
+      if (b1color[1] > blue + 100){
+        b1color = [b1color[0],b1color[1]-10,b1color[2]];
+      } 
+      if (b1color[2] > green + 90){
         b1color = [b1color[0],b1color[1],b1color[2]-10];
       } 
-    } else if (changingcolor >= 255) {
-      
-      if (b1color[0] < green){
-        b1color = [b1color[0]+1,b1color[1],b1color[2]]; }
-      if (b1color[0] > green){
-        b1color = [b1color[0]-1,b1color[1],b1color[2]]; }
-      if (b1color[1] < blue){
-        b1color = [b1color[0],b1color[1]+1,b1color[2]]; }
-      if (b1color[1] > blue){
-        b1color = [b1color[0],b1color[1]-1,b1color[2]]; }
-      if (b1color[2] < red){
-        b1color = [b1color[0],b1color[1],b1color[2]+1]; }
-      if (b1color[2] > red){
-        b1color = [b1color[0],b1color[1],b1color[2]-1]; }
+      if (b1color[2] > green + 100){
+        b1color = [b1color[0],b1color[1],b1color[2]-10];
+      } 
+      hoveredb1 = 0;
+    } else if (changingcolor >= 255 && hoveredb1 <= 100 && ((Math.abs(b1color[0]-green)) > 1 && (Math.abs(b1color[1]-blue)) > 1 && (Math.abs(b1color[2]-red)) > 1)) {
+      b1color = [green,blue,red];
+      //if (b1color[0] < green){
+      //  b1color = [b1color[0]+10,b1color[1],b1color[2]]; }
+      //if (b1color[0] > green){
+      //  b1color = [b1color[0]-10,b1color[1],b1color[2]]; }
+      //if (b1color[1] < blue){
+      //  b1color = [b1color[0],b1color[1]+10,b1color[2]]; }
+      //if (b1color[1] > blue){
+      //  b1color = [b1color[0],b1color[1]-10,b1color[2]]; }
+      //if (b1color[2] < red){
+      //  b1color = [b1color[0],b1color[1],b1color[2]+10]; }
+      //if (b1color[2] > red){
+      //  b1color = [b1color[0],b1color[1],b1color[2]-10]; }
         
     } else {
       b1color = [green,blue,red];
     }
     
+    hoveredb1 += 1;
+    
     fill(b1color[0],b1color[1],b1color[2]);
     rect(200,200,700,250);
     if (mouseX >= 1100 && mouseX <= 1800 && mouseY >= 200 && mouseY <= 450 && changingcolor >= 254){
-      fill(200,0,0);
+      fill(blue+100,red-33+100,green+100);
     } else {
       fill(blue,red-33,green);
     }
     rect(1100,200,700,250);
     if (mouseX >= 200 && mouseX <= 900 && mouseY >= 500 && mouseY <= 750 && changingcolor >= 254){
-      fill(200,0,0);
+      fill(green+100,red-66+100,blue+100);
     } else {
       fill(green,red-66,blue);
     }
     rect(200,500,700,250);
     if (mouseX >= 1100 && mouseX <= 1800 && mouseY >= 500 && mouseY <= 750 && changingcolor >= 254){
-      fill(200,0,0);
+      fill(red-100+100,green+100,blue+100);
     } else {
       fill(red-100,green,blue);
     }
