@@ -526,33 +526,33 @@ function draw() {
       if (b1color[0] > green + 100){
         b1color = [b1color[0]-10,b1color[1],b1color[2]];
       } 
-      if (b1color[1] > blue + 90){
-        b1color = [b1color[0],b1color[1]-10,b1color[2]];
+      if (b1color[1] < blue + 90){
+        b1color = [b1color[0],b1color[1]+10,b1color[2]];
       } 
       if (b1color[1] > blue + 100){
         b1color = [b1color[0],b1color[1]-10,b1color[2]];
       } 
-      if (b1color[2] > green + 90){
-        b1color = [b1color[0],b1color[1],b1color[2]-10];
+      if (b1color[2] < green + 90){
+        b1color = [b1color[0],b1color[1],b1color[2]+10];
       } 
       if (b1color[2] > green + 100){
         b1color = [b1color[0],b1color[1],b1color[2]-10];
       } 
       hoveredb1 = 0;
     } else if (changingcolor >= 255 && hoveredb1 <= 100 && ((Math.abs(b1color[0]-green)) > 1 && (Math.abs(b1color[1]-blue)) > 1 && (Math.abs(b1color[2]-red)) > 1)) {
-      b1color = [green,blue,red];
-      //if (b1color[0] < green){
-      //  b1color = [b1color[0]+10,b1color[1],b1color[2]]; }
-      //if (b1color[0] > green){
-      //  b1color = [b1color[0]-10,b1color[1],b1color[2]]; }
-      //if (b1color[1] < blue){
-      //  b1color = [b1color[0],b1color[1]+10,b1color[2]]; }
-      //if (b1color[1] > blue){
-      //  b1color = [b1color[0],b1color[1]-10,b1color[2]]; }
-      //if (b1color[2] < red){
-      //  b1color = [b1color[0],b1color[1],b1color[2]+10]; }
-      //if (b1color[2] > red){
-      //  b1color = [b1color[0],b1color[1],b1color[2]-10]; }
+      //b1color = [green,blue,red];
+      if (b1color[0] < green){
+        b1color = [b1color[0]+10,b1color[1],b1color[2]]; }
+      if (b1color[0] > green+10){
+        b1color = [b1color[0]-10,b1color[1],b1color[2]]; }
+      if (b1color[1] < blue){
+        b1color = [b1color[0],b1color[1]+10,b1color[2]]; }
+      if (b1color[1] > blue+10){
+        b1color = [b1color[0],b1color[1]-10,b1color[2]]; }
+      if (b1color[2] < red){
+        b1color = [b1color[0],b1color[1],b1color[2]+10]; }
+      if (b1color[2] > red+10){
+        b1color = [b1color[0],b1color[1],b1color[2]-10]; }
         
     } else {
       b1color = [green,blue,red];
@@ -563,7 +563,10 @@ function draw() {
     fill(b1color[0],b1color[1],b1color[2]);
     rect(200,200,700,250);
     if (mouseX >= 1100 && mouseX <= 1800 && mouseY >= 200 && mouseY <= 450 && changingcolor >= 254){
-      fill(blue+100,red-33+100,green+100);
+      blue += 10;
+      red += 10;
+      green += 10;
+      fill(blue,red-33,green);
     } else {
       fill(blue,red-33,green);
     }
