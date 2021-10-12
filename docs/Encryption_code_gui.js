@@ -1852,7 +1852,7 @@ if (keyCode == BACKSPACE || keyCode == DELETE){
   }
   
   if (username.match('Backspac')){
-    username = username.substring(0, username.length -9);
+    username = username.substring(0, username.length -11);
   }
   
   if (keyCode == ENTER){
