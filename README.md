@@ -3,16 +3,19 @@
 
 Click [here](https://skparab1.github.io/encryption-code-gui) to see current prototype hosting. Has most Beta features.
 
-# Beta features:
+## Beta features:
 - logging out after 60 mins of inactivity
   - this is there in the file, but not in the hosting
   - it usually works, but sometimes it causes sync glitches and randomly times you out
 
-# Main features that work
+## Current bug status
+  - unfreeze colors when reset all settings is unoperational - will do soon hang on
+  - FIX THIS BUG: mac backspace key renders "Backpace" - Not started
+  - THINGS TO ADD: when account session expires, give option to log in - Yeah doing
+  - add Mousedragged to slider bar - DONE
 
-## FIX THIS BUG: mac backspace key renders "Backpace"
-## THINGS TO ADD: when account session expires, give option to log in 
-## add Mousedragged to slider bar - DONE
+
+# Main features that work
 
 ## Starting Animation
 - Hover operated with text
