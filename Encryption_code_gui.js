@@ -1857,6 +1857,9 @@ function keyReleased(){
   } else if (accountclick == 'secq2'){
     secq2 = secq2.substring(0, secq2.length -1);
   }
+    
+  username = username.replace('Backspac','');
+    
   if (display == 'encryption' && encryptionclick == 'encrypting'){
     toencrypt = toencrypt.substring(0,toencrypt.length-1);
   }
@@ -1865,7 +1868,7 @@ function keyReleased(){
   }
   if (keyCode == ENTER){
   if (accountclick == 'none' && display == 'account'){
-    accountclick = 'username' ;
+    accountclick = 'username';
   } else if (accountclick == 'username' && display == 'account'){
     accountclick = 'password';
   } else if (accountclick == 'password' && display == 'account'){
