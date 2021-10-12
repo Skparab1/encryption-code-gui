@@ -1851,7 +1851,7 @@ if (keyCode == BACKSPACE || keyCode == DELETE){
   typed = typed.substring(0, typed.length -1);
   }
   
-  if (username.match('Backspa') != []){
+  if (username.match('Backspa')){
     username = username.substring(0, username.length -7);
   }
   
