@@ -1855,6 +1855,11 @@ if (keyCode == BACKSPACE || keyCode == DELETE){
     username = username.substring(0, username.length -11);
   }
   
+  let teststr = 'Backspace';
+  teststr = teststr.substring(0, teststr.length -11);
+  
+  print(teststr);
+  
   if (keyCode == ENTER){
   if (accountclick == 'none' && display == 'account'){
     accountclick = 'username' ;
