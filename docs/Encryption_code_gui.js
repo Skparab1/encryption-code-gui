@@ -1851,7 +1851,7 @@ if (keyCode == BACKSPACE || keyCode == DELETE){
   typed = typed.substring(0, typed.length -1);
   }
   
-  username = username.replace('Backspac','');
+  username = username.substring(0, username.length -7);
   
   if (keyCode == ENTER){
   if (accountclick == 'none' && display == 'account'){
