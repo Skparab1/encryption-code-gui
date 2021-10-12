@@ -14,8 +14,6 @@ Click [here](https://skparab1.github.io/encryption-code-gui) to see current prot
 ## THINGS TO ADD: when account session expires, give option to log in 
 ## add Mousedragged to slider bar - DONE
 
-## GUI is now being hosted on github pages view it [here](https://skparab1.github.io/encryption-code-gui)
-
 ## Starting Animation
 - Hover operated with text
 
