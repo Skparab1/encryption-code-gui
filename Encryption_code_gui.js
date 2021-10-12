@@ -1842,7 +1842,7 @@ function keyReleased(){
     shiftclicked = 'yes';
     keyCode = '';
   }
-  if (keyCode == BACKSPACE){
+  if (keyCode == BACKSPACE || keyCode == DELETE){
     key = '';
   if (accountclick == 'username'){
     username = username.substring(0, username.length -1);
