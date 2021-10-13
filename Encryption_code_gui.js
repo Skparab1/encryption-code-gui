@@ -122,6 +122,9 @@ var b1color = [0,0,0];
 var b2colors = [0,0,0];
 var b3colors = [0,0,0];
 var b4colors = [0,0,0];
+var screenshottaker = 0;
+var screenshotlimit = 0;
+var olddimmer = 0;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -297,6 +300,7 @@ function displaykeyboard(){
 }
 
 function draw() {
+  screenshottaker += 1;
   inactivetime += 1;
   framerenderct += 1;
   if (sync == 'on'){
@@ -1754,7 +1758,12 @@ function draw() {
     text('In 5 sec',1900,160);
     text('In 10 sec',1900,220);
 
-  
+    if (screenshottaker == screenshotlimit){
+      saveCanvas();
+      dimmer = olddimmer;
+      screenshottaker = 1;
+      screenshotlimit = 0;
+    }
     textSize(100);
   }
   if (changingcolor < 255 && freezecolors == 'off'){
@@ -2203,7 +2212,15 @@ function mousePressed(){
       loadanim = 'on';
       autologout = 'on';
       keynav = 'on';
+      freezecolors = 'off';
+    } else if (mouseX >= 1700 && mouseX < 1875+200 && mouseY >= 55 && mouseY <= (55+33)){
+      olddimmer = dimmer;
+      dimmer = 100;
+      screenshottaker = 0;
+      screenshotlimit = 30;
+      
     }
+    rect(1875,55,200,200);
 
   } else if (display == 'forgot password'){
     if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 175 && mouseY <= 325 && accountclick != 'new password'){
