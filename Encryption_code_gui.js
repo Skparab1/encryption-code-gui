@@ -1688,7 +1688,12 @@ function draw() {
     
     fill(200,0,0);
     rect(1600,720,10,50);
-    text(dimmer,1857,800);
+    if (screenshottaker > screenshotlimit){
+      text(dimmer,1857,800);
+    } else {
+      text(olddimmer,1857,800);
+    }
+    
     rect(1300,700,75,75);
     fill(100);
     rect(1300,775,75,75);
@@ -1701,9 +1706,9 @@ function draw() {
     }
     
     if (Math.abs(sliderx-dimmer) <= 4){
-    }else if (sliderx > dimmer){
+    }else if (sliderx > dimmer && screenshottaker > screenshotlimit){
       sliderx -= 4;
-    } else if (sliderx < dimmer){
+    } else if (sliderx < dimmer && screenshottaker > screenshotlimit){
       sliderx += 4;
     }
     
@@ -1743,7 +1748,7 @@ function draw() {
     }
     
     fill(200,200,0);
-    rect(1875,55,200,200);
+    rect(1875,55,200,66);
     fill(200,100,0);
     rect(1875,55+66,200,200-66);
     fill(200,0,0);
@@ -1757,15 +1762,29 @@ function draw() {
     text('Now',1900,100);
     text('In 5 sec',1900,160);
     text('In 10 sec',1900,220);
-
-    if (screenshottaker == screenshotlimit){
-      saveCanvas();
-      dimmer = olddimmer;
-      screenshottaker = 1;
-      screenshotlimit = 0;
-    }
+    
     textSize(100);
   }
+  
+  if (screenshotlimit-screenshottaker == 15){
+    dimmer = olddimmer;
+    dimmer = 100;
+  }
+  
+
+  if (screenshottaker == screenshotlimit){
+    saveCanvas();
+    dimmer = olddimmer;
+    screenshottaker = 1;
+    screenshotlimit = 0;
+  }
+  
+  if (screenshotlimit != 0){
+    fill(0);
+    textSize(100);
+    text(int((screenshotlimit-screenshottaker)/60),900,400);
+  }
+  
   if (changingcolor < 255 && freezecolors == 'off'){
     changingcolor += 3;
   } else if (freezecolors == 'off'){
@@ -2213,14 +2232,17 @@ function mousePressed(){
       autologout = 'on';
       keynav = 'on';
       freezecolors = 'off';
-    } else if (mouseX >= 1700 && mouseX < 1875+200 && mouseY >= 55 && mouseY <= (55+33)){
-      olddimmer = dimmer;
-      dimmer = 100;
+    } else if (mouseX >= 1875 && mouseX < 1875+200 && mouseY >= 55 && mouseY <= (55+66)){
       screenshottaker = 0;
-      screenshotlimit = 30;
-      
+      screenshotlimit = 16;
+    } else if (mouseX >= 1875 && mouseX < 1875+200 && mouseY >= 55+66 && mouseY <= (55+133)){
+      screenshottaker = 0;
+      screenshotlimit = 60*5;
+    } else if (mouseX >= 1875 && mouseX < 1875+200 && mouseY >= 55+133 && mouseY <= (55+200)){
+      screenshottaker = 0;
+      screenshotlimit = 60*10;
     }
-    rect(1875,55,200,200);
+    rect(1875,55,200,66);
 
   } else if (display == 'forgot password'){
     if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 175 && mouseY <= 325 && accountclick != 'new password'){
