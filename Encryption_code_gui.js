@@ -1767,23 +1767,27 @@ function draw() {
   }
   
   if (screenshotlimit-screenshottaker == 15){
-    dimmer = olddimmer;
+    olddimmer = dimmer;
     dimmer = 100;
   }
   
-
+  if (screenshotlimit-screenshottaker == 1){
+    dimmer = olddimmer;
+  }
+  
   if (screenshottaker == screenshotlimit){
     saveCanvas();
-    dimmer = olddimmer;
     screenshottaker = 1;
     screenshotlimit = 0;
   }
   
   if (screenshotlimit != 0){
     fill(0);
-    textSize(100);
-    text(int((screenshotlimit-screenshottaker)/60),900,400);
+    textSize(500);
+    text(int((screenshotlimit-screenshottaker)/55)+1,700,700);
   }
+  
+  textSize(100);
   
   if (changingcolor < 255 && freezecolors == 'off'){
     changingcolor += 3;
@@ -2237,12 +2241,11 @@ function mousePressed(){
       screenshotlimit = 16;
     } else if (mouseX >= 1875 && mouseX < 1875+200 && mouseY >= 55+66 && mouseY <= (55+133)){
       screenshottaker = 0;
-      screenshotlimit = 60*5;
+      screenshotlimit = 55*5;
     } else if (mouseX >= 1875 && mouseX < 1875+200 && mouseY >= 55+133 && mouseY <= (55+200)){
       screenshottaker = 0;
-      screenshotlimit = 60*10;
+      screenshotlimit = 55*10;
     }
-    rect(1875,55,200,66);
 
   } else if (display == 'forgot password'){
     if (mouseX >= 600 && mouseX <= 1400 && mouseY >= 175 && mouseY <= 325 && accountclick != 'new password'){
