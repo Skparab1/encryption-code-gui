@@ -11,7 +11,8 @@ Click [here](https://skparab1.github.io/encryption-code-gui) to see current prot
 ## Current bug status
   - Pending
     - unfreeze colors when reset all settings is unoperational - will do soon hang on
-    - FIX THIS BUG: mac backspace key renders "Backpace" - Almost done
+    - FIX THIS BUG: mac backspace key renders "Backpace" - mostly fixed
+    
     - when account session expires, give option to log in - Yeah doing
   - CLOSED
     - add Mousedragged to slider bar - DONE
