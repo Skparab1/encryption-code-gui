@@ -1737,8 +1737,25 @@ function draw() {
       image(oskeyboard,1360,55,484,200);
       print('in 2');
     }
-    textSize(100);
+    
+    fill(200,200,0);
+    rect(1875,55,200,200);
+    fill(200,100,0);
+    rect(1875,55+66,200,200-66);
+    fill(200,0,0);
+    rect(1875,55+133,200,200-133);
+    
+    fill(0);
+    stroke(0);
+    
+    textSize(28);
+    text('Take screenshot',1825,40);
+    text('Now',1900,100);
+    text('In 5 sec',1900,160);
+    text('In 10 sec',1900,220);
 
+  
+    textSize(100);
   }
   if (changingcolor < 255 && freezecolors == 'off'){
     changingcolor += 3;
