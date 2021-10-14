@@ -1766,7 +1766,7 @@ function draw() {
     textSize(100);
   }
   
-  if (screenshotlimit-screenshottaker == 15){
+  if (screenshotlimit-screenshottaker == 10){
     olddimmer = dimmer;
     dimmer = 100;
   }
@@ -1784,7 +1784,7 @@ function draw() {
   if (screenshotlimit != 0){
     fill(127);
     textSize(500);
-    text(int((screenshotlimit-screenshottaker)/55)+1,800,700);
+    text(int((screenshotlimit-screenshottaker)/48)+1,800,700);
     textSize(20);
     
     if (mouseX > 20 && mouseX < 2028 && mouseY > 10 && mouseY < 796){
@@ -2268,13 +2268,13 @@ function mousePressed(){
       freezecolors = 'off';
     } else if (mouseX >= 1875 && mouseX < 1875+200 && mouseY >= 55 && mouseY <= (55+66)){
       screenshottaker = 0;
-      screenshotlimit = 16;
+      screenshotlimit = 15;
     } else if (mouseX >= 1875 && mouseX < 1875+200 && mouseY >= 55+66 && mouseY <= (55+133)){
       screenshottaker = 0;
-      screenshotlimit = 55*5;
+      screenshotlimit = 48*5;
     } else if (mouseX >= 1875 && mouseX < 1875+200 && mouseY >= 55+133 && mouseY <= (55+200)){
       screenshottaker = 0;
-      screenshotlimit = 55*10;
+      screenshotlimit = 48*10;
     }
 
   } else if (display == 'forgot password'){
