@@ -9,6 +9,8 @@ function preload() {
   table = loadTable("accounts.csv","csv","header");
 }
 
+// Add seconds() based downtime counter)
+
 function setup() {
   createCanvas(2048,846);
   background(0);
@@ -125,6 +127,7 @@ var b4colors = [0,0,0];
 var screenshottaker = 0;
 var screenshotlimit = 0;
 var olddimmer = 0;
+var startingtime = 0;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -300,6 +303,10 @@ function displaykeyboard(){
 }
 
 function draw() {
+  if (framerenderct == 1){
+    startingtime = second();
+  }
+  
   screenshottaker += 1;
   inactivetime += 1;
   framerenderct += 1;
@@ -1523,8 +1530,8 @@ function draw() {
     text('Text colors RGB                 '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],650,550);
     text('System workload                Normal',650,600);
     text('Server com channels         '+channels,650,650);
-    text('Current downtime               '+round(framerenderct/60),650,700);
-    text('Fps rate                              '+(channels+57),650,750);
+    text('Current downtime               '+round(second()-startingtime),650,700);
+    text('Real time Fps rate             '+round(framerenderct/(second()-startingtime)),650,750);
     text('Frame render count           '+framerenderct,650,800);
     //text(timenow,800,800);
     
