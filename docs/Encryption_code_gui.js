@@ -128,6 +128,10 @@ var screenshottaker = 0;
 var screenshotlimit = 0;
 var olddimmer = 0;
 var startingtime = 0;
+var minutespassed = 0;
+var currentdowntime = 0;
+var oldsecond = 0;
+var startingminute = 0;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -305,7 +309,14 @@ function displaykeyboard(){
 function draw() {
   if (framerenderct == 1){
     startingtime = second();
+    startingminute = minute();
   }
+  
+  currentdowntime = (round(minute()-startingminute)*60) + round(second()-startingtime);
+  
+  //if (((oldsecond - second()) > 1) || false){
+  //  currentdowntime = oldsecond;
+  //}
   
   screenshottaker += 1;
   inactivetime += 1;
@@ -1530,8 +1541,8 @@ function draw() {
     text('Text colors RGB                 '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],650,550);
     text('System workload                Normal',650,600);
     text('Server com channels         '+channels,650,650);
-    text('Current downtime               '+round(second()-startingtime),650,700);
-    text('Real time Fps rate             '+round(framerenderct/(second()-startingtime)),650,750);
+    text('Current downtime               '+currentdowntime,650,700);
+    text('Real time Fps rate             '+round(framerenderct/currentdowntime),650,750);
     text('Frame render count           '+framerenderct,650,800);
     //text(timenow,800,800);
     
@@ -1832,6 +1843,12 @@ function draw() {
   if (expiretime > 60){
     expiretime = expiretime - 60;
   }
+  
+  if (currentdowntime == 59){
+    blank = '';
+  }
+  
+  oldsecond = second();
   
   print(expiretime);
   
