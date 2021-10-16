@@ -132,6 +132,8 @@ var minutespassed = 0;
 var currentdowntime = 0;
 var oldsecond = 0;
 var startingminute = 0;
+var olddowntime = 0;
+var offtime = 0;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -312,11 +314,22 @@ function draw() {
     startingminute = minute();
   }
   
-  currentdowntime = (round(minute()-startingminute)*60) + round(second()-startingtime);
+  print('off'+offtime);
   
-  //if (((oldsecond - second()) > 1) || false){
-  //  currentdowntime = oldsecond;
-  //}
+  if (offtime <= 0){
+    offtime = 0;
+  }
+  
+  currentdowntime = (round(minute()-startingminute)*60) + round(second()-startingtime);
+  currentdowntime = currentdowntime - offtime;
+  
+  if ((second()-oldsecond) > 1){
+    print('off');
+    offtime += (second()-oldsecond);
+    
+  }
+  
+  //print('Off: '+(second()-oldsecond));
   
   screenshottaker += 1;
   inactivetime += 1;
@@ -1849,6 +1862,7 @@ function draw() {
   }
   
   oldsecond = second();
+  olddowntime = currentdowntime ;
   
   print(expiretime);
   
