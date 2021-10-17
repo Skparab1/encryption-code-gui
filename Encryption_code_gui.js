@@ -134,7 +134,7 @@ var oldsecond = 0;
 var startingminute = 0;
 var olddowntime = 0;
 var offtime = 0;
-var fps;
+var fps = 0;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -329,8 +329,14 @@ function draw() {
   //currentdowntime = round(framerenderct*(deltaTime/1000));
   
   if (Math.abs(currentdowntime - round(framerenderct*(deltaTime/1000))) > 12){
-    offtime += round(Math.abs(currentdowntime - round(framerenderct*(deltaTime/1000))))/700;
+    //offtime += round(Math.abs(currentdowntime - round(framerenderct*(deltaTime/1000))))/650;
   }
+  
+  if (fps <= 50 && framerenderct > 100){
+    offtime += 1;
+  }
+  
+  //print('off:',round(Math.abs(currentdowntime - round(framerenderct*(deltaTime/1000)))));
   
   //currentdowntime = round(framerenderct*(deltaTime/1000));
   
@@ -1561,7 +1567,7 @@ function draw() {
     text('Text colors RGB                 '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],650,550);
     text('System workload                Normal',650,600);
     text('Server com channels         '+channels,650,650);
-    text('Current downtime               '+currentdowntime,650,700);
+    text('Current downtime               '+round(currentdowntime),650,700) ;
     text('Real time Fps rate             '+fps,650,750);
     text('Frame render count           '+framerenderct,650,800);
     //text(timenow,800,800);
