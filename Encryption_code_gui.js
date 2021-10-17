@@ -136,6 +136,8 @@ var olddowntime = 0;
 var offtime = 0;
 var fps = 30;
 var fs = false;
+var adj = false;
+var displayadj = false;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -320,7 +322,7 @@ function draw() {
   //print('off'+offtime);
   //print('old',oldsecond,'new',second() );
   
-  if (offtime <= 0){
+  if (offtime <= 0 || currentdowntime <= 0){
     offtime = 0;
   }
   
@@ -333,9 +335,21 @@ function draw() {
     //offtime += round(Math.abs(currentdowntime - round(framerenderct*(deltaTime/1000))))/650;
   }
   
-  if (fps <= 50 && framerenderct > 100){
-    offtime += 1;
+  if (adj){
+    displayadj = true;
   }
+  
+  if (fps <= 30 && framerenderct > 500){
+    offtime += 1;
+    adj = true;
+  } else if (fps <= 45 && framerenderct > 500){
+    offtime += 1;
+  } else {
+    adj = false;
+    displayadj = false;
+  } 
+  
+  textSize(90);
   
   if (fps < 10 && framerenderct >= 10000){
     offtime += currentdowntime-(framerenderct/57);
@@ -1576,10 +1590,14 @@ function draw() {
     text('Text colors RGB                 '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],650,550);
     text('System workload                Normal',650,600);
     text('Server com channels         '+channels,650,650);
-    text('Current downtime               '+round(currentdowntime),650,700) ;
+    text('Current downtime               '+round(currentdowntime),650,700);
     text('Real time Fps rate             '+fps,650,750);
     text('Frame render count           '+framerenderct,650,800);
     //text(timenow,800,800);
+    
+    if (displayadj || adj){
+      text('Current downtime                     <- adjusting',650,700);
+    }
     
     oldred = round(backgroundcolor[0]);
     oldblue = round(backgroundcolor[1]);    
