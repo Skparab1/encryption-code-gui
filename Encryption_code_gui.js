@@ -138,6 +138,7 @@ var fps = 30;
 var fs = false;
 var adj = false;
 var displayadj = false;
+var startinghour = 0;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -316,6 +317,7 @@ function draw() {
   if (framerenderct == 1){
     startingtime = second();
     startingminute = minute();
+    startinghour = hour();
     oldsecond = second();
     offtime = 0;
   }
@@ -326,7 +328,9 @@ function draw() {
     offtime = 0;
   }
   
-  currentdowntime = (round(minute()-startingminute)*60) + round(second()-startingtime);
+  
+  
+  currentdowntime = (round(hour()-startinghour)*3600)+(round(minute()-startingminute)*60) + round(second()-startingtime);
   currentdowntime = round(currentdowntime - offtime);
   
   //currentdowntime = round(framerenderct*(deltaTime/1000));
