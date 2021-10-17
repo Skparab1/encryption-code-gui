@@ -132,6 +132,9 @@ var minutespassed = 0;
 var currentdowntime = 0;
 var oldsecond = 0;
 var startingminute = 0;
+var olddowntime = 0;
+var offtime = 0;
+var fps;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -310,13 +313,28 @@ function draw() {
   if (framerenderct == 1){
     startingtime = second();
     startingminute = minute();
+    oldsecond = second();
+    offtime = 0;
+  }
+  //print('off'+offtime);
+  //print('old',oldsecond,'new',second() );
+  
+  if (offtime <= 0){
+    offtime = 0;
   }
   
   currentdowntime = (round(minute()-startingminute)*60) + round(second()-startingtime);
+  currentdowntime = round(currentdowntime - offtime);
   
-  //if (((oldsecond - second()) > 1) || false){
-  //  currentdowntime = oldsecond;
-  //}
+  //currentdowntime = round(framerenderct*(deltaTime/1000));
+  
+  if (Math.abs(currentdowntime - round(framerenderct*(deltaTime/1000))) > 12){
+    offtime += round(Math.abs(currentdowntime - round(framerenderct*(deltaTime/1000))))/700;
+  }
+  
+  //currentdowntime = round(framerenderct*(deltaTime/1000));
+  
+  //print('Off: '+(second()-oldsecond));
   
   screenshottaker += 1;
   inactivetime += 1;
@@ -1531,6 +1549,8 @@ function draw() {
    let greenarrow;
    let bluearrow;
    
+   fps = round(framerenderct/currentdowntime);
+   
    if (backgroundcolor[0] == 0){redarrow = '-';} else if (backgroundcolor[0] > oldred){redarrow = '^';} else {redarrow = 'V';}
    if (backgroundcolor[1] == 0){greenarrow = '-';} else if (backgroundcolor[1] > oldgreen){greenarrow = '^';} else {greenarrow = 'V';}
    if (backgroundcolor[2] == 0){bluearrow = '-';} else if (backgroundcolor[2] > oldblue){bluearrow = '^';} else {bluearrow = 'V';}
@@ -1542,7 +1562,7 @@ function draw() {
     text('System workload                Normal',650,600);
     text('Server com channels         '+channels,650,650);
     text('Current downtime               '+currentdowntime,650,700);
-    text('Real time Fps rate             '+round(framerenderct/currentdowntime),650,750);
+    text('Real time Fps rate             '+fps,650,750);
     text('Frame render count           '+framerenderct,650,800);
     //text(timenow,800,800);
     
@@ -1849,6 +1869,7 @@ function draw() {
   }
   
   oldsecond = second();
+  olddowntime = currentdowntime ;
   
   print(expiretime);
   
