@@ -341,7 +341,7 @@ function draw() {
     offtime += currentdowntime-(framerenderct/57);
   }
   
-  if (fps <= 65){
+  if (fps >= 65){
     offtime -= 1;
   }
   
