@@ -136,6 +136,8 @@ var olddowntime = 0;
 var offtime = 0;
 var fps = 30;
 var fs = false;
+var adj = false;
+var displayadj = false;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -333,15 +335,19 @@ function draw() {
     //offtime += round(Math.abs(currentdowntime - round(framerenderct*(deltaTime/1000))))/650;
   }
   
-  if (fps <= 50 && framerenderct > 100){
-    offtime += 1;
-    print('adjusting');
-    if (display == 'settings'){
-      fill(0);
-      textSize(20);
-      text('Current downtime                <- adjusting'+round(currentdowntime),650,700);
-    }
+  if (adj){
+    displayadj = true;
   }
+  
+  if (fps <= 30 && framerenderct > 500){
+    offtime += 1;
+    adj = true;
+  } else if (fps <= 45 && framerenderct > 500){
+    offtime += 1;
+  } else {
+    adj = false;
+    displayadj = false;
+  } 
   
   textSize(90);
   
@@ -1588,6 +1594,10 @@ function draw() {
     text('Real time Fps rate             '+fps,650,750);
     text('Frame render count           '+framerenderct,650,800);
     //text(timenow,800,800);
+    
+    if (displayadj || adj){
+      text('Current downtime                     <- adjusting',650,700);
+    }
     
     oldred = round(backgroundcolor[0]);
     oldblue = round(backgroundcolor[1]);    
