@@ -320,7 +320,7 @@ function draw() {
   //print('off'+offtime);
   //print('old',oldsecond,'new',second() );
   
-  if (offtime <= 0){
+  if (offtime <= 0 || currentdowntime <= 0){
     offtime = 0;
   }
   
@@ -335,7 +335,15 @@ function draw() {
   
   if (fps <= 50 && framerenderct > 100){
     offtime += 1;
+    print('adjusting');
+    if (display == 'settings'){
+      fill(0);
+      textSize(20);
+      text('Current downtime                <- adjusting'+round(currentdowntime),650,700);
+    }
   }
+  
+  textSize(90);
   
   if (fps < 10 && framerenderct >= 10000){
     offtime += currentdowntime-(framerenderct/57);
@@ -1576,7 +1584,7 @@ function draw() {
     text('Text colors RGB                 '+textcolor[1]+' '+textcolor[1]+' '+textcolor[2],650,550);
     text('System workload                Normal',650,600);
     text('Server com channels         '+channels,650,650);
-    text('Current downtime               '+round(currentdowntime),650,700) ;
+    text('Current downtime               '+round(currentdowntime),650,700);
     text('Real time Fps rate             '+fps,650,750);
     text('Frame render count           '+framerenderct,650,800);
     //text(timenow,800,800);
