@@ -135,6 +135,7 @@ var startingminute = 0;
 var olddowntime = 0;
 var offtime = 0;
 var fps = 0;
+var fs = false;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -1290,7 +1291,7 @@ function draw() {
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     stroke(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
-    text('Settings',900,100);
+    text('Settings',950,100);
     textSize(40);
     text('Current theme: '+colorscheme,310 ,135);
     text('Spectrum (Default)',310,215);
@@ -1691,26 +1692,48 @@ function draw() {
     text('      OFF',1320,320+60+60+60+60);
     text('      OFF',1320,320+60+60+60+60+60);
     
-    if (mouseX >= 325 && mouseX < 325+450 && mouseY >= 25 && mouseY <= 80 && freezecolors == 'on'){
+    if (mouseX >= 325 && mouseX < 325+300 && mouseY >= 25 && mouseY <= 80 && freezecolors == 'on'){
       fill(255,0,0);
-      rect(325,25,450,55);
+      rect(325,25,300,55);
       fill(0);
       text('Unfreeze colors?',350,70);
-    } else if (mouseX >= 325 && mouseX < 325+450 && mouseY >= 25 && mouseY <= 80){
+    } else if (mouseX >= 325 && mouseX < 325+300 && mouseY >= 25 && mouseY <= 80){
       fill(255,0,0);
-      rect(325,25,450,55);
+      rect(325,25,300,55);
       fill(0);
       text('Freeze colors?',350,70);
     } else if (freezecolors == 'on'){
       fill(0,255,0);
-      rect(325,25,450,55);
+      rect(325,25,300,55);
       fill(0);
       text('Unfreeze colors',350,70);
     } else {
       fill(200);
-      rect(325,25,450,55);
+      rect(325,25,300,55);
       fill(0);
       text('Freeze colors',350,70);
+    }
+    
+    if (mouseX >= 650 && mouseX < 650+300 && mouseY >= 25 && mouseY <= 80 && fs == true){
+      fill(255,0,0);
+      rect(650,25,250,55);
+      fill(0);
+      text('UnFullscreen?',675,70);
+    } else if (mouseX >= 650 && mouseX < 650+300 && mouseY >= 25 && mouseY <= 80){
+      fill(255,0,0);
+      rect(650,25,250,55);
+      fill(0);
+      text('Fullscreen?',675,70);
+    } else if (fs == true){
+      fill(0,255,0);
+      rect(650,25,250,55);
+      fill(0);
+      text('UnFullscreen',675,70);
+    } else {
+      fill(200);
+      rect(650,25,250,55);
+      fill(0);
+      text('Fullscreen',675,70);
     }
 
     textSize(35);
@@ -2295,9 +2318,9 @@ function mousePressed(){
       autologout = 'off';
     } else if (mouseX >= 1300 && mouseX <= 1500 && mouseY >= 280+60+60+60+60+60 && mouseY <= 330+60+60+60+60+60 && autologout == 'off'){
       autologout = 'on'; 
-    } else if (mouseX >= 325 && mouseX < 325+450 && mouseY >= 25 && mouseY <= 80 && freezecolors == 'off'){
+    } else if (mouseX >= 325 && mouseX < 325+300 && mouseY >= 25 && mouseY <= 80 && freezecolors == 'off'){
       freezecolors = 'on';
-    } else if (mouseX >= 325 && mouseX < 325+450 && mouseY >= 25 && mouseY <= 80 && freezecolors == 'on'){
+    } else if (mouseX >= 325 && mouseX < 325+300 && mouseY >= 25 && mouseY <= 80 && freezecolors == 'on'){
       freezecolors = 'off';
     } else if (mouseX >= 1300 && mouseX <= 1375 && mouseY >= 700 && mouseY <= 775 && dimmer >= -100 && settingdowntime >= 15){
       dimmer -= 10;
@@ -2305,7 +2328,7 @@ function mousePressed(){
       dimmer += 10;
     } else if (mouseX >= 1400 && mouseX <= 1950 && mouseY >= 720 && mouseY <= 820 && dimmer <= 100 && dimmer >= -100 && settingdowntime >= 15){
       dimmer = round((mouseX-1600)/2)-8 ;
-    } else if (mouseX >= 750 && mouseX < 750+450 && mouseY >= 170 && mouseY <= 270){
+    } else if (mouseX >= 750 && mouseX < 750+300 && mouseY >= 170 && mouseY <= 270){
       dimmer = 0;
       autoinvokekeyboard = 'off';
       colorscheme = 'Spectrum (Default)';
@@ -2326,6 +2349,14 @@ function mousePressed(){
     } else if (mouseX >= 1875 && mouseX < 1875+200 && mouseY >= 55+133 && mouseY <= (55+200)){
       screenshottaker = 0;
       screenshotlimit = 48*10;
+    } else if (mouseX >= 650 && mouseX < 650+300 && mouseY >= 25 && mouseY <= 80 && fs){
+      fs = true;
+      let fsv = fullscreen();
+      fullscreen(!fsv);
+    } else if (mouseX >= 650 && mouseX < 650+300 && mouseY >= 25 && mouseY <= 80 && !fs){
+      fs = false;
+      let fsv = fullscreen();
+      fullscreen(!fsv);
     }
 
   } else if (display == 'forgot password'){
