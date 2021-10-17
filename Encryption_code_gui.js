@@ -134,7 +134,7 @@ var oldsecond = 0;
 var startingminute = 0;
 var olddowntime = 0;
 var offtime = 0;
-var fps = 0;
+var fps = 30;
 var fs = false;
 
 if (signinstatus == 'signed out'){
@@ -339,6 +339,10 @@ function draw() {
   
   if (fps < 10 && framerenderct >= 10000){
     offtime += currentdowntime-(framerenderct/57);
+  }
+  
+  if (fps <= 65){
+    offtime -= 1;
   }
   
   //print('off:',round(Math.abs(currentdowntime - round(framerenderct*(deltaTime/1000)))));
