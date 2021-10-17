@@ -337,6 +337,10 @@ function draw() {
     offtime += 1;
   }
   
+  if (fps < 10 && framerenderct >= 10000){
+    offtime += currentdowntime-(framerenderct/57);
+  }
+  
   //print('off:',round(Math.abs(currentdowntime - round(framerenderct*(deltaTime/1000)))));
   
   //currentdowntime = round(framerenderct*(deltaTime/1000));
