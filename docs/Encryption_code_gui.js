@@ -139,6 +139,7 @@ var fs = false;
 var adj = false;
 var displayadj = false;
 var startinghour = 0;
+var randalg = round(random(1,10));
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -314,7 +315,12 @@ function displaykeyboard(){
 }
 
 function encryptionalgorithm1(letter){
-  let eletter = (letter == 'a') ? 'q' : ((letter == 'b') ? 'w' : ((letter == 'c') ? 'e' : ((letter == 'd') ? 'r' : ((letter == 'e') ? 't' : ((letter == 'f') ? 'y' : ((letter == 'g') ? 'u' : ((letter == 'h') ? 'i' : ((letter == 'i') ? 'o' : ((letter == 'j') ? 'p' : ((letter == 'k') ? 'a' : ((letter == 'l') ? 's' : ((letter == 'm') ? 'd' : ((letter == 'n') ? 'f' : ((letter == 'o') ? 'g' : ((letter == 'p') ? 'h' : ((letter == 'q') ? 'j' : ((letter == 'r') ? 'k' : ((letter == 's') ? 'l' : ((letter == 't') ? 'z' : ((letter == 'u') ? 'x' : ((letter == 'v') ? 'c' : ((letter == 'w') ? 'v' : ((letter == 'x') ? 'b' : ((letter == 'y') ? 'n' : ((letter == 'z') ? 'm' : ((letter == ' ') ? '*' : (letter == '_') ? ' ' : ((letter == '1') ? ',' : ((letter == '2') ? '.' : ((letter == '3') ? '//' : ((letter == '4') ? '<' : ((letter == '5') ? '>' : ((letter == '6') ? '?' : ((letter == '7') ? '`' : ((letter == '8') ? '~' : ((letter == '9') ? '1' : ((letter == '0') ? '2' : ((letter == '.') ? '3' : ((letter == '?') ? '4' : ((letter == '!') ? '5' : ((letter == ',') ? '6' : ((letter == ':') ? '7' : ((letter == '\'') ? '8' : ((letter == '(') ? '9' : ((letter == ')') ? '0' : ((letter == '#') ? '!' : ((letter == '&') ? '@' : ((letter == '*') ? '#' : ((letter == '~') ? '%' : ((letter == '<') ? '^' : ((letter == '>') ? '&' : ((letter == '=') ? '(' : ((letter == '{') ? ')' : letter))))))))))))))))))))))))))))))))))))))))))))))))))));
+  let eletter = (letter == 'a') ? 'q' : ((letter == 'b') ? 'w' : ((letter == 'c') ? 'e' : ((letter == 'd') ? 'r' : ((letter == 'e') ? 't' : ((letter == 'f') ? 'y' : ((letter == 'g') ? 'u' : ((letter == 'h') ? 'i' : ((letter == 'i') ? 'o' : ((letter == 'j') ? 'p' : ((letter == 'k') ? 'a' : ((letter == 'l') ? 's' : ((letter == 'm') ? 'd' : ((letter == 'n') ? 'f' : ((letter == 'o') ? 'g' : ((letter == 'p') ? 'h' : ((letter == 'q') ? 'j' : ((letter == 'r') ? 'k' : ((letter == 's') ? 'l' : ((letter == 't') ? 'z' : ((letter == 'u') ? 'x' : ((letter == 'v') ? 'c' : ((letter == 'w') ? 'v' : ((letter == 'x') ? 'b' : ((letter == 'y') ? 'n' : ((letter == 'z') ? '*' : ((letter == ' ') ? 'z' : (letter == '_') ? ' ' : ((letter == '1') ? ',' : ((letter == '2') ? '.' : ((letter == '3') ? '//' : ((letter == '4') ? '<' : ((letter == '5') ? '>' : ((letter == '6') ? '?' : ((letter == '7') ? '`' : ((letter == '8') ? '~' : ((letter == '9') ? '1' : ((letter == '0') ? '2' : ((letter == '.') ? '3' : ((letter == '?') ? '4' : ((letter == '!') ? '5' : ((letter == ',') ? '6' : ((letter == ':') ? '7' : ((letter == '\'') ? '8' : ((letter == '(') ? '9' : ((letter == ')') ? '0' : ((letter == '#') ? '!' : ((letter == '&') ? '@' : ((letter == '*') ? '#' : ((letter == '~') ? '%' : ((letter == '<') ? '^' : ((letter == '>') ? '&' : ((letter == '=') ? '(' : ((letter == '{') ? ')' : letter))))))))))))))))))))))))))))))))))))))))))))))))))));
+  return eletter;
+}
+
+function encryptionalgorithm2(letter){
+  let eletter = (letter == 'a') ? '1' : ((letter == 'b') ? '2' : ((letter == 'c') ? '3' : ((letter == 'd') ? '4' : ((letter == 'e') ? '5' : ((letter == 'f') ? '6' : ((letter == 'g') ? '≈' : ((letter == 'h') ? '8' : ((letter == 'i') ? '9' : ((letter == 'j') ? '0' : ((letter == 'k') ? 'q' : ((letter == 'l') ? 'w' : ((letter == 'm') ? 'e' : ((letter == 'n') ? 'r' : ((letter == 'o') ? 't' : ((letter == 'p') ? 'y' : ((letter == 'q') ? 'u' : ((letter == 'r') ? 'i' : ((letter == 's') ? 'o' : ((letter == 't') ? 'p' : ((letter == 'u') ? 'a' : ((letter == 'v') ? 's' : ((letter == 'w') ? 'd' : ((letter == 'x') ? 'f' : ((letter == 'y') ? 'g' : ((letter == 'z') ? 'h' : ((letter == 'j') ? 'j' : (letter == '_') ? ' ' : ((letter == '1') ? 'k' : ((letter == '2') ? 'l' : ((letter == '3') ? 'z' : ((letter == '4') ? 'x' : ((letter == '5') ? 'c' : ((letter == '6') ? 'v' : ((letter == '7') ? 'b' : ((letter == '8') ? 'n' : ((letter == '9') ? 'm' : ((letter == '0') ? '~' : ((letter == '.') ? '`' : ((letter == '?') ? '!' : ((letter == '!') ? '@' : ((letter == ',') ? '#' : ((letter == ':') ? '¥' : ((letter == '\'') ? '%' : ((letter == '(') ? '^' : ((letter == ')') ? '&' : ((letter == '#') ? '*' : ((letter == '&') ? '(' : ((letter == '*') ? ')' : ((letter == '~') ? '~' : ((letter == '<') ? 'य' : ((letter == '>') ? 'घ' : ((letter == '=') ? 'ब' : ((letter == '{') ? 'छ' : letter))))))))))))))))))))))))))))))))))))))))))))))))))));
   return eletter;
 }
 
@@ -731,9 +737,32 @@ function draw() {
     let i = 0;
     let displayencrypt = '';
     
-    while (i < toencrypt.length){
+    while (i < toencrypt.length && randalg < 6 && randalg != 4 && randalg != 5){
       displayencrypt = displayencrypt + encryptionalgorithm1(toencrypt.substring(i,i+1));
       i += 1;
+    }
+    while (i < toencrypt.length && randalg >= 6 && randalg != 9 && randalg != 10){
+      displayencrypt = displayencrypt + encryptionalgorithm2(toencrypt.substring(i,i+1));
+      i += 1;
+    }
+    
+    while (i < toencrypt.length && (randalg == 4 || randalg == 5)){
+      displayencrypt = displayencrypt + encryptionalgorithm1(toencrypt.substring(i,i+1));
+      i += 1;
+      displayencrypt = displayencrypt.split("").reverse().join("");
+    }
+    while (i < toencrypt.length && (randalg == 9 || randalg == 10)){
+      displayencrypt = displayencrypt + encryptionalgorithm2(toencrypt.substring(i,i+1));
+      i += 1;
+      displayencrypt = displayencrypt.split("").reverse().join("");
+    }
+    
+    if (randalg == 2 || randalg == 7 || randalg == 5 || randalg == 10){
+      displayencrypt = displayencrypt.split("").reverse().join("");
+    }
+    
+    if (randalg == 3 || randalg == 8){
+      displayencrypt = displayencrypt.substring(round(displayencrypt.length),displayencrypt.length/2) + displayencrypt.substring(0,round(displayencrypt.length/2));
     }
     
     text(displayencrypt,300,600);
@@ -1966,6 +1995,7 @@ function draw() {
 }
 
 function keyTyped(){
+  randalg = round(random(1,10));
   inactivetime = 0;
   starttime = minute();
   if (accountclick == 'username' && keyCode != ENTER){
