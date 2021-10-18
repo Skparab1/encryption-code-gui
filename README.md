@@ -21,6 +21,9 @@ Click [here](https://skparab1.github.io/encryption-code-gui) to see current prot
 
 # Main features that work
 
+## Encryption
+  - unlimited algorithms
+
 ## Starting Animation
 - Hover operated with text
 
