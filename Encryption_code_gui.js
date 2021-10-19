@@ -139,7 +139,7 @@ var fs = false;
 var adj = false;
 var displayadj = false;
 var startinghour = 0;
-var randalg = round(random(1,15));
+var randalg = round(random(1,10));
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -244,6 +244,7 @@ function displaykeyboard(){
       fill(200,100,0);
     } else {
       fill(0);
+      
     }
     buttonnum += 1;
     rect(rectx,960,100,85);
@@ -329,8 +330,8 @@ function copyToClipboard(text) {
 
 function encryptionalgorithm1(letter){
   let eletter = (letter == 'a') ? 'q' : ((letter == 'b') ? 'w' : ((letter == 'c') ? 'e' : ((letter == 'd') ? 'r' : ((letter == 'e') ? 't' : ((letter == 'f') ? 'y' : ((letter == 'g') ? 'u' : ((letter == 'h') ? 'i' : ((letter == 'i') ? 'o' : ((letter == 'j') ? 'p' : ((letter == 'k') ? 'a' : ((letter == 'l') ? 's' : ((letter == 'm') ? 'd' : ((letter == 'n') ? 'f' : ((letter == 'o') ? 'g' : ((letter == 'p') ? 'h' : ((letter == 'q') ? 'j' : ((letter == 'r') ? 'k' : ((letter == 's') ? 'l' : ((letter == 't') ? 'z' : ((letter == 'u') ? 'x' : ((letter == 'v') ? 'c' : ((letter == 'w') ? 'v' : ((letter == 'x') ? 'b' : ((letter == 'y') ? 'n' : ((letter == 'z') ? '*' : ((letter == ' ') ? 'm' : (letter == '_') ? ' ' : ((letter == '1') ? ',' : ((letter == '2') ? '.' : ((letter == '3') ? '//' : ((letter == '4') ? '<' : ((letter == '5') ? '>' : ((letter == '6') ? '?' : ((letter == '7') ? '`' : ((letter == '8') ? '~' : ((letter == '9') ? '1' : ((letter == '0') ? '2' : ((letter == '.') ? '3' : ((letter == '?') ? '4' : ((letter == '!') ? '5' : ((letter == ',') ? '6' : ((letter == ':') ? '7' : ((letter == '\'') ? '8' : ((letter == '(') ? '9' : ((letter == ')') ? '0' : ((letter == '#') ? '!' : ((letter == '&') ? '@' : ((letter == '*') ? '#' : ((letter == '~') ? '%' : ((letter == '<') ? '^' : ((letter == '>') ? '&' : ((letter == '=') ? '(' : ((letter == '{') ? ')' : letter))))))))))))))))))))))))))))))))))))))))))))))))))));
-  return eletter;
   copyToClipboard('hello');
+  return eletter;
 }
 
 function encryptionalgorithm2(letter){
@@ -338,9 +339,58 @@ function encryptionalgorithm2(letter){
   return eletter; 
 }
 
-function rsaalgorithm(letter){
+function rsanumberizer(letter){
   let eletter = (letter == 'a') ? '01' : ((letter == 'b') ? '02' : ((letter == 'c') ? '03' : ((letter == 'd') ? '04' : ((letter == 'e') ? '05' : ((letter == 'f') ? '06' : ((letter == 'g') ? '07' : ((letter == 'h') ? '08' : ((letter == 'i') ? '09' : ((letter == 'j') ? '10' : ((letter == 'k') ? '11' : ((letter == 'l') ? '12' : ((letter == 'm') ? '13' : ((letter == 'n') ? '14' : ((letter == 'o') ? '15' : ((letter == 'p') ? '16' : ((letter == 'q') ? '17' : ((letter == 'r') ? '18' : ((letter == 's') ? '19' : ((letter == 't') ? '20' : ((letter == 'u') ? '21' : ((letter == 'v') ? '22' : ((letter == 'w') ? '23' : ((letter == 'x') ? '24' : ((letter == 'y') ? '25' : ((letter == 'z') ? '26' : ((letter == ' ') ? '27' : (letter == '_') ? '28' : ((letter == '1') ? '29' : ((letter == '2') ? '30' : ((letter == '3') ? '31' : ((letter == '4') ? '32' : ((letter == '5') ? '33' : ((letter == '6') ? '34' : ((letter == '7') ? '35' : ((letter == '8') ? '36' : ((letter == '9') ? '37' : ((letter == '0') ? '38' : ((letter == '.') ? '39' : ((letter == '?') ? '40' : ((letter == '!') ? '41' : ((letter == ',') ? '42' : ((letter == ':') ? '43' : ((letter == '\'') ? '44' : ((letter == '(') ? '45' : ((letter == ')') ? '46' : ((letter == '#') ? '47' : ((letter == '&') ? '48' : ((letter == '*') ? '49' : ((letter == '~') ? '50' : ((letter == '<') ? '51' : ((letter == '>') ? '52' : ((letter == '=') ? '53' : ((letter == '{') ? '54' : letter))))))))))))))))))))))))))))))))))))))))))))))))))));
   return eletter;
+}
+
+function rsaalgorithmencrypt(toencrypt,pkey1,pkey2,e){
+  i = 0;
+  let endcrypt = '';
+  
+  while (i < toencrypt.length){
+    endcrypt = endcrypt + rsanumberizer(toencrypt.substring(i,i+1));
+    i += 1;
+    //displayencrypt = displayencrypt.split("").reverse().join("");
+  }
+  
+  print(endcrypt);
+  
+  endcrypt = int(endcrypt);
+  
+  print(endcrypt);
+  
+  e = 17;
+  
+  n = pkey1 * pkey2;
+  
+  let encrypted = (pow(endcrypt, e)) % n;
+  
+  print('remainder',encrypted);
+  
+  return encrypted;
+}
+function rsaalgorithmdecrypt(todecrypt,pkey1,pkey2,e){
+  i = 0;
+  while (i < toencrypt.length){
+    displayencrypt = displayencrypt + rsaalgorithm(toencrypt.substring(i,i+1));
+    i += 1;
+    displayencrypt = displayencrypt.split("").reverse().join("");
+  }
+  
+  toencrypt = int(displayencrypt);
+  
+  n = pkey1 * pkey2;
+
+  tot = (x-1)*(y-1);
+  d = (1 % (tot))/e;
+  
+  //public_key = (e=17, n=3233);
+  //private_key = (d=2753, n=3233);
+  
+  let dec = (pow(todecrypt,d)) % n;
+    
+  return dec;
 }
 
 function draw() {
@@ -674,8 +724,8 @@ function draw() {
     }
     rect(1100,500,700,250);
     fill(bg);
-    text("Encrypt",400,350);
-    text("Decrypt",400,650);
+    text("Encrypt/Decrypt",250,350);
+    text("RSA Encryption",250,650);
     text("Account",1300,350);
     text("Settings",1300,650);
   } else if (display == 'expired'){
@@ -775,10 +825,9 @@ function draw() {
       i += 1;
       displayencrypt = displayencrypt.split("").reverse().join("");
     }
-    i = 0;
     
-    while (i < toencrypt.length && randalg > 10){
-      displayencrypt = displayencrypt + rsaalgorithm(toencrypt.substring(i,i+1));
+    while (i < toencrypt.length && (randalg > 10)){
+      displayencrypt = displayencrypt + rsanumberizer(toencrypt.substring(i,i+1));
       i += 1;
       displayencrypt = displayencrypt.split("").reverse().join("");
     }
@@ -789,6 +838,10 @@ function draw() {
     
     if (randalg == 3 || randalg == 8){
       displayencrypt = displayencrypt.substring(round(displayencrypt.length),displayencrypt.length/2) + displayencrypt.substring(0,round(displayencrypt.length/2));
+    }
+    
+    if (toencrypt != ''){
+      //displayencrypt = rsaalgorithmencrypt(toencrypt,61,53,17);
     }
     
     text(displayencrypt,300,600);
@@ -2025,7 +2078,7 @@ function keyTyped(){
   let oldalg = randalg;
   
   while (oldalg == randalg){
-    randalg = round(random(1,10));
+    randalg = round(random(1,15));
   }
   inactivetime = 0;
   starttime = minute();
