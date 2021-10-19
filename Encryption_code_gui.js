@@ -139,7 +139,7 @@ var fs = false;
 var adj = false;
 var displayadj = false;
 var startinghour = 0;
-var randalg = round(random(1,10));
+var randalg = round(random(1,15));
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -314,13 +314,32 @@ function displaykeyboard(){
   //print(mouseX,mouseY);
 }
 
+function copyToClipboard(text) {
+    var dummy = document.createElement("textarea");
+    // to avoid breaking orgain page when copying more words
+    // cant copy when adding below this code
+    // dummy.style.display = 'none'
+    document.body.appendChild(dummy);
+    //Be careful if you use texarea. setAttribute('value', value), which works with "input" does not work with "textarea". – Eduard
+    dummy.value = 'hi';
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+}
+
 function encryptionalgorithm1(letter){
   let eletter = (letter == 'a') ? 'q' : ((letter == 'b') ? 'w' : ((letter == 'c') ? 'e' : ((letter == 'd') ? 'r' : ((letter == 'e') ? 't' : ((letter == 'f') ? 'y' : ((letter == 'g') ? 'u' : ((letter == 'h') ? 'i' : ((letter == 'i') ? 'o' : ((letter == 'j') ? 'p' : ((letter == 'k') ? 'a' : ((letter == 'l') ? 's' : ((letter == 'm') ? 'd' : ((letter == 'n') ? 'f' : ((letter == 'o') ? 'g' : ((letter == 'p') ? 'h' : ((letter == 'q') ? 'j' : ((letter == 'r') ? 'k' : ((letter == 's') ? 'l' : ((letter == 't') ? 'z' : ((letter == 'u') ? 'x' : ((letter == 'v') ? 'c' : ((letter == 'w') ? 'v' : ((letter == 'x') ? 'b' : ((letter == 'y') ? 'n' : ((letter == 'z') ? '*' : ((letter == ' ') ? 'm' : (letter == '_') ? ' ' : ((letter == '1') ? ',' : ((letter == '2') ? '.' : ((letter == '3') ? '//' : ((letter == '4') ? '<' : ((letter == '5') ? '>' : ((letter == '6') ? '?' : ((letter == '7') ? '`' : ((letter == '8') ? '~' : ((letter == '9') ? '1' : ((letter == '0') ? '2' : ((letter == '.') ? '3' : ((letter == '?') ? '4' : ((letter == '!') ? '5' : ((letter == ',') ? '6' : ((letter == ':') ? '7' : ((letter == '\'') ? '8' : ((letter == '(') ? '9' : ((letter == ')') ? '0' : ((letter == '#') ? '!' : ((letter == '&') ? '@' : ((letter == '*') ? '#' : ((letter == '~') ? '%' : ((letter == '<') ? '^' : ((letter == '>') ? '&' : ((letter == '=') ? '(' : ((letter == '{') ? ')' : letter))))))))))))))))))))))))))))))))))))))))))))))))))));
   return eletter;
+  copyToClipboard('hello');
 }
 
 function encryptionalgorithm2(letter){
   let eletter = (letter == 'a') ? '1' : ((letter == 'b') ? '2' : ((letter == 'c') ? '3' : ((letter == 'd') ? '4' : ((letter == 'e') ? '5' : ((letter == 'f') ? '6' : ((letter == 'g') ? '≈' : ((letter == 'h') ? '8' : ((letter == 'i') ? '9' : ((letter == 'j') ? '0' : ((letter == 'k') ? 'q' : ((letter == 'l') ? 'w' : ((letter == 'm') ? 'e' : ((letter == 'n') ? 'r' : ((letter == 'o') ? 't' : ((letter == 'p') ? 'y' : ((letter == 'q') ? 'u' : ((letter == 'r') ? 'i' : ((letter == 's') ? 'o' : ((letter == 't') ? 'p' : ((letter == 'u') ? 'a' : ((letter == 'v') ? 's' : ((letter == 'w') ? 'd' : ((letter == 'x') ? 'f' : ((letter == 'y') ? 'g' : ((letter == 'z') ? 'h' : ((letter == ' ') ? 'j' : (letter == '_') ? ' ' : ((letter == '1') ? 'k' : ((letter == '2') ? 'l' : ((letter == '3') ? 'z' : ((letter == '4') ? 'x' : ((letter == '5') ? 'c' : ((letter == '6') ? 'v' : ((letter == '7') ? 'b' : ((letter == '8') ? 'n' : ((letter == '9') ? 'm' : ((letter == '0') ? '~' : ((letter == '.') ? '`' : ((letter == '?') ? '!' : ((letter == '!') ? '@' : ((letter == ',') ? '#' : ((letter == ':') ? '¥' : ((letter == '\'') ? '%' : ((letter == '(') ? '^' : ((letter == ')') ? '&' : ((letter == '#') ? '*' : ((letter == '&') ? '(' : ((letter == '*') ? ')' : ((letter == '~') ? '~' : ((letter == '<') ? 'य' : ((letter == '>') ? 'घ' : ((letter == '=') ? 'ब' : ((letter == '{') ? 'छ' : letter))))))))))))))))))))))))))))))))))))))))))))))))))));
+  return eletter; 
+}
+
+function rsaalgorithm(letter){
+  let eletter = (letter == 'a') ? '01' : ((letter == 'b') ? '02' : ((letter == 'c') ? '03' : ((letter == 'd') ? '04' : ((letter == 'e') ? '05' : ((letter == 'f') ? '06' : ((letter == 'g') ? '07' : ((letter == 'h') ? '08' : ((letter == 'i') ? '09' : ((letter == 'j') ? '10' : ((letter == 'k') ? '11' : ((letter == 'l') ? '12' : ((letter == 'm') ? '13' : ((letter == 'n') ? '14' : ((letter == 'o') ? '15' : ((letter == 'p') ? '16' : ((letter == 'q') ? '17' : ((letter == 'r') ? '18' : ((letter == 's') ? '19' : ((letter == 't') ? '20' : ((letter == 'u') ? '21' : ((letter == 'v') ? '22' : ((letter == 'w') ? '23' : ((letter == 'x') ? '24' : ((letter == 'y') ? '25' : ((letter == 'z') ? '26' : ((letter == ' ') ? '27' : (letter == '_') ? '28' : ((letter == '1') ? '29' : ((letter == '2') ? '30' : ((letter == '3') ? '31' : ((letter == '4') ? '32' : ((letter == '5') ? '33' : ((letter == '6') ? '34' : ((letter == '7') ? '35' : ((letter == '8') ? '36' : ((letter == '9') ? '37' : ((letter == '0') ? '38' : ((letter == '.') ? '39' : ((letter == '?') ? '40' : ((letter == '!') ? '41' : ((letter == ',') ? '42' : ((letter == ':') ? '43' : ((letter == '\'') ? '44' : ((letter == '(') ? '45' : ((letter == ')') ? '46' : ((letter == '#') ? '47' : ((letter == '&') ? '48' : ((letter == '*') ? '49' : ((letter == '~') ? '50' : ((letter == '<') ? '51' : ((letter == '>') ? '52' : ((letter == '=') ? '53' : ((letter == '{') ? '54' : letter))))))))))))))))))))))))))))))))))))))))))))))))))));
   return eletter;
 }
 
@@ -741,7 +760,7 @@ function draw() {
       displayencrypt = displayencrypt + encryptionalgorithm1(toencrypt.substring(i,i+1));
       i += 1;
     }
-    while (i < toencrypt.length && randalg >= 6 && randalg != 9 && randalg != 10){
+    while (i < toencrypt.length && randalg >= 6 && randalg != 9 && randalg != 10 && randalg <= 10){
       displayencrypt = displayencrypt + encryptionalgorithm2(toencrypt.substring(i,i+1));
       i += 1;
     }
@@ -753,6 +772,13 @@ function draw() {
     }
     while (i < toencrypt.length && (randalg == 9 || randalg == 10)){
       displayencrypt = displayencrypt + encryptionalgorithm2(toencrypt.substring(i,i+1));
+      i += 1;
+      displayencrypt = displayencrypt.split("").reverse().join("");
+    }
+    i = 0;
+    
+    while (i < toencrypt.length && randalg > 10){
+      displayencrypt = displayencrypt + rsaalgorithm(toencrypt.substring(i,i+1));
       i += 1;
       displayencrypt = displayencrypt.split("").reverse().join("");
     }
@@ -2049,6 +2075,10 @@ function keyTyped(){
 }
 
 function keyReleased(){
+  let oldalg = randalg;
+  while (oldalg == randalg && keyCode == BACKSPACE){
+    randalg = round(random(1,15));
+  }
   inactivetime = 0;
   starttime = minute();
   if (keyCode == SHIFT && shiftclick == 'on'){
