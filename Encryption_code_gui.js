@@ -354,11 +354,11 @@ function rsaalgorithmencrypt(toencrypt,pkey1,pkey2,e){
     //displayencrypt = displayencrypt.split("").reverse().join("");
   }
   
-  print(endcrypt);
+  text(endcrypt,300,200);
   
   endcrypt = int(endcrypt);
   
-  print(endcrypt);
+  //print(endcrypt);
   
   e = 17;
   
@@ -366,14 +366,18 @@ function rsaalgorithmencrypt(toencrypt,pkey1,pkey2,e){
   
   let encrypted = (pow(endcrypt, e)) % n;
   
-  print('remainder',encrypted);
+  let toprint = (endcrypt+'^'+e+'remainder'+n) ;
+  
+  //print('toprint',toprint);
+  
+  text(toprint,1000,250);
   
   return encrypted;
 }
 function rsaalgorithmdecrypt(todecrypt,pkey1,pkey2,e){
   i = 0;
   while (i < toencrypt.length){
-    displayencrypt = displayencrypt + rsaalgorithm(toencrypt.substring(i,i+1));
+    displayencrypt = displayencrypt + rsanumberizer(toencrypt.substring(i,i+1));
     i += 1;
     displayencrypt = displayencrypt.split("").reverse().join("");
   }
@@ -384,9 +388,6 @@ function rsaalgorithmdecrypt(todecrypt,pkey1,pkey2,e){
 
   tot = (x-1)*(y-1);
   d = (1 % (tot))/e;
-  
-  //public_key = (e=17, n=3233);
-  //private_key = (d=2753, n=3233);
   
   let dec = (pow(todecrypt,d)) % n;
     
@@ -841,7 +842,7 @@ function draw() {
     }
     
     if (toencrypt != ''){
-      //displayencrypt = rsaalgorithmencrypt(toencrypt,61,53,17);
+      displayencrypt = rsaalgorithmencrypt(toencrypt,61,53,17);
     }
     
     text(displayencrypt,300,600);
