@@ -3,6 +3,9 @@
 
 Click [here](https://skparab1.github.io/encryption-code-gui) to see current prototype hosting. Has most Beta features.
 
+## RSA algorithm
+ - in progress
+
 ## Beta features:
 - logging out after 60 mins of inactivity
   - this is there in the file, but not in the hosting
