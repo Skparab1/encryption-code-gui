@@ -355,24 +355,40 @@ function rsaalgorithmencrypt(toencrypt,pkey1,pkey2,e){
   }
   
   text(endcrypt,300,200);
-  
+ 
   endcrypt = int(endcrypt);
+  
+  //endcrypt = 123;
   
   //print(endcrypt);
   
-  e = 17;
-  
   n = pkey1 * pkey2;
   
-  let encrypted = (pow(endcrypt, e)) % n;
+  //let encrypted = exp(log(123)*17) ;
   
-  let toprint = (endcrypt+'^'+e+'remainder'+n) ;
+  //encrypted = pow(123,17);
+  
+  //encrypted = encrypted % 3233;
+  
+  // My algorithm
+  
+  let encrypted = pow(10,(Math.log10(endcrypt)/359792)) ;
+  
+  //let toprint = (endcrypt+'^'+e+'remainder'+n) ;
   
   //print('toprint',toprint);
   
-  text(toprint,1000,250);
+  text('encrypted '+encrypted,1000,250);
   
-  return encrypted;
+  //let decrypted = (Math.log10(encrypted)*2753) ;
+  
+  //decrypted = decrypted % 3233;
+  
+  let decrypted = round(pow(10,(((796*796)/1.761061947)*Math.log10(encrypted))));
+  
+  text('decrypted: '+decrypted,300,100);
+  
+  return (encrypted);
 }
 function rsaalgorithmdecrypt(todecrypt,pkey1,pkey2,e){
   i = 0;
@@ -389,7 +405,7 @@ function rsaalgorithmdecrypt(todecrypt,pkey1,pkey2,e){
   tot = (x-1)*(y-1);
   d = (1 % (tot))/e;
   
-  let dec = (pow(todecrypt,d)) % n;
+  let dec = (Math.pow(todecrypt,d)) % n;
     
   return dec;
 }
