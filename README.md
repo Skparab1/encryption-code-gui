@@ -5,6 +5,8 @@ Click [here](https://skparab1.github.io/encryption-code-gui) to see current prot
 
 ## RSA algorithm
  - in progress
+ - However the numbers become a little large so it's unable to calculate
+ - I'm making a lighter weight algorithm that should be able to function under large numbers
 
 ## Beta features:
 - logging out after 60 mins of inactivity
