@@ -344,6 +344,63 @@ function rsanumberizer(letter){
   return eletter;
 }
 
+function hemsalgorithmencrypt(toencrypt,pkey1,pkey2,e){
+  i = 0;
+  let endcrypt = '';
+  
+  while (i < toencrypt.length){
+    endcrypt = endcrypt + rsanumberizer(toencrypt.substring(i,i+1));
+    i += 1;
+    //displayencrypt = displayencrypt.split("").reverse().join("");
+  }
+  
+  text(endcrypt,300,200);
+  
+ breakuplist = [];
+ let index = 0;
+  
+  while (index <= endcrypt.length){
+    let holdlist = endcrypt.substring(index,index+8);
+    
+    if (breakuplist != []){
+      append(breakuplist,int(holdlist));
+    }
+    index += 8;
+  }
+ 
+  print(breakuplist);
+ 
+  endcrypt = int(endcrypt);
+  
+  n = pkey1 * pkey2;
+  
+  // My algorithm
+  
+  let encrypted = '';
+  i = 0;
+  
+  while (i < breakuplist.length){
+    encrypted = encrypted + ','+str(pow(10,(Math.log10(breakuplist[i])/359792)));
+    i += 1;
+  }
+  
+  text('encrypted '+(encrypted),10,300);
+  
+  text('list '+breakuplist,10,250);
+  
+  let lstnew = split(encrypted, ',');
+  i = 0;
+  let decrypted = '';
+  
+  while (i < breakuplist.length){
+    decrypted = decrypted + str(Math.log10(lstnew[i])*2753);
+    i += 1;
+  }
+  //let decrypted = (Math.log10(encrypted)*2753) ;
+  
+  return (decrypted);
+}
+
 function rsaalgorithmencrypt(toencrypt,pkey1,pkey2,e){
   i = 0;
   let endcrypt = '';
@@ -355,6 +412,17 @@ function rsaalgorithmencrypt(toencrypt,pkey1,pkey2,e){
   }
   
   text(endcrypt,300,200);
+  
+ breakuplist = [];
+ let index = 0;
+  
+  while (index <= endcrypt.length){
+    let holdlist = endcrypt.substring(index,index+8);
+    append(breakuplist,int(holdlist));
+    index += 8;
+  }
+ 
+  print(breakuplist);
  
   endcrypt = int(endcrypt);
   
@@ -372,27 +440,37 @@ function rsaalgorithmencrypt(toencrypt,pkey1,pkey2,e){
   
   // My algorithm
   
-  endcrypt = endcrypt/2;
+  //endcrypt = endcrypt/2;
   
-  let encrypted = pow(10,(Math.log10(endcrypt)/359792)) ;
+  //-----let encrypted = pow(10,(Math.log10(endcrypt)/359792)) ;
   
   //let toprint = (endcrypt+'^'+e+'remainder'+n) ;
   
   //print('toprint',toprint);
   
-  text('encrypted '+(encrypted*10000000000),1000,250);
+  //Light algorithm -----------------
+  
+  //let encrypted = (23*endcrypt)*(23*endcrypt)*47;
+  
+  //let encrypted = endcrypt*2;
+  
+  //text('encrypted '+(encrypted*10000000000),1000,250);
+  
+  text('list '+breakuplist,1000,250);
   
   //let decrypted = (Math.log10(encrypted)*2753) ;
   
   //decrypted = decrypted % 3233;
   
-  let decrypted = pow(10,(((796*796)/1.761061947)*Math.log10(encrypted))) ;
+  //----let decrypted = pow(10,(((796*796)/1.761061947)*Math.log10(encrypted))) ;
   
-  decrypted = decrypted*2;
+  //decrypted = decrypted*2;
   
-  text('decrypted: '+str(decrypted),70,130);
+  //let decrypted = Math.sqrt(encrypted/47)/23;
   
-  return (encrypted);
+  //text('decrypted: '+str(decrypted),70,130);
+  
+  return (1);
 }
 function rsaalgorithmdecrypt(todecrypt,pkey1,pkey2,e){
   i = 0;
@@ -862,7 +940,7 @@ function draw() {
     }
     
     if (toencrypt != ''){
-      displayencrypt = rsaalgorithmencrypt(toencrypt,61,53,17);
+      displayencrypt = hemsalgorithmencrypt(toencrypt,61,53,17);
     }
     
     text(displayencrypt,300,600);
