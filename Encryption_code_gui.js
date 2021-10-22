@@ -372,21 +372,25 @@ function rsaalgorithmencrypt(toencrypt,pkey1,pkey2,e){
   
   // My algorithm
   
+  endcrypt = endcrypt/2;
+  
   let encrypted = pow(10,(Math.log10(endcrypt)/359792)) ;
   
   //let toprint = (endcrypt+'^'+e+'remainder'+n) ;
   
   //print('toprint',toprint);
   
-  text('encrypted '+encrypted,1000,250);
+  text('encrypted '+(encrypted*10000000000),1000,250);
   
   //let decrypted = (Math.log10(encrypted)*2753) ;
   
   //decrypted = decrypted % 3233;
   
-  let decrypted = round(pow(10,(((796*796)/1.761061947)*Math.log10(encrypted))));
+  let decrypted = pow(10,(((796*796)/1.761061947)*Math.log10(encrypted))) ;
   
-  text('decrypted: '+decrypted,300,100);
+  decrypted = decrypted*2;
+  
+  text('decrypted: '+str(decrypted),70,130);
   
   return (encrypted);
 }
