@@ -344,6 +344,48 @@ function rsanumberizer(letter){
   return eletter;
 }
 
+function simplepasswordencryption(toencrypt,password){
+  let i = 0;
+  toencrypt = split(toencrypt,' ');
+  
+  
+  let endcrypt = '';
+  let j = 0;
+  let chunk = 0;
+  
+  while (j < toencrypt.length){
+    chunk = toencrypt[j];
+    while (i < toencrypt.length){
+      endcrypt = endcrypt + rsanumberizer(toencrypt.substring(i,i+1));
+      i += 1;
+      //displayencrypt = displayencrypt.split("").reverse().join("");
+    }
+  
+  i = 0;
+  numberpass = '';
+  
+  while (i < password.length){
+    numberpass = numberpass + rsanumberizer(password.substring(i,i+1));
+    i += 1;
+    //displayencrypt = displayencrypt.split("").reverse().join("");
+  }
+  
+  text(endcrypt,300,200);
+  
+  text(numberpass,10,300);
+  
+  endcrypt = int(endcrypt);
+  numberpass = int(numberpass);
+  
+  let encrypted = str(endcrypt/numberpass);
+  
+  text(encrypted*numberpass,10,550);
+  
+  return encrypted;
+  
+  
+}
+
 function hemsalgorithmencrypt(toencrypt,pkey1,pkey2,e){
   i = 0;
   let endcrypt = '';
@@ -384,19 +426,19 @@ function hemsalgorithmencrypt(toencrypt,pkey1,pkey2,e){
     i += 1;
   }
   
-  text('encrypted '+(encrypted),10,300);
+  let lstnew = split(encrypted, ',');
+  
+  text('encrypted '+(lstnew),10,300);
   
   text('list '+breakuplist,10,250);
   
-  let lstnew = split(encrypted, ',');
   i = 0;
   let decrypted = '';
   
-  while (i < breakuplist.length){
-    decrypted = decrypted + str(Math.log10(lstnew[i])*2753);
+  while (i == 0){
+    decrypted = decrypted + str(pow(10,(Math.log10(lstnew[1])*359712)));
     i += 1;
   }
-  //let decrypted = (Math.log10(encrypted)*2753) ;
   
   return (decrypted);
 }
@@ -940,7 +982,7 @@ function draw() {
     }
     
     if (toencrypt != ''){
-      displayencrypt = hemsalgorithmencrypt(toencrypt,61,53,17);
+      displayencrypt = simplepasswordencryption(toencrypt,'catfish');
     }
     
     text(displayencrypt,300,600);
