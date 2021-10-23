@@ -369,6 +369,7 @@ function scramble(string){
   string = string.split("").reverse().join(""); //reverse
   string = string.substring(0,round(string.length/2))+string.substring(round(string.length/2),string.length);
   string = string.substring(string.length-1,string.length)+string.substring(0,string.length-1);
+  string = string.split("").reverse().join("");
   return string;
 }
 
@@ -377,6 +378,7 @@ function unscramble(string){
   string = string.substring(0,round(string.length/2))+string.substring(round(string.length/2),string.length);
   string = string.substring(0,string.length) + string.substring(0,1);
   string = string.substring(string.length-2,string.length) + string.substring(0,string.length-2);
+  string = string.split("").reverse().join("");
   return string;
 }
 
@@ -1034,9 +1036,65 @@ function draw() {
     }
     
     if (toencrypt != ''){
-      i = numberizerencryption(); // work on this tomorow
-      displayencrypt = scramble(toencrypt);
-      decrypted = unscramble(displayencrypt);
+      let oldpwd = 'catf';
+      i = 0;
+      let pwd = '';
+      
+      while (i <= oldpwd.length){
+        pwd = pwd + numberizerencryption(oldpwd.substring(i,i+1)) ;
+        i += 1;
+      }
+      
+      pwd = int(pwd);
+      
+      while (pwd > toencrypt.length ){
+        pwd = pwd - toencrypt.length;
+      }
+      
+      text('password '+pwd,10,700);
+      text('subtracterlength '+toencrypt.length+'pwdlength '+str(pwd).length,10,800);
+      
+      print('oldpassword:',pwd) ;
+      i = 0;
+      
+      print('password:',pwd) ;
+      
+      let newencrypt = '';
+      i = 0;
+      
+      while (i <= toencrypt.length){
+        newencrypt = newencrypt + numberizerencryption(toencrypt.substring(i,i+1)) ;
+        i += 1;
+      }
+      
+      newencrypt = str(newencrypt);
+      
+      i = 0;
+      
+      while (i <= pwd) {
+        newencrypt = scramble(newencrypt);
+        i += 1;
+      }
+      
+      displayencrypt = newencrypt;
+      
+      i = 0;
+      
+      while (i <= pwd) {
+        newencrypt = unscramble(newencrypt);
+        i += 1;
+      }
+      
+      i = 0;
+      let decrypted = '';
+      
+      while (i <= toencrypt.length){
+        decrypted = decrypted + numberizerdecryption(newencrypt.substring(i,i+2)) ;
+        i += 2;
+      }
+      
+      //displayencrypt = scramble(toencrypt);
+      //decrypted = unscramble(displayencrypt);
       text('decrypted'+decrypted,300,650);
     }
     
