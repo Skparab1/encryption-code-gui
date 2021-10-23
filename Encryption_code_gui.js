@@ -1037,31 +1037,20 @@ function draw() {
     
     if (toencrypt != ''){
       let oldpwd = 'catf';
-      i = 0;
-      let pwd = '';
       
+//Numberizing password (dont change this)
+      i = 0;
+      let pwd = '';  
       while (i <= oldpwd.length){
         pwd = pwd + numberizerencryption(oldpwd.substring(i,i+1)) ;
         i += 1;
       }
-      
       pwd = int(pwd);
-      
-      while (pwd > toencrypt.length ){
-        pwd = pwd - toencrypt.length;
-      }
-      
-      text('password '+pwd,10,700);
-      text('subtracterlength '+toencrypt.length+'pwdlength '+str(pwd).length,10,800);
-      
-      print('oldpassword:',pwd) ;
+
+// numbering toencrypt
       i = 0;
-      
-      print('password:',pwd) ;
-      
       let newencrypt = '';
       i = 0;
-      
       while (i <= toencrypt.length){
         newencrypt = newencrypt + numberizerencryption(toencrypt.substring(i,i+1)) ;
         i += 1;
@@ -1069,26 +1058,15 @@ function draw() {
       
       newencrypt = str(newencrypt);
       
-      i = 0;
-      
-      while (i <= pwd) {
-        newencrypt = scramble(newencrypt);
-        i += 1;
-      }
-      
       displayencrypt = newencrypt;
       
-      i = 0;
-      
-      while (i <= pwd) {
-        newencrypt = unscramble(newencrypt);
-        i += 1;
-      }
       
       i = 0;
       let decrypted = '';
       
-      while (i <= toencrypt.length){
+      toencrypt = str(toencrypt) ;
+      
+      while (i <= toencrypt.length*2){
         decrypted = decrypted + numberizerdecryption(newencrypt.substring(i,i+2)) ;
         i += 2;
       }
