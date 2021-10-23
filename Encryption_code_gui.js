@@ -365,6 +365,21 @@ function splitby8(string){
   return breakuplist;
 }
 
+function scramble(string){
+  string = string.split("").reverse().join(""); //reverse
+  string = string.substring(0,round(string.length/2))+string.substring(round(string.length/2),string.length);
+  string = string.substring(string.length-1,string.length)+string.substring(0,string.length-1);
+  return string;
+}
+
+function unscramble(string){
+  string = string.split("").reverse().join(""); //reverse
+  string = string.substring(0,round(string.length/2))+string.substring(round(string.length/2),string.length);
+  string = string.substring(0,string.length) + string.substring(0,1);
+  string = string.substring(string.length-2,string.length) + string.substring(0,string.length-2);
+  return string;
+}
+
 function simplepasswordencryption(toencrypt,password){
   let i = 0;
   let endcrypt = '';
@@ -376,6 +391,8 @@ function simplepasswordencryption(toencrypt,password){
       i += 1;
       //displayencrypt = displayencrypt.split("").reverse().join("");
     }
+    
+ endcrypt = int(endcrypt);
   
   i = 0;
   numberpass = '';
@@ -388,27 +405,9 @@ function simplepasswordencryption(toencrypt,password){
     //displayencrypt = displayencrypt.split("").reverse().join("");
   }
   
-  // 3. split encrypted
-  
-  endcrypt = splitby8(endcrypt);
-  
-  text('Splitted: '+endcrypt,300,200 );
-  
-  text(numberpass,10,300);
-  
-  endcrypt = int(endcrypt);
   numberpass = int(numberpass);
   
-  let j = 0;
-  let encrypted = '';
-  numberpass = 1;
-  
-  // 4. multiply each of the chunks by password and then append
-  
-  while (j < endcrypt.length){
-    encrypted = encrypted + str(numberpass*int(endcrypt[j]));
-    j += 1;
-  }
+  let encrypted = BigInt(str(multiply(endcrypt,numberpass)));
   
   return encrypted;
 }
@@ -417,11 +416,6 @@ function simplepassworddecryption(todecrypt,password){
   let i = 0;
   let decrypted = '';
   
-  // 1. split encrypted
-  // 2. devide each chunk by password
-  // 3. combine 
-  // 4. denumberize
-  
   numberpass = '';
   
   while (i < password.length){
@@ -429,30 +423,17 @@ function simplepassworddecryption(todecrypt,password){
     i += 1;
     //displayencrypt = displayencrypt.split("").reverse().join("");
   }
-  
-  todecrypt = splitby8(todecrypt);
-  
-  text('Splitted: '+todecrypt,300,700 );
-  
-
   numberpass = int(numberpass);
+
+  i = 0;
   
-  let decstr = '';
-  let f = 0;
+  toencrypt = str(int(toencrypt)/numberpass);
   
-  numberpass = 1;
-  
-  while (f <= todecrypt.length){
-    decstr = decstr + (int(todecrypt[f])/numberpass);
-    f += 1;
-  }
-  
-  let j = 0;
-  decrypted = '';
-  while (j < decstr.length){
-    decrypted = decrypted + numberizerdecryption(decstr.substring(j,j+1));
-    j += 1;
-  }
+  while (i < toencrypt.length){
+      decrypted = decrypted + numberizerdecryption(toencrypt.substring(i,i+1));
+      i += 1;
+      //displayencrypt = displayencrypt.split("").reverse().join("");
+    }
  
   return decrypted;
 }
@@ -1053,12 +1034,14 @@ function draw() {
     }
     
     if (toencrypt != ''){
-      displayencrypt = simplepasswordencryption(toencrypt,'catfish');
-      decrypted = simplepassworddecryption(displayencrypt,'catfish');
+      i = numberizerencryption(); // work on this tomorow
+      displayencrypt = scramble(toencrypt);
+      decrypted = unscramble(displayencrypt);
       text('decrypted'+decrypted,300,650);
     }
     
-    text(displayencrypt,300,600);
+    text('encrypted'+displayencrypt,300,600);
+    print('encrypted'+displayencrypt);
     
     if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 425 && mouseY <= 500){
       fill(200,100,0);
