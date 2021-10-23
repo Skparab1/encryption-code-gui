@@ -139,7 +139,7 @@ var fs = false;
 var adj = false;
 var displayadj = false;
 var startinghour = 0;
-var randalg = round(random(1,10));
+var randalg = 1;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -339,24 +339,40 @@ function encryptionalgorithm2(letter){
   return eletter; 
 }
 
-function rsanumberizer(letter){
+function numberizerencryption(letter){
   let eletter = (letter == 'a') ? '01' : ((letter == 'b') ? '02' : ((letter == 'c') ? '03' : ((letter == 'd') ? '04' : ((letter == 'e') ? '05' : ((letter == 'f') ? '06' : ((letter == 'g') ? '07' : ((letter == 'h') ? '08' : ((letter == 'i') ? '09' : ((letter == 'j') ? '10' : ((letter == 'k') ? '11' : ((letter == 'l') ? '12' : ((letter == 'm') ? '13' : ((letter == 'n') ? '14' : ((letter == 'o') ? '15' : ((letter == 'p') ? '16' : ((letter == 'q') ? '17' : ((letter == 'r') ? '18' : ((letter == 's') ? '19' : ((letter == 't') ? '20' : ((letter == 'u') ? '21' : ((letter == 'v') ? '22' : ((letter == 'w') ? '23' : ((letter == 'x') ? '24' : ((letter == 'y') ? '25' : ((letter == 'z') ? '26' : ((letter == ' ') ? '27' : (letter == '_') ? '28' : ((letter == '1') ? '29' : ((letter == '2') ? '30' : ((letter == '3') ? '31' : ((letter == '4') ? '32' : ((letter == '5') ? '33' : ((letter == '6') ? '34' : ((letter == '7') ? '35' : ((letter == '8') ? '36' : ((letter == '9') ? '37' : ((letter == '0') ? '38' : ((letter == '.') ? '39' : ((letter == '?') ? '40' : ((letter == '!') ? '41' : ((letter == ',') ? '42' : ((letter == ':') ? '43' : ((letter == '\'') ? '44' : ((letter == '(') ? '45' : ((letter == ')') ? '46' : ((letter == '#') ? '47' : ((letter == '&') ? '48' : ((letter == '*') ? '49' : ((letter == '~') ? '50' : ((letter == '<') ? '51' : ((letter == '>') ? '52' : ((letter == '=') ? '53' : ((letter == '{') ? '54' : letter))))))))))))))))))))))))))))))))))))))))))))))))))));
   return eletter;
 }
 
+function numberizerdecryption(letter){
+  let eletter = (letter == '01') ? 'a' : ((letter == '02') ? 'b' : ((letter == '03') ? 'c' : ((letter == '04') ? 'd' : ((letter == '05') ? 'e' : ((letter == '06') ? 'f' : ((letter == '07') ? 'g' : ((letter == '08') ? 'h' : ((letter == '09') ? 'i' : ((letter == '10') ? 'j' : ((letter == '11') ? 'k' : ((letter == '12') ? 'l' : ((letter == '13') ? 'm' : ((letter == '14') ? 'n' : ((letter == '15') ? 'o' : ((letter == '16') ? 'p' : ((letter == '17') ? 'q' : ((letter == '18') ? 'r' : ((letter == '19') ? 's' : ((letter == '20') ? 't' : ((letter == '21') ? 'u' : ((letter == '22') ? 'v' : ((letter == '23') ? 'w' : ((letter == '24') ? 'x' : ((letter == '25') ? 'y' : ((letter == '26') ? 'z' : ((letter == '27') ? ' ' : (letter == '28') ? '_' : ((letter == '29') ? '1' : ((letter == '30') ? '2' : ((letter == '31') ? '3' : ((letter == '32') ? '4' : ((letter == '33') ? '5' : ((letter == '34') ? '6' : ((letter == '35') ? '7' : ((letter == '36') ? '8' : ((letter == '37') ? '9' : ((letter == '38') ? '0' : ((letter == '39') ? '.' : ((letter == '40') ? '?' : ((letter == '41') ? '!' : ((letter == '42') ? ',' : ((letter == '43') ? ':' : ((letter == '44') ? '\'' : ((letter == '45') ? '(' : ((letter == '46') ? ')' : ((letter == '47') ? '#' : ((letter == '48') ? '&' : ((letter == '49') ? '*' : ((letter == '50') ? '~' : ((letter == '51') ? '<' : ((letter == '52') ? '>' : ((letter == '53') ? '=' : ((letter == '54') ? '{' : letter))))))))))))))))))))))))))))))))))))))))))))))))))));
+  return eletter;
+}
+
+function splitby8(string){
+ let breakuplist = [];
+ let index = 0;
+
+  while (index <= string.length){
+    let holdlist = string.substring(index,index+8);
+    
+    if (breakuplist != []){
+      append(breakuplist,int(holdlist));
+    }
+    index += 8;
+  }
+  
+  return breakuplist;
+}
+
 function simplepasswordencryption(toencrypt,password){
   let i = 0;
-  toencrypt = split(toencrypt,' ');
-  
-  
   let endcrypt = '';
-  let j = 0;
-  let chunk = 0;
   
-  while (j < toencrypt.length){
-    chunk = toencrypt[j];
-    while (i < toencrypt.length){
-      endcrypt = endcrypt + rsanumberizer(toencrypt.substring(i,i+1));
+  // 1. numberize toencrypt
+  
+  while (i < toencrypt.length){
+      endcrypt = endcrypt + numberizerencryption(toencrypt.substring(i,i+1));
       i += 1;
       //displayencrypt = displayencrypt.split("").reverse().join("");
     }
@@ -364,26 +380,81 @@ function simplepasswordencryption(toencrypt,password){
   i = 0;
   numberpass = '';
   
+  // 2. Numberize password (this can be done anytime)
+  
   while (i < password.length){
-    numberpass = numberpass + rsanumberizer(password.substring(i,i+1));
+    numberpass = numberpass + numberizerencryption(password.substring(i,i+1));
     i += 1;
     //displayencrypt = displayencrypt.split("").reverse().join("");
   }
   
-  text(endcrypt,300,200);
+  // 3. split encrypted
+  
+  endcrypt = splitby8(endcrypt);
+  
+  text('Splitted: '+endcrypt,300,200 );
   
   text(numberpass,10,300);
   
   endcrypt = int(endcrypt);
   numberpass = int(numberpass);
   
-  let encrypted = str(endcrypt/numberpass);
+  let j = 0;
+  let encrypted = '';
+  numberpass = 1;
   
-  text(encrypted*numberpass,10,550);
+  // 4. multiply each of the chunks by password and then append
+  
+  while (j < endcrypt.length){
+    encrypted = encrypted + str(numberpass*int(endcrypt[j]));
+    j += 1;
+  }
   
   return encrypted;
+}
+
+function simplepassworddecryption(todecrypt,password){
+  let i = 0;
+  let decrypted = '';
   
+  // 1. split encrypted
+  // 2. devide each chunk by password
+  // 3. combine 
+  // 4. denumberize
   
+  numberpass = '';
+  
+  while (i < password.length){
+    numberpass = numberpass + numberizerencryption(password.substring(i,i+1));
+    i += 1;
+    //displayencrypt = displayencrypt.split("").reverse().join("");
+  }
+  
+  todecrypt = splitby8(todecrypt);
+  
+  text('Splitted: '+todecrypt,300,700 );
+  
+
+  numberpass = int(numberpass);
+  
+  let decstr = '';
+  let f = 0;
+  
+  numberpass = 1;
+  
+  while (f <= todecrypt.length){
+    decstr = decstr + (int(todecrypt[f])/numberpass);
+    f += 1;
+  }
+  
+  let j = 0;
+  decrypted = '';
+  while (j < decstr.length){
+    decrypted = decrypted + numberizerdecryption(decstr.substring(j,j+1));
+    j += 1;
+  }
+ 
+  return decrypted;
 }
 
 function hemsalgorithmencrypt(toencrypt,pkey1,pkey2,e){
@@ -391,7 +462,7 @@ function hemsalgorithmencrypt(toencrypt,pkey1,pkey2,e){
   let endcrypt = '';
   
   while (i < toencrypt.length){
-    endcrypt = endcrypt + rsanumberizer(toencrypt.substring(i,i+1));
+    endcrypt = endcrypt + numberizerencryption(toencrypt.substring(i,i+1));
     i += 1;
     //displayencrypt = displayencrypt.split("").reverse().join("");
   }
@@ -448,7 +519,7 @@ function rsaalgorithmencrypt(toencrypt,pkey1,pkey2,e){
   let endcrypt = '';
   
   while (i < toencrypt.length){
-    endcrypt = endcrypt + rsanumberizer(toencrypt.substring(i,i+1));
+    endcrypt = endcrypt + numberizerencryption(toencrypt.substring(i,i+1));
     i += 1;
     //displayencrypt = displayencrypt.split("").reverse().join("");
   }
@@ -517,7 +588,7 @@ function rsaalgorithmencrypt(toencrypt,pkey1,pkey2,e){
 function rsaalgorithmdecrypt(todecrypt,pkey1,pkey2,e){
   i = 0;
   while (i < toencrypt.length){
-    displayencrypt = displayencrypt + rsanumberizer(toencrypt.substring(i,i+1));
+    displayencrypt = displayencrypt + numberizerencryption(toencrypt.substring(i,i+1));
     i += 1;
     displayencrypt = displayencrypt.split("").reverse().join("");
   }
@@ -968,7 +1039,7 @@ function draw() {
     }
     
     while (i < toencrypt.length && (randalg > 10)){
-      displayencrypt = displayencrypt + rsanumberizer(toencrypt.substring(i,i+1));
+      displayencrypt = displayencrypt + numberizerencryption(toencrypt.substring(i,i+1));
       i += 1;
       displayencrypt = displayencrypt.split("").reverse().join("");
     }
@@ -983,6 +1054,8 @@ function draw() {
     
     if (toencrypt != ''){
       displayencrypt = simplepasswordencryption(toencrypt,'catfish');
+      decrypted = simplepassworddecryption(displayencrypt,'catfish');
+      text('decrypted'+decrypted,300,650);
     }
     
     text(displayencrypt,300,600);
