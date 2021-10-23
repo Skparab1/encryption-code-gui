@@ -1046,28 +1046,53 @@ function draw() {
         i += 1;
       }
       pwd = int(pwd);
+      
+      pwd = 40;
 
 // numbering toencrypt
       i = 0;
       let newencrypt = '';
-      i = 0;
       while (i <= toencrypt.length){
         newencrypt = newencrypt + numberizerencryption(toencrypt.substring(i,i+1)) ;
         i += 1;
       }
       
-      newencrypt = str(newencrypt);
-      
-      displayencrypt = newencrypt;
-      
+      text('before scrambling'+newencrypt,10,550);
       
       i = 0;
+      while (i < 45){
+        //newencrypt = newencrypt.substring(newencrypt.length-2,newencrypt.length) + newencrypt.substring(0,newencrypt.length-2);
+        var result = newencrypt.substr(1) + newencrypt.substr(0, 1);
+        newencrypt = result;
+        i += 1;
+      }
+      
+      text('after scrambling'+newencrypt,10,700);
+      
+      encrypted = newencrypt;
+      displayencrypt = newencrypt;
+      
+// decryption below this 
       let decrypted = '';
+      i = 0;
+      encrypted = str(encrypted);
+      let almostdecrypted = '';
       
-      toencrypt = str(toencrypt) ;
+      // not including the first, including the last.
+      //newencrypt.substring(newencrypt.length-2,newencrypt.length) + newencrypt.substring(0,newencrypt.length-2);
       
-      while (i <= toencrypt.length*2){
-        decrypted = decrypted + numberizerdecryption(newencrypt.substring(i,i+2)) ;
+      while (i < 45){
+        //encrypted = encrypted.substring(encrypted.length-9,encrypted.length) + encrypted.substring(0,encrypted.length-9);
+        var result1 = encrypted.substr(encrypted.length-1) + encrypted.substr(0, encrypted.length-1);
+        encrypted = result1;
+        i += 1;
+      }
+      
+      text('after scrambling'+newencrypt,10,700);
+      i = 0;
+      
+      while (i <= encrypted.length*2){
+        decrypted = decrypted + numberizerdecryption(encrypted.substring(i,i+2)) ;
         i += 2;
       }
       
