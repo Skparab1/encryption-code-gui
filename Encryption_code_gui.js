@@ -60,6 +60,7 @@ var bg;
 var ccstart = 255;
 var ccs = 255;
 var toencrypt = '';
+var inputpassword = '';
 var cursorblinker = 0;
 var pressedkey = 'no';
 var pressedtab = 'no';
@@ -1004,31 +1005,52 @@ function draw() {
     }
     rect(0,0,2000,400);
     
-    rect(300,500,300,100);
+    fill(200,100,0);
+    rect(0,100,350,800);
+    
+    fill(255,255,0);
+    textSize(40);
+    text('Encryption settings',0,150);
+    fill(255);
+    textSize(30);
+    text('Message password',0,200);
+    text('Algorithm',0,400);
+    text('Other settings',0,500);
+    
+    if (encryptionclick == 'password'){
+      fill(255);
+    } else {
+      fill(150);
+    }
+    rect(0,210,350,100);
+    
+    fill(0);
+    text(inputpassword,10,250);
+    
     fill(255);
     rect(800,700,400,150);
     fill(0);
     stroke(0);
     
     textSize(60);
-    if (toencrypt.length > 60){
-      text(toencrypt.substr(0,60),300,60);
-      text(toencrypt.substr(60),300,110);
+    if (toencrypt.length > 50){
+      text('Plaintext: '+toencrypt.substr(0,50),400,60);
+      text(toencrypt.substr(50),400,110);
     } else {
-      text(toencrypt,300,60);
+      text('Plaintext: '+toencrypt,400,60);
     }
     textSize(50);
     text('Download Txt',800,750);
     
-    if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
+    if (mouseX >= 0 && mouseX <= 350 && mouseY >= 0 && mouseY <= 100){
       fill(200,0,0);
     } else {
       fill(0,0,200);
     }
-    rect(50,50,200,100);
+    rect(0,0,350,100);
     textSize(60);
     fill(255);
-    text('Back',90,120);
+    text('Back',40,70);
     
     fill(255);
     
@@ -1106,7 +1128,7 @@ function draw() {
   } else if (display == 'decryption'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
-    text('Decryption',900,100);
+    text('RSA ??????',900,100);
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
       fill(200,0,0);
     } else {
@@ -2366,6 +2388,10 @@ function keyTyped(){
     toencrypt = toencrypt + key;
     print('wrote');
   }
+  if (display == 'encryption' && encryptionclick == 'password' ){
+    inputpassword = inputpassword + key;
+    print('wrote');
+  }
   keyCode = '';
   
   print(encryptionclick) ;
@@ -2401,6 +2427,9 @@ if (keyCode == BACKSPACE || keyCode == DELETE){
   }
   if (display == 'encryption' && encryptionclick == 'encrypting'){
     toencrypt = toencrypt.substring(0,toencrypt.length-1);
+  }
+  if (display == 'encryption' && encryptionclick == 'password'){
+    inputpassword = inputpassword.substring(0,inputpassword.length-1);
   }
   } else {
   typed = typed.substring(0, typed.length -1);
@@ -2493,8 +2522,13 @@ function mousePressed(){
       display = 'settings';
     }
   }
-  if (display == 'encryption' || display == 'decryption' || display == 'account' || display == 'settings' || display == 'forgot password') {
+  if (display == 'decryption' || display == 'account' || display == 'settings' || display == 'forgot password') {
   if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
+      display = 'main menu';
+    }
+  }
+  if (display == 'encryption') {
+  if (mouseX >= 0 && mouseX <= 350 && mouseY >= 0 && mouseY <= 100){
       display = 'main menu';
     }
   }
@@ -2798,9 +2832,11 @@ function mousePressed(){
     display = 'main menu';
     localStorage.setItem('localstatus','signed out' );
   } else if (display == 'encryption'){
-    rect(300,300,700,200);
-    if (mouseX >= 300 && mouseX <= 1000 && mouseY >= 300 && mouseY <= 500){
+    rect(0,0,2000,400);
+    if (mouseX >= 350 && mouseX <= 2000 && mouseY >= 0 && mouseY <= 400){
       encryptionclick = 'encrypting';
+    } else if (mouseX >= 0 && mouseX <= 350 && mouseY >= 210 && mouseY <= 310){
+      encryptionclick = 'password';
     } else if (mouseX >= 800 && mouseX <= 1200 && mouseY >= 700 && mouseY <= 850){
       let writer = createWriter('encrypted_text.txt');
       writer.write(toencrypt);
