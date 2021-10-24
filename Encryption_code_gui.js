@@ -1008,14 +1008,16 @@ function draw() {
     fill(200,100,0);
     rect(0,100,350,800);
     
+    
+    
     fill(255,255,0);
     textSize(40);
     text('Encryption settings',0,150);
     fill(255);
-    textSize(30);
-    text('Message password',0,200);
-    text('Algorithm',0,400);
-    text('Other settings',0,500);
+    textSize(35);
+    text('Message password',20,200);
+    text('Algorithm',20,350);
+    text('Other settings',20,500);
     
     if (encryptionclick == 'password'){
       fill(255);
@@ -1023,6 +1025,25 @@ function draw() {
       fill(150);
     }
     rect(0,210,350,100);
+    
+    fill(0,100,200);
+    rect(0,360,350,50);
+    fill(0,200,100);
+    rect(0,410,350,50);
+    fill(100,0,200);
+    rect(0,460,350,50);
+    fill(100,200,0);
+    rect(0,510,350,50);
+    fill(200,0,100);
+    rect(0,560,350,50);
+    fill(255);
+    textSize(30);
+    
+    text('Encryptioncode series 1',10,390);
+    text('Encryptioncode series 2',10,440);
+    text('GUI randomized (Default)',10,490);
+    text('GUI numerical password  ',10,540);
+    text('GUI advanced numerical  ',10,590);
     
     fill(0);
     text(inputpassword,10,250);
