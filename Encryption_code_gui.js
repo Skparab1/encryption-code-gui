@@ -414,6 +414,7 @@ function simplepasswordencryption(toencrypt,oldpwd){
       while (i < pwd){
         //newencrypt = newencrypt.substring(newencrypt.length-2,newencrypt.length) + newencrypt.substring(0,newencrypt.length-2);
         var result = newencrypt.substr(1) + newencrypt.substr(0, 1);
+        //result = result.split("").reverse().join("");
         newencrypt = result;
         i += 1;
       }
@@ -448,6 +449,7 @@ function simplepassworddecryption(encrypted,oldpwd){
       while (i < pwd){
         //encrypted = encrypted.substring(encrypted.length-9,encrypted.length) + encrypted.substring(0,encrypted.length-9);
         var result1 = encrypted.substr(encrypted.length-1) + encrypted.substr(0, encrypted.length-1);
+        //result1 = result1.split("").reverse().join("");
         encrypted = result1;
         i += 1;
       }
@@ -995,6 +997,28 @@ function draw() {
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     revokedkeyboard += 1;
     pressedinvoke = false;
+    if (encryptionclick == 'encrypting'){
+      fill(255);
+    } else {
+      fill(150);
+    }
+    rect(0,0,2000,400);
+    
+    rect(300,500,300,100);
+    fill(255);
+    rect(800,700,400,150);
+    fill(0);
+    stroke(0);
+    
+    textSize(60);
+    if (toencrypt.length > 60){
+      text(toencrypt.substr(0,60),300,60);
+      text(toencrypt.substr(60),300,110);
+    } else {
+      text(toencrypt,300,60);
+    }
+    textSize(50);
+    text('Download Txt',800,750);
     
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
       fill(200,0,0);
@@ -1005,19 +1029,6 @@ function draw() {
     textSize(60);
     fill(255);
     text('Back',90,120);
-    if (encryptionclick == 'encrypting'){
-      fill(255);
-    } else {
-      fill(150);
-    }
-    rect(300,300,700,200);
-    fill(255);
-    rect(800,700,400,150);
-    fill(0);
-    stroke(0);
-    text(toencrypt,300,375);
-    textSize(50);
-    text('Download Txt',800,750);
     
     fill(255);
     
@@ -2787,7 +2798,10 @@ function mousePressed(){
     display = 'main menu';
     localStorage.setItem('localstatus','signed out' );
   } else if (display == 'encryption'){
-    if (mouseX >= 800 && mouseX <= 1200 && mouseY >= 700 && mouseY <= 850){
+    rect(300,300,700,200);
+    if (mouseX >= 300 && mouseX <= 1000 && mouseY >= 300 && mouseY <= 500){
+      encryptionclick = 'encrypting';
+    } else if (mouseX >= 800 && mouseX <= 1200 && mouseY >= 700 && mouseY <= 850){
       let writer = createWriter('encrypted_text.txt');
       writer.write(toencrypt);
       writer.close();
