@@ -140,6 +140,9 @@ var adj = false;
 var displayadj = false;
 var startinghour = 0;
 var randalg = 1;
+var encryptedstring = '';
+var lastinput = '';
+var lastdecrypted = '';
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -382,62 +385,82 @@ function unscramble(string){
   return string;
 }
 
-function simplepasswordencryption(toencrypt,password){
-  let i = 0;
-  let endcrypt = '';
-  
-  // 1. numberize toencrypt
-  
-  while (i < toencrypt.length){
-      endcrypt = endcrypt + numberizerencryption(toencrypt.substring(i,i+1));
-      i += 1;
-      //displayencrypt = displayencrypt.split("").reverse().join("");
-    }
-    
- endcrypt = int(endcrypt);
-  
-  i = 0;
-  numberpass = '';
-  
-  // 2. Numberize password (this can be done anytime)
-  
-  while (i < password.length){
-    numberpass = numberpass + numberizerencryption(password.substring(i,i+1));
-    i += 1;
-    //displayencrypt = displayencrypt.split("").reverse().join("");
-  }
-  
-  numberpass = int(numberpass);
-  
-  let encrypted = BigInt(str(multiply(endcrypt,numberpass)));
-  
-  return encrypted;
+function simplepasswordencryption(toencrypt,oldpwd){
+      
+//Numberizing password (dont change this)
+      i = 0;
+      let pwd = '';  
+      while (i <= oldpwd.length){
+        pwd = pwd + numberizerencryption(oldpwd.substring(i,i+1)) ;
+        i += 1;
+      }
+      pwd = int(pwd);
+      
+      while (pwd >= 1000){
+        pwd -= 1000;
+      }
+
+     // numbering toencrypt
+      i = 0;
+      let newencrypt = '';
+      while (i <= toencrypt.length){
+        newencrypt = newencrypt + numberizerencryption(toencrypt.substring(i,i+1)) ;
+        i += 1;
+      }
+      
+     // text('before scrambling'+newencrypt,10,550);
+      
+      i = 0;
+      while (i < pwd){
+        //newencrypt = newencrypt.substring(newencrypt.length-2,newencrypt.length) + newencrypt.substring(0,newencrypt.length-2);
+        var result = newencrypt.substr(1) + newencrypt.substr(0, 1);
+        newencrypt = result;
+        i += 1;
+      }
+      
+      //text('after scrambling'+newencrypt,10,700);
+      
+      return(newencrypt);
 }
 
-function simplepassworddecryption(todecrypt,password){
-  let i = 0;
-  let decrypted = '';
-  
-  numberpass = '';
-  
-  while (i < password.length){
-    numberpass = numberpass + numberizerencryption(password.substring(i,i+1));
-    i += 1;
-    //displayencrypt = displayencrypt.split("").reverse().join("");
-  }
-  numberpass = int(numberpass);
-
-  i = 0;
-  
-  toencrypt = str(int(toencrypt)/numberpass);
-  
-  while (i < toencrypt.length){
-      decrypted = decrypted + numberizerdecryption(toencrypt.substring(i,i+1));
-      i += 1;
-      //displayencrypt = displayencrypt.split("").reverse().join("");
-    }
- 
-  return decrypted;
+function simplepassworddecryption(encrypted,oldpwd){
+      i = 0;
+      let pwd = '';  
+      while (i <= oldpwd.length){
+        pwd = pwd + numberizerencryption(oldpwd.substring(i,i+1)) ;
+        i += 1;
+      }
+      pwd = int(pwd);
+      
+      while (pwd >= 1000){
+        pwd -= 1000;
+      }
+      
+      // decryption below this 
+      let decrypted = '';
+      i = 0;
+      encrypted = str(encrypted);
+      let almostdecrypted = '';
+      
+      // not including the first, including the last.
+      //newencrypt.substring(newencrypt.length-2,newencrypt.length) + newencrypt.substring(0,newencrypt.length-2);
+      
+      while (i < pwd){
+        //encrypted = encrypted.substring(encrypted.length-9,encrypted.length) + encrypted.substring(0,encrypted.length-9);
+        var result1 = encrypted.substr(encrypted.length-1) + encrypted.substr(0, encrypted.length-1);
+        encrypted = result1;
+        i += 1;
+      }
+      
+      //text('after scrambling'+newencrypt,10,700);
+      i = 0;
+      
+      while (i <= encrypted.length*2){
+        decrypted = decrypted + numberizerdecryption(encrypted.substring(i,i+2)) ;
+        i += 2;
+      }
+      
+      return decrypted;
 }
 
 function hemsalgorithmencrypt(toencrypt,pkey1,pkey2,e){
@@ -1035,73 +1058,26 @@ function draw() {
       displayencrypt = displayencrypt.substring(round(displayencrypt.length),displayencrypt.length/2) + displayencrypt.substring(0,round(displayencrypt.length/2));
     }
     
-    if (toencrypt != ''){
-      let oldpwd = 'catf';
-      
-//Numberizing password (dont change this)
-      i = 0;
-      let pwd = '';  
-      while (i <= oldpwd.length){
-        pwd = pwd + numberizerencryption(oldpwd.substring(i,i+1)) ;
-        i += 1;
-      }
-      pwd = int(pwd);
-      
-      pwd = 40;
+    if (toencrypt != lastinput || true){
+      encryptedstring = simplepasswordencryption(toencrypt,'catf');
+      decrypted = simplepassworddecryption(encryptedstring,'catf');
+    } else {
+      encryptedstring = lastinput;
+      decrypted = lastdecrypted;
+    }
 
-// numbering toencrypt
-      i = 0;
-      let newencrypt = '';
-      while (i <= toencrypt.length){
-        newencrypt = newencrypt + numberizerencryption(toencrypt.substring(i,i+1)) ;
-        i += 1;
-      }
-      
-      text('before scrambling'+newencrypt,10,550);
-      
-      i = 0;
-      while (i < 45){
-        //newencrypt = newencrypt.substring(newencrypt.length-2,newencrypt.length) + newencrypt.substring(0,newencrypt.length-2);
-        var result = newencrypt.substr(1) + newencrypt.substr(0, 1);
-        newencrypt = result;
-        i += 1;
-      }
-      
-      text('after scrambling'+newencrypt,10,700);
-      
-      encrypted = newencrypt;
-      displayencrypt = newencrypt;
-      
-// decryption below this 
-      let decrypted = '';
-      i = 0;
-      encrypted = str(encrypted);
-      let almostdecrypted = '';
-      
-      // not including the first, including the last.
-      //newencrypt.substring(newencrypt.length-2,newencrypt.length) + newencrypt.substring(0,newencrypt.length-2);
-      
-      while (i < 45){
-        //encrypted = encrypted.substring(encrypted.length-9,encrypted.length) + encrypted.substring(0,encrypted.length-9);
-        var result1 = encrypted.substr(encrypted.length-1) + encrypted.substr(0, encrypted.length-1);
-        encrypted = result1;
-        i += 1;
-      }
-      
-      text('after scrambling'+newencrypt,10,700);
-      i = 0;
-      
-      while (i <= encrypted.length*2){
-        decrypted = decrypted + numberizerdecryption(encrypted.substring(i,i+2)) ;
-        i += 2;
-      }
-      
-      //displayencrypt = scramble(toencrypt);
-      //decrypted = unscramble(displayencrypt);
-      text('decrypted'+decrypted,300,650);
+    text('This is the decrypted text: '+decrypted,300,650);
+    
+    if (decrypted == toencrypt){
+      text('Great Job! after many many hours of work, the first encryption algorithm using password has been perfected.'+displayencrypt,300,700);
     }
     
-    text('encrypted'+displayencrypt,300,600);
+    lastinput = toencrypt;
+    lastdecrypted = decrypted;
+    
+    displayencrypt = encryptedstring;
+    
+    text('Encrypted text : '+displayencrypt,300,600);
     print('encrypted'+displayencrypt);
     
     if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 425 && mouseY <= 500){
