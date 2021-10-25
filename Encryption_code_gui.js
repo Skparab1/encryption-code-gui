@@ -144,6 +144,7 @@ var randalg = 1;
 var encryptedstring = '';
 var lastinput = '';
 var lastdecrypted = '';
+var encryptionalgorithm = '';
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -391,11 +392,15 @@ function simplepasswordencryption(toencrypt,oldpwd){
 //Numberizing password (dont change this)
       i = 0;
       let pwd = '';  
+      let sum = 0;
       while (i <= oldpwd.length){
-        pwd = pwd + numberizerencryption(oldpwd.substring(i,i+1)) ;
+        let scan = numberizerencryption(oldpwd.substring(i,i+1));
+        pwd = pwd + scan;
+        sum += int(scan);
         i += 1;
+ 
       }
-      pwd = int(pwd);
+      pwd = pwd.substring(pwd.length-3,pwd.length);
       
       while (pwd >= 1000){
         pwd -= 1000;
@@ -428,11 +433,15 @@ function simplepasswordencryption(toencrypt,oldpwd){
 function simplepassworddecryption(encrypted,oldpwd){
       i = 0;
       let pwd = '';  
+      let sum = 0;
       while (i <= oldpwd.length){
-        pwd = pwd + numberizerencryption(oldpwd.substring(i,i+1)) ;
+        let scan = numberizerencryption(oldpwd.substring(i,i+1));
+        pwd = pwd + scan;
+        sum += int(scan);
         i += 1;
+ 
       }
-      pwd = int(pwd);
+      pwd = pwd.substring(pwd.length-3,pwd.length);
       
       while (pwd >= 1000){
         pwd -= 1000;
@@ -1043,7 +1052,7 @@ function draw() {
     text('Encryptioncode series 2',10,440);
     text('GUI randomized (Default)',10,490);
     text('GUI numerical password  ',10,540);
-    text('GUI advanced numerical  ',10,590);
+    text('GUI advanced alphanumerical',10,590);
     
     fill(0);
     text(inputpassword,10,250);
@@ -1113,8 +1122,8 @@ function draw() {
     }
     
     if (toencrypt != lastinput || true){
-      encryptedstring = simplepasswordencryption(toencrypt,'catf');
-      decrypted = simplepassworddecryption(encryptedstring,'catf');
+      encryptedstring = simplepasswordencryption(toencrypt,inputpassword);
+      decrypted = simplepassworddecryption(encryptedstring,inputpassword);
     } else {
       encryptedstring = lastinput;
       decrypted = lastdecrypted;
