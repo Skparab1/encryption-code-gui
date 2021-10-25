@@ -145,7 +145,9 @@ var encryptedstring = '';
 var lastinput = '';
 var lastpassword = '';
 var lastdecrypted = '';
+var decrypted = '';
 var encryptionalgorithm = '';
+var liveencryptiontimer = 0;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -1070,9 +1072,34 @@ function draw() {
     stroke(0);
     
     textSize(60);
-    if (toencrypt.length > 50){
+    
+    //fix bug where it does not update with every charcter change
+    
+    if (toencrypt.length > 300){
       text('Plaintext: '+toencrypt.substr(0,50),400,60);
-      text(toencrypt.substr(50),400,110);
+      text(toencrypt.substr(50,110),400,120);
+      text(toencrypt.substr(110,170),400,180);
+      text(toencrypt.substr(170,230),400,240);
+      text(toencrypt.substr(230,300),400,300);
+      text(toencrypt.substr(300),400,360);
+    } else if (toencrypt.length > 230){
+      text('Plaintext: '+toencrypt.substr(0,50),400,60);
+      text(toencrypt.substr(50,110),400,120);
+      text(toencrypt.substr(110,170),400,180); 
+      text(toencrypt.substr(170,230),400,240);
+      text(toencrypt.substr(230),400,300);
+    } else if (toencrypt.length > 170){
+      text('Plaintext: '+toencrypt.substr(0,50),400,60);
+      text(toencrypt.substr(50,110),400,120);
+      text(toencrypt.substr(110,170),400,180);
+      text(toencrypt.substr(170),400,240);
+    } else if (toencrypt.length > 110){
+      text('Plaintext: '+toencrypt.substr(0,50),400,60);
+      text(toencrypt.substr(50,110),400,120);
+      text(toencrypt.substr(110),400,180);
+    } else if (toencrypt.length > 50){
+      text('Plaintext: '+toencrypt.substr(0,50),400,60);
+      text(toencrypt.substr(50),400,120);
     } else {
       text('Plaintext: '+toencrypt,400,60);
     }
@@ -1128,19 +1155,22 @@ function draw() {
       displayencrypt = displayencrypt.substring(round(displayencrypt.length),displayencrypt.length/2) + displayencrypt.substring(0,round(displayencrypt.length/2));
     }
     
-    if (toencrypt != lastinput || inputpassword != lastpassword){ // fix this
+    
+    if (liveencryptiontimer == 0 || toencrypt != lastinput || inputpassword != lastpassword || lastdecrypted != decrypted){ // fix this
       encryptedstring = simplepasswordencryption(lastinput,inputpassword);
       decrypted = simplepassworddecryption(encryptedstring,inputpassword);
     } else {
       decrypted = lastdecrypted;
     }
 
-    text('This is the decrypted text: '+decrypted,300,650);
+    // lets not do this it probably contributes to lag
+    //text('This is the decrypted text: '+decrypted,300,650);
     
     if (decrypted == toencrypt){
       text('Great Job! after many many hours of work, the first encryption algorithm using password has been perfected.'+displayencrypt,300,700);
     }
     
+    liveencryptiontimer += 1;
     lastinput = toencrypt;
     lastpassword = inputpassword;
     lastdecrypted = decrypted;
@@ -2379,6 +2409,8 @@ function draw() {
 
 function keyTyped(){
   
+  liveencryptiontimer = 0;
+  lastinput = toencrypt;
   let oldalg = randalg;
   
   while (oldalg == randalg){
@@ -2436,6 +2468,7 @@ function keyTyped(){
 }
 
 function keyReleased(){
+  liveencryptiontimer = -1;
   let oldalg = randalg;
   while (oldalg == randalg && keyCode == BACKSPACE){
     randalg = round(random(1,15));
