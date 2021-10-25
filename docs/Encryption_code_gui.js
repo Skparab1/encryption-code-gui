@@ -60,6 +60,7 @@ var bg;
 var ccstart = 255;
 var ccs = 255;
 var toencrypt = '';
+var inputpassword = '';
 var cursorblinker = 0;
 var pressedkey = 'no';
 var pressedtab = 'no';
@@ -139,7 +140,11 @@ var fs = false;
 var adj = false;
 var displayadj = false;
 var startinghour = 0;
-var randalg = round(random(1,10));
+var randalg = 1;
+var encryptedstring = '';
+var lastinput = '';
+var lastdecrypted = '';
+var encryptionalgorithm = '';
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -339,9 +344,192 @@ function encryptionalgorithm2(letter){
   return eletter; 
 }
 
-function rsanumberizer(letter){
+function numberizerencryption(letter){
   let eletter = (letter == 'a') ? '01' : ((letter == 'b') ? '02' : ((letter == 'c') ? '03' : ((letter == 'd') ? '04' : ((letter == 'e') ? '05' : ((letter == 'f') ? '06' : ((letter == 'g') ? '07' : ((letter == 'h') ? '08' : ((letter == 'i') ? '09' : ((letter == 'j') ? '10' : ((letter == 'k') ? '11' : ((letter == 'l') ? '12' : ((letter == 'm') ? '13' : ((letter == 'n') ? '14' : ((letter == 'o') ? '15' : ((letter == 'p') ? '16' : ((letter == 'q') ? '17' : ((letter == 'r') ? '18' : ((letter == 's') ? '19' : ((letter == 't') ? '20' : ((letter == 'u') ? '21' : ((letter == 'v') ? '22' : ((letter == 'w') ? '23' : ((letter == 'x') ? '24' : ((letter == 'y') ? '25' : ((letter == 'z') ? '26' : ((letter == ' ') ? '27' : (letter == '_') ? '28' : ((letter == '1') ? '29' : ((letter == '2') ? '30' : ((letter == '3') ? '31' : ((letter == '4') ? '32' : ((letter == '5') ? '33' : ((letter == '6') ? '34' : ((letter == '7') ? '35' : ((letter == '8') ? '36' : ((letter == '9') ? '37' : ((letter == '0') ? '38' : ((letter == '.') ? '39' : ((letter == '?') ? '40' : ((letter == '!') ? '41' : ((letter == ',') ? '42' : ((letter == ':') ? '43' : ((letter == '\'') ? '44' : ((letter == '(') ? '45' : ((letter == ')') ? '46' : ((letter == '#') ? '47' : ((letter == '&') ? '48' : ((letter == '*') ? '49' : ((letter == '~') ? '50' : ((letter == '<') ? '51' : ((letter == '>') ? '52' : ((letter == '=') ? '53' : ((letter == '{') ? '54' : letter))))))))))))))))))))))))))))))))))))))))))))))))))));
   return eletter;
+}
+
+function numberizerdecryption(letter){
+  let eletter = (letter == '01') ? 'a' : ((letter == '02') ? 'b' : ((letter == '03') ? 'c' : ((letter == '04') ? 'd' : ((letter == '05') ? 'e' : ((letter == '06') ? 'f' : ((letter == '07') ? 'g' : ((letter == '08') ? 'h' : ((letter == '09') ? 'i' : ((letter == '10') ? 'j' : ((letter == '11') ? 'k' : ((letter == '12') ? 'l' : ((letter == '13') ? 'm' : ((letter == '14') ? 'n' : ((letter == '15') ? 'o' : ((letter == '16') ? 'p' : ((letter == '17') ? 'q' : ((letter == '18') ? 'r' : ((letter == '19') ? 's' : ((letter == '20') ? 't' : ((letter == '21') ? 'u' : ((letter == '22') ? 'v' : ((letter == '23') ? 'w' : ((letter == '24') ? 'x' : ((letter == '25') ? 'y' : ((letter == '26') ? 'z' : ((letter == '27') ? ' ' : (letter == '28') ? '_' : ((letter == '29') ? '1' : ((letter == '30') ? '2' : ((letter == '31') ? '3' : ((letter == '32') ? '4' : ((letter == '33') ? '5' : ((letter == '34') ? '6' : ((letter == '35') ? '7' : ((letter == '36') ? '8' : ((letter == '37') ? '9' : ((letter == '38') ? '0' : ((letter == '39') ? '.' : ((letter == '40') ? '?' : ((letter == '41') ? '!' : ((letter == '42') ? ',' : ((letter == '43') ? ':' : ((letter == '44') ? '\'' : ((letter == '45') ? '(' : ((letter == '46') ? ')' : ((letter == '47') ? '#' : ((letter == '48') ? '&' : ((letter == '49') ? '*' : ((letter == '50') ? '~' : ((letter == '51') ? '<' : ((letter == '52') ? '>' : ((letter == '53') ? '=' : ((letter == '54') ? '{' : letter))))))))))))))))))))))))))))))))))))))))))))))))))));
+  return eletter;
+}
+
+function splitby8(string){
+ let breakuplist = [];
+ let index = 0;
+
+  while (index <= string.length){
+    let holdlist = string.substring(index,index+8);
+    
+    if (breakuplist != []){
+      append(breakuplist,int(holdlist));
+    }
+    index += 8;
+  }
+  
+  return breakuplist;
+}
+
+function scramble(string){
+  string = string.split("").reverse().join(""); //reverse
+  string = string.substring(0,round(string.length/2))+string.substring(round(string.length/2),string.length);
+  string = string.substring(string.length-1,string.length)+string.substring(0,string.length-1);
+  string = string.split("").reverse().join("");
+  return string;
+}
+
+function unscramble(string){
+  string = string.split("").reverse().join(""); //reverse
+  string = string.substring(0,round(string.length/2))+string.substring(round(string.length/2),string.length);
+  string = string.substring(0,string.length) + string.substring(0,1);
+  string = string.substring(string.length-2,string.length) + string.substring(0,string.length-2);
+  string = string.split("").reverse().join("");
+  return string;
+}
+
+function simplepasswordencryption(toencrypt,oldpwd){
+      
+//Numberizing password (dont change this)
+      i = 0;
+      let pwd = '';  
+      let sum = 0;
+      while (i <= oldpwd.length){
+        let scan = numberizerencryption(oldpwd.substring(i,i+1));
+        pwd = pwd + scan;
+        sum += int(scan);
+        i += 1;
+ 
+      }
+      pwd = pwd.substring(pwd.length-3,pwd.length);
+      
+      while (pwd >= 1000){
+        pwd -= 1000;
+      }
+
+     // numbering toencrypt
+      i = 0;
+      let newencrypt = '';
+      while (i <= toencrypt.length){
+        newencrypt = newencrypt + numberizerencryption(toencrypt.substring(i,i+1)) ;
+        i += 1;
+      }
+      
+     // text('before scrambling'+newencrypt,10,550);
+      
+      i = 0;
+      while (i < pwd){
+        //newencrypt = newencrypt.substring(newencrypt.length-2,newencrypt.length) + newencrypt.substring(0,newencrypt.length-2);
+        var result = newencrypt.substr(1) + newencrypt.substr(0, 1);
+        //result = result.split("").reverse().join("");
+        newencrypt = result;
+        i += 1;
+      }
+      
+      //text('after scrambling'+newencrypt,10,700);
+      
+      return(newencrypt);
+}
+
+function simplepassworddecryption(encrypted,oldpwd){
+      i = 0;
+      let pwd = '';  
+      let sum = 0;
+      while (i <= oldpwd.length){
+        let scan = numberizerencryption(oldpwd.substring(i,i+1));
+        pwd = pwd + scan;
+        sum += int(scan);
+        i += 1;
+ 
+      }
+      pwd = pwd.substring(pwd.length-3,pwd.length);
+      
+      while (pwd >= 1000){
+        pwd -= 1000;
+      }
+      
+      // decryption below this 
+      let decrypted = '';
+      i = 0;
+      encrypted = str(encrypted);
+      let almostdecrypted = '';
+      
+      // not including the first, including the last.
+      //newencrypt.substring(newencrypt.length-2,newencrypt.length) + newencrypt.substring(0,newencrypt.length-2);
+      
+      while (i < pwd){
+        //encrypted = encrypted.substring(encrypted.length-9,encrypted.length) + encrypted.substring(0,encrypted.length-9);
+        var result1 = encrypted.substr(encrypted.length-1) + encrypted.substr(0, encrypted.length-1);
+        //result1 = result1.split("").reverse().join("");
+        encrypted = result1;
+        i += 1;
+      }
+      
+      //text('after scrambling'+newencrypt,10,700);
+      i = 0;
+      
+      while (i <= encrypted.length*2){
+        decrypted = decrypted + numberizerdecryption(encrypted.substring(i,i+2)) ;
+        i += 2;
+      }
+      
+      return decrypted;
+}
+
+function hemsalgorithmencrypt(toencrypt,pkey1,pkey2,e){
+  i = 0;
+  let endcrypt = '';
+  
+  while (i < toencrypt.length){
+    endcrypt = endcrypt + numberizerencryption(toencrypt.substring(i,i+1));
+    i += 1;
+    //displayencrypt = displayencrypt.split("").reverse().join("");
+  }
+  
+  text(endcrypt,300,200);
+  
+ breakuplist = [];
+ let index = 0;
+  
+  while (index <= endcrypt.length){
+    let holdlist = endcrypt.substring(index,index+8);
+    
+    if (breakuplist != []){
+      append(breakuplist,int(holdlist));
+    }
+    index += 8;
+  }
+ 
+  print(breakuplist);
+ 
+  endcrypt = int(endcrypt);
+  
+  n = pkey1 * pkey2;
+  
+  // My algorithm
+  
+  let encrypted = '';
+  i = 0;
+  
+  while (i < breakuplist.length){
+    encrypted = encrypted + ','+str(pow(10,(Math.log10(breakuplist[i])/359792)));
+    i += 1;
+  }
+  
+  let lstnew = split(encrypted, ',');
+  
+  text('encrypted '+(lstnew),10,300);
+  
+  text('list '+breakuplist,10,250);
+  
+  i = 0;
+  let decrypted = '';
+  
+  while (i == 0){
+    decrypted = decrypted + str(pow(10,(Math.log10(lstnew[1])*359712)));
+    i += 1;
+  }
+  
+  return (decrypted);
 }
 
 function rsaalgorithmencrypt(toencrypt,pkey1,pkey2,e){
@@ -349,31 +537,76 @@ function rsaalgorithmencrypt(toencrypt,pkey1,pkey2,e){
   let endcrypt = '';
   
   while (i < toencrypt.length){
-    endcrypt = endcrypt + rsanumberizer(toencrypt.substring(i,i+1));
+    endcrypt = endcrypt + numberizerencryption(toencrypt.substring(i,i+1));
     i += 1;
     //displayencrypt = displayencrypt.split("").reverse().join("");
   }
   
-  print(endcrypt);
+  text(endcrypt,300,200);
   
+ breakuplist = [];
+ let index = 0;
+  
+  while (index <= endcrypt.length){
+    let holdlist = endcrypt.substring(index,index+8);
+    append(breakuplist,int(holdlist));
+    index += 8;
+  }
+ 
+  print(breakuplist);
+ 
   endcrypt = int(endcrypt);
   
-  print(endcrypt);
+  //endcrypt = 123;
   
-  e = 17;
+  //print(endcrypt);
   
   n = pkey1 * pkey2;
   
-  let encrypted = (pow(endcrypt, e)) % n;
+  //let encrypted = exp(log(123)*17) ;
   
-  print('remainder',encrypted);
+  //encrypted = pow(123,17);
   
-  return encrypted;
+  //encrypted = encrypted % 3233;
+  
+  // My algorithm
+  
+  //endcrypt = endcrypt/2;
+  
+  //-----let encrypted = pow(10,(Math.log10(endcrypt)/359792)) ;
+  
+  //let toprint = (endcrypt+'^'+e+'remainder'+n) ;
+  
+  //print('toprint',toprint);
+  
+  //Light algorithm -----------------
+  
+  //let encrypted = (23*endcrypt)*(23*endcrypt)*47;
+  
+  //let encrypted = endcrypt*2;
+  
+  //text('encrypted '+(encrypted*10000000000),1000,250);
+  
+  text('list '+breakuplist,1000,250);
+  
+  //let decrypted = (Math.log10(encrypted)*2753) ;
+  
+  //decrypted = decrypted % 3233;
+  
+  //----let decrypted = pow(10,(((796*796)/1.761061947)*Math.log10(encrypted))) ;
+  
+  //decrypted = decrypted*2;
+  
+  //let decrypted = Math.sqrt(encrypted/47)/23;
+  
+  //text('decrypted: '+str(decrypted),70,130);
+  
+  return (1);
 }
 function rsaalgorithmdecrypt(todecrypt,pkey1,pkey2,e){
   i = 0;
   while (i < toencrypt.length){
-    displayencrypt = displayencrypt + rsaalgorithm(toencrypt.substring(i,i+1));
+    displayencrypt = displayencrypt + numberizerencryption(toencrypt.substring(i,i+1));
     i += 1;
     displayencrypt = displayencrypt.split("").reverse().join("");
   }
@@ -385,10 +618,7 @@ function rsaalgorithmdecrypt(todecrypt,pkey1,pkey2,e){
   tot = (x-1)*(y-1);
   d = (1 % (tot))/e;
   
-  //public_key = (e=17, n=3233);
-  //private_key = (d=2753, n=3233);
-  
-  let dec = (pow(todecrypt,d)) % n;
+  let dec = (Math.pow(todecrypt,d)) % n;
     
   return dec;
 }
@@ -777,29 +1007,80 @@ function draw() {
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     revokedkeyboard += 1;
     pressedinvoke = false;
-    
-    if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
-      fill(200,0,0);
-    } else {
-      fill(0,0,200);
-    }
-    rect(50,50,200,100);
-    textSize(60);
-    fill(255);
-    text('Back',90,120);
     if (encryptionclick == 'encrypting'){
       fill(255);
     } else {
       fill(150);
     }
-    rect(300,300,700,200);
+    rect(0,0,2000,400);
+    
+    fill(200,100,0);
+    rect(0,100,350,800);
+    
+    
+    
+    fill(255,255,0);
+    textSize(40);
+    text('Encryption settings',0,150);
+    fill(255);
+    textSize(35);
+    text('Message password',20,200);
+    text('Algorithm',20,350);
+    text('Other settings',20,500);
+    
+    if (encryptionclick == 'password'){
+      fill(255);
+    } else {
+      fill(150);
+    }
+    rect(0,210,350,100);
+    
+    fill(0,100,200);
+    rect(0,360,350,50);
+    fill(0,200,100);
+    rect(0,410,350,50);
+    fill(100,0,200);
+    rect(0,460,350,50);
+    fill(100,200,0);
+    rect(0,510,350,50);
+    fill(200,0,100);
+    rect(0,560,350,50);
+    fill(255);
+    textSize(30);
+    
+    text('Encryptioncode series 1',10,390);
+    text('Encryptioncode series 2',10,440);
+    text('GUI randomized (Default)',10,490);
+    text('GUI numerical password  ',10,540);
+    text('GUI advanced alphanumerical',10,590);
+    
+    fill(0);
+    text(inputpassword,10,250);
+    
     fill(255);
     rect(800,700,400,150);
     fill(0);
     stroke(0);
-    text(toencrypt,300,375);
+    
+    textSize(60);
+    if (toencrypt.length > 50){
+      text('Plaintext: '+toencrypt.substr(0,50),400,60);
+      text(toencrypt.substr(50),400,110);
+    } else {
+      text('Plaintext: '+toencrypt,400,60);
+    }
     textSize(50);
     text('Download Txt',800,750);
+    
+    if (mouseX >= 0 && mouseX <= 350 && mouseY >= 0 && mouseY <= 100){
+      fill(200,0,0);
+    } else {
+      fill(0,0,200);
+    }
+    rect(0,0,350,100);
+    textSize(60);
+    fill(255);
+    text('Back',40,70);
     
     fill(255);
     
@@ -827,7 +1108,7 @@ function draw() {
     }
     
     while (i < toencrypt.length && (randalg > 10)){
-      displayencrypt = displayencrypt + rsanumberizer(toencrypt.substring(i,i+1));
+      displayencrypt = displayencrypt + numberizerencryption(toencrypt.substring(i,i+1));
       i += 1;
       displayencrypt = displayencrypt.split("").reverse().join("");
     }
@@ -840,11 +1121,27 @@ function draw() {
       displayencrypt = displayencrypt.substring(round(displayencrypt.length),displayencrypt.length/2) + displayencrypt.substring(0,round(displayencrypt.length/2));
     }
     
-    if (toencrypt != ''){
-      //displayencrypt = rsaalgorithmencrypt(toencrypt,61,53,17);
+    if (toencrypt != lastinput || true){
+      encryptedstring = simplepasswordencryption(toencrypt,inputpassword);
+      decrypted = simplepassworddecryption(encryptedstring,inputpassword);
+    } else {
+      encryptedstring = lastinput;
+      decrypted = lastdecrypted;
+    }
+
+    text('This is the decrypted text: '+decrypted,300,650);
+    
+    if (decrypted == toencrypt){
+      text('Great Job! after many many hours of work, the first encryption algorithm using password has been perfected.'+displayencrypt,300,700);
     }
     
-    text(displayencrypt,300,600);
+    lastinput = toencrypt;
+    lastdecrypted = decrypted;
+    
+    displayencrypt = encryptedstring;
+    
+    text('Encrypted text : '+displayencrypt,300,600);
+    print('encrypted'+displayencrypt);
     
     if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 425 && mouseY <= 500){
       fill(200,100,0);
@@ -861,7 +1158,7 @@ function draw() {
   } else if (display == 'decryption'){
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
     fill(textcolor[0],textcolor[1],textcolor[2]);
-    text('Decryption',900,100);
+    text('RSA ??????',900,100);
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
       fill(200,0,0);
     } else {
@@ -2121,6 +2418,10 @@ function keyTyped(){
     toencrypt = toencrypt + key;
     print('wrote');
   }
+  if (display == 'encryption' && encryptionclick == 'password' ){
+    inputpassword = inputpassword + key;
+    print('wrote');
+  }
   keyCode = '';
   
   print(encryptionclick) ;
@@ -2156,6 +2457,9 @@ if (keyCode == BACKSPACE || keyCode == DELETE){
   }
   if (display == 'encryption' && encryptionclick == 'encrypting'){
     toencrypt = toencrypt.substring(0,toencrypt.length-1);
+  }
+  if (display == 'encryption' && encryptionclick == 'password'){
+    inputpassword = inputpassword.substring(0,inputpassword.length-1);
   }
   } else {
   typed = typed.substring(0, typed.length -1);
@@ -2248,8 +2552,13 @@ function mousePressed(){
       display = 'settings';
     }
   }
-  if (display == 'encryption' || display == 'decryption' || display == 'account' || display == 'settings' || display == 'forgot password') {
+  if (display == 'decryption' || display == 'account' || display == 'settings' || display == 'forgot password') {
   if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
+      display = 'main menu';
+    }
+  }
+  if (display == 'encryption') {
+  if (mouseX >= 0 && mouseX <= 350 && mouseY >= 0 && mouseY <= 100){
       display = 'main menu';
     }
   }
@@ -2553,7 +2862,12 @@ function mousePressed(){
     display = 'main menu';
     localStorage.setItem('localstatus','signed out' );
   } else if (display == 'encryption'){
-    if (mouseX >= 800 && mouseX <= 1200 && mouseY >= 700 && mouseY <= 850){
+    rect(0,0,2000,400);
+    if (mouseX >= 350 && mouseX <= 2000 && mouseY >= 0 && mouseY <= 400){
+      encryptionclick = 'encrypting';
+    } else if (mouseX >= 0 && mouseX <= 350 && mouseY >= 210 && mouseY <= 310){
+      encryptionclick = 'password';
+    } else if (mouseX >= 800 && mouseX <= 1200 && mouseY >= 700 && mouseY <= 850){
       let writer = createWriter('encrypted_text.txt');
       writer.write(toencrypt);
       writer.close();
