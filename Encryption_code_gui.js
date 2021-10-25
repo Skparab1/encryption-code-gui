@@ -143,6 +143,7 @@ var startinghour = 0;
 var randalg = 1;
 var encryptedstring = '';
 var lastinput = '';
+var lastpassword = '';
 var lastdecrypted = '';
 var encryptionalgorithm = '';
 
@@ -1026,7 +1027,7 @@ function draw() {
     textSize(35);
     text('Message password',20,200);
     text('Algorithm',20,350);
-    text('Other settings',20,500);
+    text('Live encryption',20,650);
     
     if (encryptionclick == 'password'){
       fill(255);
@@ -1056,6 +1057,12 @@ function draw() {
     
     fill(0);
     text(inputpassword,10,250);
+    
+    if (inputpassword.length >= 25){
+      fill(255,0,0);
+      textSize(60);
+      text('Beware! long passwords may adversely affect live encryption performance!',300,500);
+    }
     
     fill(255);
     rect(800,700,400,150);
@@ -1121,11 +1128,10 @@ function draw() {
       displayencrypt = displayencrypt.substring(round(displayencrypt.length),displayencrypt.length/2) + displayencrypt.substring(0,round(displayencrypt.length/2));
     }
     
-    if (toencrypt != lastinput || true){
-      encryptedstring = simplepasswordencryption(toencrypt,inputpassword);
+    if (toencrypt != lastinput || inputpassword != lastpassword){ // fix this
+      encryptedstring = simplepasswordencryption(lastinput,inputpassword);
       decrypted = simplepassworddecryption(encryptedstring,inputpassword);
     } else {
-      encryptedstring = lastinput;
       decrypted = lastdecrypted;
     }
 
@@ -1136,6 +1142,7 @@ function draw() {
     }
     
     lastinput = toencrypt;
+    lastpassword = inputpassword;
     lastdecrypted = decrypted;
     
     displayencrypt = encryptedstring;
@@ -2869,7 +2876,7 @@ function mousePressed(){
       encryptionclick = 'password';
     } else if (mouseX >= 800 && mouseX <= 1200 && mouseY >= 700 && mouseY <= 850){
       let writer = createWriter('encrypted_text.txt');
-      writer.write(toencrypt);
+      writer.write(displayencrypt);
       writer.close();
     } else if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 425 && mouseY <= 500){
       invokedkeyboard = 'yes';
