@@ -148,6 +148,8 @@ var lastdecrypted = '';
 var decrypted = '';
 var encryptionalgorithm = '';
 var liveencryptiontimer = 0;
+var liveencryption = 'on';
+var liveencryptionx = 150;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -1019,8 +1021,26 @@ function draw() {
     
     fill(200,100,0);
     rect(0,100,350,800);
+    rect(0,400,2048,100);
     
+    if (toencrypt.length >= 50){
+      liveencryption = 'off';
+    } else {
+      liveencryption = 'on';
+    }
     
+    fill(255,0,0);
+    rect(360,450,150,50);
+    fill(0,255,0);
+    rect(360,450,liveencryptionx,50);
+    
+    if (liveencryption == 'on' && liveencryptionx < 150){
+        liveencryptionx += 10;
+    } else if (liveencryption == 'off' && liveencryptionx > 0){
+        liveencryptionx -= 10;
+        textSize(40);
+        text('Live encryption disabled due to length',450,400);
+    }
     
     fill(255,255,0);
     textSize(40);
@@ -1029,7 +1049,8 @@ function draw() {
     textSize(35);
     text('Message password',20,200);
     text('Algorithm',20,350);
-    text('Live encryption',20,650);
+    textSize(25);
+    text('Live encryption',400,425);
     
     if (encryptionclick == 'password'){
       fill(255);
@@ -1157,8 +1178,11 @@ function draw() {
     
     
     if (liveencryptiontimer == 0 || toencrypt != lastinput || inputpassword != lastpassword || lastdecrypted != decrypted){ // fix this
-      encryptedstring = simplepasswordencryption(lastinput,inputpassword);
-      decrypted = simplepassworddecryption(encryptedstring,inputpassword);
+      if (toencrypt.length <= 100){
+        encryptedstring = simplepasswordencryption(lastinput,inputpassword);
+      }
+      // that adds to lag
+      //decrypted = simplepassworddecryption(encryptedstring,inputpassword);
     } else {
       decrypted = lastdecrypted;
     }
@@ -1177,7 +1201,7 @@ function draw() {
     
     displayencrypt = encryptedstring;
     
-    text('Encrypted text : '+displayencrypt,300,600);
+    text('Encrypted text : '+displayencrypt,375,600);
     print('encrypted'+displayencrypt);
     
     if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 425 && mouseY <= 500){
