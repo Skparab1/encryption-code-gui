@@ -150,6 +150,7 @@ var encryptionalgorithm = '';
 var liveencryptiontimer = 0;
 var liveencryption = 'on';
 var liveencryptionx = 150;
+var ledisabletimer = 0;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -1036,10 +1037,28 @@ function draw() {
     
     if (liveencryption == 'on' && liveencryptionx < 150){
         liveencryptionx += 10;
-    } else if (liveencryption == 'off' && liveencryptionx > 0){
+    } else if ((liveencryption == 'off' && liveencryptionx > 0) || (ledisabletimer <= 100 && liveencryption == 'off')){
         liveencryptionx -= 10;
         textSize(40);
-        text('Live encryption disabled due to length',450,400);
+        fill(0);
+        text('Live encryption disabled due to length',600,450);
+        
+        // red (200 > 0)   green 100 > 0
+        fill(200-(ledisabletimer*-2),100-ledisabletimer,0);
+        stroke(200-(ledisabletimer*-2),100-ledisabletimer,0);
+        ledisabletimer += 0.5;
+    } else if (liveencryption == 'off'){
+      textSize(40);
+      
+      fill((ledisabletimer*2)-200,ledisabletimer-100,0);
+      stroke((ledisabletimer*2)-200,ledisabletimer-100,0);
+      text('Live encryption disabled due to length',600,450);
+      
+      if (ledisabletimer < 200){
+        ledisabletimer += 2;
+      } else if (ledisabletimer < 100){
+        ledisabletimer += 10;
+      } 
     }
     
     fill(255,255,0);
