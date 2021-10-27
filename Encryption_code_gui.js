@@ -1028,6 +1028,7 @@ function draw() {
       liveencryption = 'off';
     } else {
       liveencryption = 'on';
+      ledisabletimer = 0;
     }
     
     fill(255,0,0);
@@ -1040,25 +1041,36 @@ function draw() {
     } else if ((liveencryption == 'off' && liveencryptionx > 0) || (ledisabletimer <= 100 && liveencryption == 'off')){
         liveencryptionx -= 10;
         textSize(40);
-        fill(0);
-        text('Live encryption disabled due to length',600,450);
         
         // red (200 > 0)   green 100 > 0
-        fill(200-(ledisabletimer*-2),100-ledisabletimer,0);
-        stroke(200-(ledisabletimer*-2),100-ledisabletimer,0);
-        ledisabletimer += 0.5;
+        fill(200-(ledisabletimer*2),100-ledisabletimer,0);
+        stroke(200-(ledisabletimer*2),100-ledisabletimer,0);
+        text('Live encryption disabled due to length',600,450);
+        ledisabletimer += 2;
     } else if (liveencryption == 'off'){
       textSize(40);
       
-      fill((ledisabletimer*2)-200,ledisabletimer-100,0);
-      stroke((ledisabletimer*2)-200,ledisabletimer-100,0);
-      text('Live encryption disabled due to length',600,450);
+      if (ledisabletimer < 100){
+        fill(200-(ledisabletimer*-2),100-ledisabletimer,0);
+        stroke(200-(ledisabletimer*-2),100-ledisabletimer,0);
+        text('Live encryption disabled due to length',600,450);
+      } else if (ledisabletimer < 200){
+        fill((ledisabletimer*2)-200,ledisabletimer-100,0);
+        stroke((ledisabletimer*2)-200,ledisabletimer-100,0);
+        text('Live encryption disabled due to length',600,450);
+      }
       
-      if (ledisabletimer < 200){
+      if (ledisabletimer > 200){
+        fill(600+(ledisabletimer*-2),300-ledisabletimer,0);
+        stroke(600+(ledisabletimer*-2),300-ledisabletimer,0);
+        text('All systems functional',600,450);
+      }
+      
+      if (ledisabletimer < 100){
         ledisabletimer += 2;
-      } else if (ledisabletimer < 100){
-        ledisabletimer += 10;
-      } 
+      } else {
+        ledisabletimer += 2;
+      }
     }
     
     fill(255,255,0);
@@ -1112,7 +1124,7 @@ function draw() {
     stroke(0);
     
     textSize(60);
-    
+    fill(0);
     //fix bug where it does not update with every charcter change
     
     if (toencrypt.length > 300){
@@ -1197,7 +1209,7 @@ function draw() {
     
     
     if (liveencryptiontimer == 0 || toencrypt != lastinput || inputpassword != lastpassword || lastdecrypted != decrypted){ // fix this
-      if (toencrypt.length <= 100){
+      if (toencrypt.length <= 100 && liveencryption == 'on'){
         encryptedstring = simplepasswordencryption(lastinput,inputpassword);
       }
       // that adds to lag
@@ -1220,7 +1232,36 @@ function draw() {
     
     displayencrypt = encryptedstring;
     
-    text('Encrypted text : '+displayencrypt,375,600);
+    if (displayencrypt.length > 300){
+      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
+      text(displayencrypt.substr(50,110),400,660);
+      text(displayencrypt.substr(110,170),400,720);
+      text(displayencrypt.substr(170,230),400,780);
+      text(displayencrypt.substr(230,300),400,840);
+      text(displayencrypt.substr(300),400,900);
+    } else if (displayencrypt.length > 230){
+      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
+      text(displayencrypt.substr(50,110),400,660);
+      text(displayencrypt.substr(110,170),400,720); 
+      text(displayencrypt.substr(170,230),400,780);
+      text(displayencrypt.substr(230),400,840);
+    } else if (displayencrypt.length > 170){
+      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
+      text(displayencrypt.substr(50,110),400,660);
+      text(displayencrypt.substr(110,170),400,720);
+      text(displayencrypt.substr(170),400,780);
+    } else if (displayencrypt.length > 110){
+      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
+      text(displayencrypt.substr(50,110),400,660);
+      text(displayencrypt.substr(110),400,720);
+    } else if (displayencrypt.length > 50){
+      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
+      text(displayencrypt.substr(50),400,660);
+    } else {
+      text('Encrypted: '+displayencrypt,400,600);
+    }
+    
+    //text('Encrypted text : '+displayencrypt,375,600);
     print('encrypted'+displayencrypt);
     
     if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 425 && mouseY <= 500){
