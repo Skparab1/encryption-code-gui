@@ -151,6 +151,7 @@ var liveencryptiontimer = 0;
 var liveencryption = 'on';
 var liveencryptionx = 150;
 var ledisabletimer = 0;
+var backspacedelay = 0;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -2488,6 +2489,14 @@ function draw() {
     display = 'timeout';
     localStorage.setItem('localstatus','signed out' );
     //print('autologgedout');
+  }
+  
+  backspacedelay += 1;
+  
+  if (keyIsDown(BACKSPACE) && backspacedelay >= 40){
+    keyCode = BACKSPACE;
+    backspacedelay = 0;
+    keyReleased();
   }
 }
 
