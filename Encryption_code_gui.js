@@ -869,7 +869,7 @@ function draw() {
   image(logo,700-((logosize-250)/2), 200-((logosize-250)/2)-((logosize-250)/5),logosize,logosize);
   if (firsttime){
     setInterval(donothing,100);
-  } else if (hovered) {
+  } else if (hovered) {                                              
     requestAnimationFrame(donothing,0);
     if (logosize <= 4500){
       logosize = logosize + 150;
@@ -920,15 +920,16 @@ function draw() {
   fill(0);
   
   if ((logosize-2000)/2 > 0){
-    ellipse(950,423,(logosize-2000)/2,(logosize-2000)/2);
+    ellipse(890,415,(logosize-2000)/2,(logosize-2000)/2);
   }
   
   if (logosize > 3750){
+    // CHANGE THIS
     rect(0,0,logosize/15-3750,846);
     rect(2048,0,-(logosize/15-3750),846);
   }
   
-  if (logosize > 6500){
+  if (logosize > 6800){
     logosize = 7000;
   }
   
@@ -2509,7 +2510,7 @@ function draw() {
   textSize(100);
   
   if (changingcolor < 255 && freezecolors == 'off'){
-    changingcolor += 3;
+    changingcolor += 5;
   } else if (freezecolors == 'off'){
     changingcolor += 1;
   }
@@ -2582,7 +2583,7 @@ function keyTyped(){
   } else if (logosize < 5250){
     hovered = true;
     if (keyCode == ENTER){
-      logosize = 5250;
+      logosize = 7000;
       changingcolor = 255;
       b1color = [0,0,255];
     }
