@@ -222,6 +222,9 @@ function accountanim(){
 
 function displaykeyboard(){
   createCanvas(2048,1300);
+  
+  print('theoretically, the keyboard should be displayed');
+  
   if (pressedinvoke){
   window.scroll({
   top: 846,
@@ -243,6 +246,7 @@ function displaykeyboard(){
     rect(rectx,860,100,85);
     rectx += 115;
   }
+  
   buttonnum = 1;
   if (keyCode == BACKSPACE){
     fill(200,100,0);
@@ -412,6 +416,18 @@ function simplepasswordencryption(toencrypt,oldpwd){
       while (pwd >= 1000){
         pwd -= 1000;
       }
+      
+      if (pwd % 2 == 0){
+        pwd = pwd/2;
+      } else {
+        pwd = round(pwd/1.5);
+      }
+      
+      if (pwd % 3 == 0){
+        pwd = pwd/3;
+      } else {
+        pwd = round(pwd/2.5);
+      }
 
      // numbering toencrypt
       i = 0;
@@ -452,6 +468,18 @@ function simplepassworddecryption(encrypted,oldpwd){
       
       while (pwd >= 1000){
         pwd -= 1000;
+      }
+      
+      if (pwd % 2 == 0){
+        pwd = pwd/2;
+      } else {
+        pwd = round(pwd/1.5);
+      }
+      
+      if (pwd % 3 == 0){
+        pwd = pwd/3;
+      } else {
+        pwd = round(pwd/2.5);
       }
       
       // decryption below this 
@@ -1001,8 +1029,10 @@ function draw() {
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Encryption',900,100);
     
-    if ((encryptionclick == 'encrypting') && invokedkeyboard == 'yes'){
+    if (invokedkeyboard == 'yes'){
       displaykeyboard();
+      fill(150);
+      rect(100,846,1748,400);
       invokedkeyboard = 'yes';
     } else {
       createCanvas(2048,846);
@@ -1012,6 +1042,9 @@ function draw() {
       invokedkeyboard = 'no';
     }
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    if (invokedkeyboard == 'yes'){
+      displaykeyboard();
+    }
     revokedkeyboard += 1;
     pressedinvoke = false;
     if (encryptionclick == 'encrypting'){
@@ -1022,7 +1055,11 @@ function draw() {
     rect(0,0,2000,400);
     
     fill(200,100,0);
-    rect(0,100,350,800);
+    if (invokedkeyboard == 'no'){
+      rect(0,100,350,800);
+    } else {
+      rect(0,100,350,730);
+    }
     rect(0,400,2048,100);
     
     if (toencrypt.length >= 50){
@@ -1290,6 +1327,7 @@ function draw() {
     textSize(60);
     fill(255);
     text('Back',90,120);
+    
     textSize(100);
  
   } else if (display == 'account' && signinstatus == 'signed out'){
