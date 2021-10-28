@@ -863,7 +863,7 @@ function draw() {
   
   stroke(textcolor[0], textcolor[1], textcolor[2]);
     
-  if (logosize < 5250){
+  if (logosize < 6000){
   background(0);
   stroke(0);
   image(logo,700-((logosize-250)/2), 200-((logosize-250)/2)-((logosize-250)/5),logosize,logosize);
@@ -874,10 +874,11 @@ function draw() {
     if (logosize <= 4500){
       logosize = logosize + 150;
     } else {
-      logosize = logosize + 50;
-      tint(255, 250 - (logosize - 4000)/5 );
+      logosize = logosize + 150;
+      //tint(255, 250 - (logosize - 4000)/5 );
     }
-  } else if (x < 160) {
+  } 
+  if (x < 160) {
     setInterval(donothing,100);
     textSize(150);
     fill(x*4,(x-50)*4,(x-100)*4);
@@ -913,14 +914,31 @@ function draw() {
     }
     x = 0;
   }
+  
   image(logo,700-((logosize-250)/2), 200-((logosize-250)/2)-((logosize-250)/5),logosize,logosize);
+  
+  fill(0);
+  
+  if ((logosize-2000)/2 > 0){
+    ellipse(950,423,(logosize-2000)/2,(logosize-2000)/2);
+  }
+  
+  if (logosize > 3750){
+    rect(0,0,logosize/15-3750,846);
+    rect(2048,0,-(logosize/15-3750),846);
+  }
+  
+  if (logosize > 6500){
+    logosize = 7000;
+  }
+  
   if (mouseX >= 700 && mouseX <= 950 && mouseY >= 200 && mouseY <= 450){
     hovered = true;
   } 
   changingcolor = 0;
-  } else if (logosize <= 5250){
+  } else if (logosize <= 7000){
     display = 'main menu';
-    logosize = 5252;
+    logosize = 7500;
     
   } else if (display == 'main menu') {
     // GUI
