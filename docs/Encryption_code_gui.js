@@ -151,6 +151,7 @@ var liveencryptiontimer = 0;
 var liveencryption = 'on';
 var liveencryptionx = 150;
 var ledisabletimer = 0;
+var backspacedelay = 0;
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -221,6 +222,9 @@ function accountanim(){
 
 function displaykeyboard(){
   createCanvas(2048,1300);
+  
+  print('theoretically, the keyboard should be displayed');
+  
   if (pressedinvoke){
   window.scroll({
   top: 846,
@@ -242,6 +246,7 @@ function displaykeyboard(){
     rect(rectx,860,100,85);
     rectx += 115;
   }
+  
   buttonnum = 1;
   if (keyCode == BACKSPACE){
     fill(200,100,0);
@@ -411,6 +416,18 @@ function simplepasswordencryption(toencrypt,oldpwd){
       while (pwd >= 1000){
         pwd -= 1000;
       }
+      
+      if (pwd % 2 == 0){
+        pwd = pwd/2;
+      } else {
+        pwd = round(pwd/1.5);
+      }
+      
+      if (pwd % 3 == 0){
+        pwd = pwd/3;
+      } else {
+        pwd = round(pwd/2.5);
+      }
 
      // numbering toencrypt
       i = 0;
@@ -451,6 +468,18 @@ function simplepassworddecryption(encrypted,oldpwd){
       
       while (pwd >= 1000){
         pwd -= 1000;
+      }
+      
+      if (pwd % 2 == 0){
+        pwd = pwd/2;
+      } else {
+        pwd = round(pwd/1.5);
+      }
+      
+      if (pwd % 3 == 0){
+        pwd = pwd/3;
+      } else {
+        pwd = round(pwd/2.5);
       }
       
       // decryption below this 
@@ -834,7 +863,7 @@ function draw() {
   
   stroke(textcolor[0], textcolor[1], textcolor[2]);
     
-  if (logosize < 5250){
+  if (logosize < 6000){
   background(0);
   stroke(0);
   image(logo,700-((logosize-250)/2), 200-((logosize-250)/2)-((logosize-250)/5),logosize,logosize);
@@ -845,10 +874,11 @@ function draw() {
     if (logosize <= 4500){
       logosize = logosize + 150;
     } else {
-      logosize = logosize + 50;
-      tint(255, 250 - (logosize - 4000)/5 );
+      logosize = logosize + 150;
+      //tint(255, 250 - (logosize - 4000)/5 );
     }
-  } else if (x < 160) {
+  } 
+  if (x < 160) {
     setInterval(donothing,100);
     textSize(150);
     fill(x*4,(x-50)*4,(x-100)*4);
@@ -884,14 +914,31 @@ function draw() {
     }
     x = 0;
   }
+  
   image(logo,700-((logosize-250)/2), 200-((logosize-250)/2)-((logosize-250)/5),logosize,logosize);
+  
+  fill(0);
+  
+  if ((logosize-2000)/2 > 0){
+    ellipse(950,423,(logosize-2000)/2,(logosize-2000)/2);
+  }
+  
+  if (logosize > 3750){
+    rect(0,0,logosize/15-3750,846);
+    rect(2048,0,-(logosize/15-3750),846);
+  }
+  
+  if (logosize > 6500){
+    logosize = 7000;
+  }
+  
   if (mouseX >= 700 && mouseX <= 950 && mouseY >= 200 && mouseY <= 450){
     hovered = true;
   } 
   changingcolor = 0;
-  } else if (logosize <= 5250){
+  } else if (logosize <= 7000){
     display = 'main menu';
-    logosize = 5252;
+    logosize = 7500;
     
   } else if (display == 'main menu') {
     // GUI
@@ -1000,8 +1047,10 @@ function draw() {
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Encryption',900,100);
     
-    if ((encryptionclick == 'encrypting') && invokedkeyboard == 'yes'){
+    if (invokedkeyboard == 'yes'){
       displaykeyboard();
+      fill(150);
+      rect(100,846,1748,400);
       invokedkeyboard = 'yes';
     } else {
       createCanvas(2048,846);
@@ -1011,6 +1060,9 @@ function draw() {
       invokedkeyboard = 'no';
     }
     background(backgroundcolor[0],backgroundcolor[1],backgroundcolor[2]);
+    if (invokedkeyboard == 'yes'){
+      displaykeyboard();
+    }
     revokedkeyboard += 1;
     pressedinvoke = false;
     if (encryptionclick == 'encrypting'){
@@ -1021,13 +1073,18 @@ function draw() {
     rect(0,0,2000,400);
     
     fill(200,100,0);
-    rect(0,100,350,800);
+    if (invokedkeyboard == 'no'){
+      rect(0,100,350,800);
+    } else {
+      rect(0,100,350,730);
+    }
     rect(0,400,2048,100);
     
     if (toencrypt.length >= 50){
       liveencryption = 'off';
     } else {
       liveencryption = 'on';
+      ledisabletimer = 0;
     }
     
     fill(255,0,0);
@@ -1040,25 +1097,36 @@ function draw() {
     } else if ((liveencryption == 'off' && liveencryptionx > 0) || (ledisabletimer <= 100 && liveencryption == 'off')){
         liveencryptionx -= 10;
         textSize(40);
-        fill(0);
-        text('Live encryption disabled due to length',600,450);
         
         // red (200 > 0)   green 100 > 0
-        fill(200-(ledisabletimer*-2),100-ledisabletimer,0);
-        stroke(200-(ledisabletimer*-2),100-ledisabletimer,0);
-        ledisabletimer += 0.5;
+        fill(200-(ledisabletimer*2),100-ledisabletimer,0);
+        stroke(200-(ledisabletimer*2),100-ledisabletimer,0);
+        text('Live encryption disabled due to length',600,450);
+        ledisabletimer += 2;
     } else if (liveencryption == 'off'){
       textSize(40);
       
-      fill((ledisabletimer*2)-200,ledisabletimer-100,0);
-      stroke((ledisabletimer*2)-200,ledisabletimer-100,0);
-      text('Live encryption disabled due to length',600,450);
+      if (ledisabletimer < 100){
+        fill(200-(ledisabletimer*-2),100-ledisabletimer,0);
+        stroke(200-(ledisabletimer*-2),100-ledisabletimer,0);
+        text('Live encryption disabled due to length',600,450);
+      } else if (ledisabletimer < 200){
+        fill((ledisabletimer*2)-200,ledisabletimer-100,0);
+        stroke((ledisabletimer*2)-200,ledisabletimer-100,0);
+        text('Live encryption disabled due to length',600,450);
+      }
       
-      if (ledisabletimer < 200){
+      if (ledisabletimer > 200){
+        fill(600+(ledisabletimer*-2),300-ledisabletimer,0);
+        stroke(600+(ledisabletimer*-2),300-ledisabletimer,0);
+        text('All systems functional',600,450);
+      }
+      
+      if (ledisabletimer < 100){
         ledisabletimer += 2;
-      } else if (ledisabletimer < 100){
-        ledisabletimer += 10;
-      } 
+      } else {
+        ledisabletimer += 2;
+      }
     }
     
     fill(255,255,0);
@@ -1112,7 +1180,7 @@ function draw() {
     stroke(0);
     
     textSize(60);
-    
+    fill(0);
     //fix bug where it does not update with every charcter change
     
     if (toencrypt.length > 300){
@@ -1197,7 +1265,7 @@ function draw() {
     
     
     if (liveencryptiontimer == 0 || toencrypt != lastinput || inputpassword != lastpassword || lastdecrypted != decrypted){ // fix this
-      if (toencrypt.length <= 100){
+      if (toencrypt.length <= 100 && liveencryption == 'on'){
         encryptedstring = simplepasswordencryption(lastinput,inputpassword);
       }
       // that adds to lag
@@ -1220,7 +1288,36 @@ function draw() {
     
     displayencrypt = encryptedstring;
     
-    text('Encrypted text : '+displayencrypt,375,600);
+    if (displayencrypt.length > 300){
+      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
+      text(displayencrypt.substr(50,110),400,660);
+      text(displayencrypt.substr(110,170),400,720);
+      text(displayencrypt.substr(170,230),400,780);
+      text(displayencrypt.substr(230,300),400,840);
+      text(displayencrypt.substr(300),400,900);
+    } else if (displayencrypt.length > 230){
+      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
+      text(displayencrypt.substr(50,110),400,660);
+      text(displayencrypt.substr(110,170),400,720); 
+      text(displayencrypt.substr(170,230),400,780);
+      text(displayencrypt.substr(230),400,840);
+    } else if (displayencrypt.length > 170){
+      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
+      text(displayencrypt.substr(50,110),400,660);
+      text(displayencrypt.substr(110,170),400,720);
+      text(displayencrypt.substr(170),400,780);
+    } else if (displayencrypt.length > 110){
+      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
+      text(displayencrypt.substr(50,110),400,660);
+      text(displayencrypt.substr(110),400,720);
+    } else if (displayencrypt.length > 50){
+      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
+      text(displayencrypt.substr(50),400,660);
+    } else {
+      text('Encrypted: '+displayencrypt,400,600);
+    }
+    
+    //text('Encrypted text : '+displayencrypt,375,600);
     print('encrypted'+displayencrypt);
     
     if (mouseX >= 1450 && mouseX <= 1975 && mouseY >= 425 && mouseY <= 500){
@@ -1248,6 +1345,7 @@ function draw() {
     textSize(60);
     fill(255);
     text('Back',90,120);
+    
     textSize(100);
  
   } else if (display == 'account' && signinstatus == 'signed out'){
@@ -2447,6 +2545,14 @@ function draw() {
     display = 'timeout';
     localStorage.setItem('localstatus','signed out' );
     //print('autologgedout');
+  }
+  
+  backspacedelay += 1;
+  
+  if (keyIsDown(BACKSPACE) && backspacedelay >= 40){
+    keyCode = BACKSPACE;
+    backspacedelay = 0;
+    keyReleased();
   }
 }
 
