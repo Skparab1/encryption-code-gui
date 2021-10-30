@@ -1290,26 +1290,26 @@ function draw() {
     displayencrypt = encryptedstring;
     
     if (displayencrypt.length > 300){
-      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
-      text(displayencrypt.substr(50,110),400,660);
-      text(displayencrypt.substr(110,170),400,720);
-      text(displayencrypt.substr(170,230),400,780);
-      text(displayencrypt.substr(230,300),400,840);
+      text('Encrypted: '+displayencrypt.substring(0,50),400,600);
+      text(displayencrypt.substring(50,110),400,660);
+      text(displayencrypt.substring(110,170),400,720);
+      text(displayencrypt.substring(170,230),400,780);
+      text(displayencrypt.substring(230,300),400,840);
       text(displayencrypt.substr(300),400,900);
     } else if (displayencrypt.length > 230){
-      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
-      text(displayencrypt.substr(50,110),400,660);
-      text(displayencrypt.substr(110,170),400,720); 
-      text(displayencrypt.substr(170,230),400,780);
+      text('Encrypted: '+displayencrypt.substring(0,50),400,600);
+      text(displayencrypt.substring(50,110),400,660);
+      text(displayencrypt.substring(110,170),400,720); 
+      text(displayencrypt.substring(170,230),400,780);
       text(displayencrypt.substr(230),400,840);
     } else if (displayencrypt.length > 170){
-      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
-      text(displayencrypt.substr(50,110),400,660);
-      text(displayencrypt.substr(110,170),400,720);
+      text('Encrypted: '+displayencrypt.substring(0,50),400,600);
+      text(displayencrypt.substring(50,110),400,660);
+      text(displayencrypt.substring(110,170),400,720);
       text(displayencrypt.substr(170),400,780);
     } else if (displayencrypt.length > 110){
       text('Encrypted: '+displayencrypt.substr(0,50),400,600);
-      text(displayencrypt.substr(50,110),400,660);
+      text(displayencrypt.substring(50,110),400,660);
       text(displayencrypt.substr(110),400,720);
     } else if (displayencrypt.length > 50){
       text('Encrypted: '+displayencrypt.substr(0,50),400,600);
@@ -1380,21 +1380,30 @@ function draw() {
     text('Sign in',900,200);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Username',220,360);
-    if (accountclick == 'username'){
+    if (accountclick == 'username' && colorscheme == 'high contrast'){
+      fill(150);
+    } else if (accountclick == 'username'){
       fill(255);
     } else {
-      fill(150);
+      fill(50);
     }
     rect(600,275,800,150);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Password',220,560);
-    if (accountclick == 'password'){
+    if (accountclick == 'password' && colorscheme == 'high contrast'){
+      fill(150);
+    } else if (accountclick == 'password'){
       fill(255);
     } else {
-      fill(150);
+      fill(50);
     }
     rect(600,475,800,150);
     fill(textcolor[0],textcolor[1],textcolor[2]);
+    
+    if (colorscheme == 'high contrast'){
+      fill(255,255,0);
+    }
+    
     text(username,630,380);
     fill(75);
     if (cursorblinker <= 20 && accountclick == 'username'){
@@ -1416,6 +1425,11 @@ function draw() {
       } else {
         displaypass = password;
       }
+    
+    if (colorscheme == 'high contrast'){
+      fill(255,255,0);
+    }
+    
     text(displaypass,630,560);
    
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
