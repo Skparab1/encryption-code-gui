@@ -152,6 +152,12 @@ var liveencryption = 'on';
 var liveencryptionx = 150;
 var ledisabletimer = 0;
 var backspacedelay = 0;
+var denytime = 0;
+var accessdenied = localStorage.getItem('accessblocker'); 
+if (accessdenied == null){
+  accessdenied = false;
+  localStorage.setItem('accessblocker',false); 
+}
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -2545,6 +2551,26 @@ function draw() {
   oldsecond = second();
   olddowntime = currentdowntime ;
   
+  if (denytime >= 450){
+    accessdenied = true;
+    localStorage.setItem('accessblocker',true);
+  }
+  
+  denytime += 1;
+  if (accessdenied){
+    fill(255,0,0);
+    rect(0,0,60000,20000);
+    fill(255);
+    text('Access denied',40,100);
+    textSize(40);
+    text('Reason: sus activity',300,130);
+    text('This prototype page is only for testing',40,200);
+    text('Since we have detected suspicious activity',40,270);
+    text('and you are not Skparab1, you are being denied access',40,340);
+    localStorage.setItem('accessblocker',true);
+  
+  }
+  
   print(expiretime);
   
   // var inactivity is practically useless
@@ -2821,7 +2847,7 @@ function mousePressed(){
     }
   }
 
-  
+  // Mac backspace bug? try changing keytyped with keypressed
   if (invokedkeyboard == 'yes'){
     pressedkey = 'yes';
     pressedtab = 'no';
