@@ -152,6 +152,12 @@ var liveencryption = 'on';
 var liveencryptionx = 150;
 var ledisabletimer = 0;
 var backspacedelay = 0;
+var denytime = 0;
+var accessdenied = localStorage.getItem('accessblocker'); 
+if (accessdenied == null){
+  accessdenied = false;
+  localStorage.setItem('accessblocker',false); 
+}
 
 if (signinstatus == 'signed out'){
   signintype = 'signed out';
@@ -869,7 +875,7 @@ function draw() {
   image(logo,700-((logosize-250)/2), 200-((logosize-250)/2)-((logosize-250)/5),logosize,logosize);
   if (firsttime){
     setInterval(donothing,100);
-  } else if (hovered) {
+  } else if (hovered) {                                              
     requestAnimationFrame(donothing,0);
     if (logosize <= 4500){
       logosize = logosize + 150;
@@ -920,15 +926,16 @@ function draw() {
   fill(0);
   
   if ((logosize-2000)/2 > 0){
-    ellipse(950,423,(logosize-2000)/2,(logosize-2000)/2);
+    ellipse(890,415,(logosize-2000)/2,(logosize-2000)/2);
   }
   
   if (logosize > 3750){
+    // CHANGE THIS
     rect(0,0,logosize/15-3750,846);
     rect(2048,0,-(logosize/15-3750),846);
   }
   
-  if (logosize > 6500){
+  if (logosize > 6800){
     logosize = 7000;
   }
   
@@ -1289,26 +1296,26 @@ function draw() {
     displayencrypt = encryptedstring;
     
     if (displayencrypt.length > 300){
-      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
-      text(displayencrypt.substr(50,110),400,660);
-      text(displayencrypt.substr(110,170),400,720);
-      text(displayencrypt.substr(170,230),400,780);
-      text(displayencrypt.substr(230,300),400,840);
+      text('Encrypted: '+displayencrypt.substring(0,50),400,600);
+      text(displayencrypt.substring(50,110),400,660);
+      text(displayencrypt.substring(110,170),400,720);
+      text(displayencrypt.substring(170,230),400,780);
+      text(displayencrypt.substring(230,300),400,840);
       text(displayencrypt.substr(300),400,900);
     } else if (displayencrypt.length > 230){
-      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
-      text(displayencrypt.substr(50,110),400,660);
-      text(displayencrypt.substr(110,170),400,720); 
-      text(displayencrypt.substr(170,230),400,780);
+      text('Encrypted: '+displayencrypt.substring(0,50),400,600);
+      text(displayencrypt.substring(50,110),400,660);
+      text(displayencrypt.substring(110,170),400,720); 
+      text(displayencrypt.substring(170,230),400,780);
       text(displayencrypt.substr(230),400,840);
     } else if (displayencrypt.length > 170){
-      text('Encrypted: '+displayencrypt.substr(0,50),400,600);
-      text(displayencrypt.substr(50,110),400,660);
-      text(displayencrypt.substr(110,170),400,720);
+      text('Encrypted: '+displayencrypt.substring(0,50),400,600);
+      text(displayencrypt.substring(50,110),400,660);
+      text(displayencrypt.substring(110,170),400,720);
       text(displayencrypt.substr(170),400,780);
     } else if (displayencrypt.length > 110){
       text('Encrypted: '+displayencrypt.substr(0,50),400,600);
-      text(displayencrypt.substr(50,110),400,660);
+      text(displayencrypt.substring(50,110),400,660);
       text(displayencrypt.substr(110),400,720);
     } else if (displayencrypt.length > 50){
       text('Encrypted: '+displayencrypt.substr(0,50),400,600);
@@ -1379,21 +1386,30 @@ function draw() {
     text('Sign in',900,200);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Username',220,360);
-    if (accountclick == 'username'){
+    if (accountclick == 'username' && colorscheme == 'high contrast'){
+      fill(150);
+    } else if (accountclick == 'username'){
       fill(255);
     } else {
-      fill(150);
+      fill(50);
     }
     rect(600,275,800,150);
     fill(textcolor[0],textcolor[1],textcolor[2]);
     text('Password',220,560);
-    if (accountclick == 'password'){
+    if (accountclick == 'password' && colorscheme == 'high contrast'){
+      fill(150);
+    } else if (accountclick == 'password'){
       fill(255);
     } else {
-      fill(150);
+      fill(50);
     }
     rect(600,475,800,150);
     fill(textcolor[0],textcolor[1],textcolor[2]);
+    
+    if (colorscheme == 'high contrast'){
+      fill(255,255,0);
+    }
+    
     text(username,630,380);
     fill(75);
     if (cursorblinker <= 20 && accountclick == 'username'){
@@ -1415,6 +1431,11 @@ function draw() {
       } else {
         displaypass = password;
       }
+    
+    if (colorscheme == 'high contrast'){
+      fill(255,255,0);
+    }
+    
     text(displaypass,630,560);
    
     if (mouseX >= 50 && mouseX <= 250 && mouseY >= 50 && mouseY <= 150){
@@ -2509,7 +2530,7 @@ function draw() {
   textSize(100);
   
   if (changingcolor < 255 && freezecolors == 'off'){
-    changingcolor += 3;
+    changingcolor += 5;
   } else if (freezecolors == 'off'){
     changingcolor += 1;
   }
@@ -2529,6 +2550,26 @@ function draw() {
   
   oldsecond = second();
   olddowntime = currentdowntime ;
+  
+  if (denytime >= 450){
+    accessdenied = true;
+    localStorage.setItem('accessblocker',true);
+  }
+  
+  denytime += 1;
+  if (accessdenied){
+    fill(255,0,0);
+    rect(0,0,60000,20000);
+    fill(255);
+    text('Access denied',40,100);
+    textSize(40);
+    text('Reason: sus activity',300,130);
+    text('This prototype page is only for testing',40,200);
+    text('Since we have detected suspicious activity',40,270);
+    text('and you are not Skparab1, you are being denied access',40,340);
+    localStorage.setItem('accessblocker',true);
+  
+  }
   
   print(expiretime);
   
@@ -2582,7 +2623,7 @@ function keyTyped(){
   } else if (logosize < 5250){
     hovered = true;
     if (keyCode == ENTER){
-      logosize = 5250;
+      logosize = 7000;
       changingcolor = 255;
       b1color = [0,0,255];
     }
@@ -2806,7 +2847,7 @@ function mousePressed(){
     }
   }
 
-  
+  // Mac backspace bug? try changing keytyped with keypressed
   if (invokedkeyboard == 'yes'){
     pressedkey = 'yes';
     pressedtab = 'no';
